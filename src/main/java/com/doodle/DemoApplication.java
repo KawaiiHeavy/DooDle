@@ -1,4 +1,4 @@
-package com.example.doodle.demo;
+package com.doodle;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
