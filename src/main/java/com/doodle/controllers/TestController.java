@@ -1,2 +1,4 @@
-package com.doodle.controllers;public class TestController {
+package com.doodle.controllers;
+
+public class TestController {
 }

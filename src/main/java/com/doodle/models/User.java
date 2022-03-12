@@ -3,6 +3,7 @@ package com.doodle.models;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -14,12 +15,11 @@ import java.util.UUID;
 @Entity(name = "Users")
 @Table(name="user", uniqueConstraints = {
         @UniqueConstraint(columnNames = {
-                "name"
+                "nickname"
         }),
         @UniqueConstraint(columnNames = {
                 "email"
-        })
-})
+        })}, schema = "public")
 public class User {
 
     public static enum UserRole {
@@ -33,13 +33,23 @@ public class User {
     }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue()
+    @Column(name="id")
     private UUID id;
 
-    private String name;
+    private String nickname;
 
     private String email;
 
     private String password;
 
+    private String phone;
+
+    private UserRole userRole;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id", nullable = false)
+    private List<Test> ownedTests;
+
+    public UUID getId() {return id;}
 }

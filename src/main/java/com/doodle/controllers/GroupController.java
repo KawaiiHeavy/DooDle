@@ -1,2 +1,4 @@
-package com.doodle.controllers;public class GroupController {
+package com.doodle.controllers;
+
+public class GroupController {
 }
