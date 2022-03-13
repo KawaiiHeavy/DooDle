@@ -18,6 +18,10 @@ public class UserService {
         return userRepository.findByEmail(email).get();
     }
 
+    public Iterable<User> getUsers(){
+        return userRepository.findAll();
+    }
+
     public Optional<User> getUserByNickname(String username){
         return userRepository.findByNickname(username);
     }

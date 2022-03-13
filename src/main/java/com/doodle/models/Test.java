@@ -27,8 +27,12 @@ public class Test {
     @JoinColumn(name = "creator")
     private User creator;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "members")
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "members_tests",
+            joinColumns = { @JoinColumn(name = "members") },
+            inverseJoinColumns = { @JoinColumn(name = "ownedTests") }
+    )
     private List<User> members;
 
     private Double maxBall;

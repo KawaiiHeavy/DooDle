@@ -47,8 +47,7 @@ public class User {
 
     private UserRole userRole;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id", nullable = false)
+    @ManyToMany(mappedBy = "members")
     private List<Test> ownedTests;
 
     public UUID getId() {return id;}
