@@ -1,0 +1,10 @@
+<title>Супер мега фронтенд</title>
+<br>
+<input type="text" formControlName="nickname" (ngModel)="nickname" #nickname>Введите ник пользователя
+<br>
+<input type="text" formControlName="password" (ngModel)="password" #password>Введите пароль пользователя
+<br>
+<input type="text" formControlName="email" (ngModel)="email" #email>Введите email пользователя
+<br>
+<button (click)="createUser(nickname.value, password.value, email.value)">Зарегать</button>
+<button (click)="get()">Получить всех пользователей</button>
