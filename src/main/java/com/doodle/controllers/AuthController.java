@@ -1,7 +1,7 @@
 package com.doodle.controllers;
 
 import com.doodle.authorization.jwt.JwtUtils;
-import com.doodle.authorization.pojo.JwtResponce;
+import com.doodle.authorization.pojo.JwtResponse;
 import com.doodle.authorization.pojo.LoginRequest;
 import com.doodle.authorization.pojo.MessageResponse;
 import com.doodle.authorization.pojo.SignUpRequest;
@@ -16,10 +16,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
 import java.util.List;
@@ -60,11 +57,12 @@ public class AuthController {
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
 
-        return ResponseEntity.ok(new JwtResponce(jwt,
+        JwtResponse responce = new JwtResponse(jwt,
                 userDetails.getId(),
                 userDetails.getUsername(),
                 userDetails.getEmail(),
-                roles));
+                roles);
+        return ResponseEntity.ok(responce);
     }
 
     @PostMapping("/signup")
