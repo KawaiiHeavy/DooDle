@@ -13,8 +13,8 @@ import java.util.UUID;
 public class Role {
 
     @Id
-    @GeneratedValue()
-    private UUID role_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long role_id;
 
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
