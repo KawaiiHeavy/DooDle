@@ -3,7 +3,9 @@ package com.doodle.models;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -22,16 +24,6 @@ import java.util.UUID;
         })}, schema = "public")
 public class User {
 
-    public static enum UserRole {
-        ADMIN, STUDENT, TRAINER, USER;
-        public static UserRole getById(String id){
-            for(UserRole e : values()) {
-                if(e.name().equalsIgnoreCase(id)) return e;
-            }
-            return USER;
-        }
-    }
-
     @Id
     @GeneratedValue()
     @Column(name="id")
@@ -45,10 +37,19 @@ public class User {
 
     private String phone;
 
-    private UserRole userRole;
-
     @ManyToMany(mappedBy = "members")
     private List<Test> ownedTests;
 
-    public UUID getId() {return id;}
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_role",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
+
+    public User(String nickname, String email, String password){
+        super();
+        this.nickname = nickname;
+        this.email = email;
+        this.password = password;
+    }
 }

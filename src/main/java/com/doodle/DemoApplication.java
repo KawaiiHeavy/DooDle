@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.HashSet;
 import java.util.UUID;
 
 @SpringBootApplication
@@ -26,8 +27,8 @@ public class DemoApplication {
                             "admin@gmail.com",
                             "admin",
                             "88005553535",
-                            User.UserRole.ADMIN,
-                            null
+                            null,
+                            new HashSet<>()
                     )
             );
         };
