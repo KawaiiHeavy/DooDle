@@ -2,6 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainComponent } from './components/main/main.component';
 import { AuthorizationComponent } from './components/authorization/authorization.component';
@@ -13,6 +14,7 @@ import { AdminpageComponent } from './components/page/adminpage/adminpage.compon
 import { TrainerpageComponent } from './components/page/trainerpage/trainerpage.component';
 import { StudentpageComponent } from './components/page/studentpage/studentpage.component';
 import { FormsModule } from '@angular/forms';
+
 import { httpInterceptorProviders } from './auth/auth-interceptor';
 
 
@@ -31,7 +33,7 @@ import { httpInterceptorProviders } from './auth/auth-interceptor';
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
+    AppRoutingModule,
     FormsModule,
     HttpClientModule
   ],

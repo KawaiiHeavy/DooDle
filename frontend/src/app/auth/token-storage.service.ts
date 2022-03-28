@@ -30,7 +30,7 @@ export class TokenStorageService {
     if (sessionStorage.getItem(TOKEN_KEY)) {
       console.log('test');
       console.log(sessionStorage.getItem(AUTHORITIES_KEY));
-      JSON.parse(sessionStorage.getItem(AUTHORITIES_KEY)).forEach(authority => {
+      JSON.parse(sessionStorage.getItem(AUTHORITIES_KEY) || '{}').forEach((authority: string) => {
         this.roles.push(authority);
       })
     }
