@@ -16,11 +16,11 @@ export class TokenStorageService {
     window.sessionStorage.clear();
   }
 
-  public getToken(): string | null {
+  public getToken(): string{
     return sessionStorage.getItem(TOKEN_KEY);
   }
 
-  public getNickname(): string | null {
+  public getNickname(): string{
     return sessionStorage.getItem(NICKNAME_KEY);
   }
 
@@ -30,7 +30,7 @@ export class TokenStorageService {
     if (sessionStorage.getItem(TOKEN_KEY)) {
       console.log('test');
       console.log(sessionStorage.getItem(AUTHORITIES_KEY));
-      JSON.parse(sessionStorage.getItem(AUTHORITIES_KEY) || '{}').forEach((authority: string) => {
+      JSON.parse(sessionStorage.getItem(AUTHORITIES_KEY)).forEach((authority) => {
         this.roles.push(authority);
       })
     }

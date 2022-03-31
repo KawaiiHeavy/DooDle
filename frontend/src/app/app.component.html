@@ -11,8 +11,11 @@
       <li *ngIf="authority === 'admin'" class="nav-item">
         <a class="nav-link" routerLink="admin">Admin Board</a>
       </li>
-      <li *ngIf="authority === 'pm'" class="nav-item">
-        <a class="nav-link" routerLink="pm">PM Board</a>
+      <li *ngIf="authority === 'student'" class="nav-item">
+        <a class="nav-link" routerLink="student">Student Board</a>
+      </li>
+      <li *ngIf="authority === 'trainer'" class="nav-item">
+        <a class="nav-link" routerLink="trainer">Trainer Board</a>
       </li>
       <li *ngIf="!authority" class="nav-item">
         <a class="nav-link" routerLink="auth/login">Login</a>

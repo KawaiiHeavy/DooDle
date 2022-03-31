@@ -47,8 +47,9 @@ public class AuthController {
     public ResponseEntity<?> authUser(@RequestBody LoginRequest loginRequest){
 
         Authentication authentication = authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getNickname(),
-                                                        loginRequest.getPassword()));
+                .authenticate(new UsernamePasswordAuthenticationToken(
+                        loginRequest.getNickname(),
+                        loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
@@ -58,12 +59,13 @@ public class AuthController {
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
 
-        JwtResponse responce = new JwtResponse(jwt,
+        JwtResponse response = new JwtResponse(jwt,
                 userDetails.getId(),
                 userDetails.getUsername(),
                 userDetails.getEmail(),
                 roles);
-        return ResponseEntity.ok(responce);
+
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/signup")

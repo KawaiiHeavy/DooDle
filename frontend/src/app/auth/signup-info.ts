@@ -10,6 +10,6 @@ export class SignupInfo {
         this.nickname = nickname;
         this.email = email;
         this.password = password;
-        this.role = ['user'];
+        this.role = ['USER'];
     }
 }
