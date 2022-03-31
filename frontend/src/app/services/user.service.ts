@@ -13,7 +13,28 @@ const httpOptions = {
 })
 export class UserService {
 
+    private userUrl = 'http://localhost:9090/api/test/user';
+    private trainerUrl = 'http://localhost:9090/api/test/trainer';
+    private studentUrl = 'http://localhost:9090/api/test/student';
+    private adminUrl = 'http://localhost:9090/api/test/admin';
+
     constructor(private http: HttpClient){}
+
+    getUserBoard(): Observable<string> {
+        return this.http.get(this.userUrl, { responseType: 'text' });
+    }
+    
+    getAdminBoard(): Observable<string> {
+        return this.http.get(this.adminUrl, { responseType: 'text' });
+    }
+    
+    getTrainerBoard(): Observable<string> {
+        return this.http.get(this.trainerUrl, { responseType: 'text' });
+    }
+
+    getStudentBoard(): Observable<string> {
+        return this.http.get(this.studentUrl, { responseType: 'text' });
+    }
 
     public createUser(userNickname: string, userPassword: string, userEmail: string) {
 

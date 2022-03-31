@@ -2,19 +2,42 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MainComponent } from './main/main.component';
+import { MainComponent } from './components/main/main.component';
+import { AuthorizationComponent } from './components/authorization/authorization.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { HomeComponent } from './components/home/home.component';
+import { UserpageComponent } from './components/page/userpage/userpage.component';
+import { AdminpageComponent } from './components/page/adminpage/adminpage.component';
+import { TrainerpageComponent } from './components/page/trainerpage/trainerpage.component';
+import { StudentpageComponent } from './components/page/studentpage/studentpage.component';
+import { FormsModule } from '@angular/forms';
+
+import { httpInterceptorProviders } from './auth/auth-interceptor';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainComponent
+    MainComponent,
+    AuthorizationComponent,
+    LoginComponent,
+    RegisterComponent,
+    HomeComponent,
+    UserpageComponent,
+    AdminpageComponent,
+    TrainerpageComponent,
+    StudentpageComponent,
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
+    FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent],
   entryComponents: [
     MainComponent,
