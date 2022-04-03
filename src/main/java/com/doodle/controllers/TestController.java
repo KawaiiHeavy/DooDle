@@ -16,12 +16,11 @@ public class TestController {
 
     @PostMapping("/createTest")
     public Test createTest(@RequestBody Test test){
-
         return testService.createTest(test);
     }
 
-    @GetMapping("/findTest")
-    public Set<Test> findTest(String input) {
-        return testService.findTest(input);
+    @GetMapping("/findTests")
+    public Set<Test> findTests(String input) {
+        return testService.findTests(input);
     }
 }

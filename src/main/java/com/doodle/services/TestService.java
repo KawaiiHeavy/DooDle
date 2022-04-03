@@ -17,7 +17,7 @@ public class TestService {
         return testRepository.save(test);
     }
 
-    public Set<Test> findTest(String input){
+    public Set<Test> findTests(String input){
         List<Test> testsList = testRepository.findByTitle(input);
         Test testById = testRepository.findById(UUID.fromString(input)).get();
         testsList.add(testById);
