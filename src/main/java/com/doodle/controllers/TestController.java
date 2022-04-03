@@ -1,5 +1,6 @@
 package com.doodle.controllers;
 
+import com.doodle.models.Question;
 import com.doodle.models.Test;
 import com.doodle.services.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +23,10 @@ public class TestController {
     @GetMapping("/findTests")
     public Set<Test> findTests(String input) {
         return testService.findTests(input);
+    }
+
+    @PostMapping("/createQuestions")
+    public Set<Question> createQuestions(@RequestBody Set<Question> questions){
+        return testService.createQuestions(questions);
     }
 }
