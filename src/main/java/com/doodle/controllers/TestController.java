@@ -1,6 +1,7 @@
 package com.doodle.controllers;
 
 import com.doodle.models.Test;
+import com.doodle.models.TestInput;
 import com.doodle.services.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +16,7 @@ public class TestController {
     private TestService testService;
 
     @PostMapping("/createTest")
-    public Test createTest(@RequestBody Test test){
+    public Test createTest(@RequestBody TestInput test){
         return testService.createTest(test);
     }
 
