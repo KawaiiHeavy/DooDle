@@ -38,5 +38,4 @@ public class Test {
     private Double maxBall;
 
     private Integer seconds;
-
 }
