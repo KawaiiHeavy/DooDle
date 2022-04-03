@@ -28,8 +28,14 @@ public class TestService {
 
     public Set<Test> findTests(String input){
         List<Test> testsList = testRepository.findByTitle(input);
-        Test testById = testRepository.findById(UUID.fromString(input)).get();
-        testsList.add(testById);
+        try {
+            UUID id = UUID.fromString(input);
+            Test testById = testRepository.findById(id).get();
+            testsList.add(testById);
+        }
+        catch (IllegalArgumentException ex){
+            System.out.println("Given not an id: " + ex);
+        }
         return new HashSet<>(testsList);
     }
 }

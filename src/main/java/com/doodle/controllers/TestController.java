@@ -20,8 +20,8 @@ public class TestController {
         return testService.createTest(test);
     }
 
-    @GetMapping("/findTests")
-    public Set<Test> findTests(String input) {
+    @GetMapping("/findTests/{input}")
+    public Set<Test> findTests(@PathVariable String input) {
         return testService.findTests(input);
     }
 }
