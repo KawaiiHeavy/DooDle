@@ -14,19 +14,20 @@ export class RegisterComponent implements OnInit {
   isSignedUp = false;
   isSignUpFailed = false;
   errorMessage = '';
+  role: string = 'User';
 
   constructor(private authService: AuthService) { }
 
   ngOnInit() { }
 
-  onSubmit() {
+  register() {
     console.log(this.form);
 
     this.signupInfo = new SignupInfo(
-      this.form.name,
       this.form.username,
       this.form.email,
-      this.form.password);
+      this.form.password,
+      this.form.roles);
 
     this.authService.signUp(this.signupInfo).subscribe(
       data => {
@@ -41,4 +42,20 @@ export class RegisterComponent implements OnInit {
       }
     );
   }
+
+  setTrainerRoles() {
+    this.form.roles = ["TRAINER", "STUDENT", "USER"];
+    this.role = 'Trainer';
+  }
+
+  setStudentRoles() {
+    this.form.roles = ["STUDENT", "USER"];
+    this.role = 'Student';
+  }
+
+  setUserRoles() {
+    this.form.roles = ["USER"];
+    this.role = 'User';
+  }
+
 }
