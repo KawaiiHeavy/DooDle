@@ -1,5 +1,6 @@
 package com.doodle.controllers;
 
+import com.doodle.models.Question;
 import com.doodle.models.ERole;
 import com.doodle.models.Role;
 import com.doodle.models.Test;
@@ -35,5 +36,10 @@ public class TestController {
     @GetMapping("/findTests/{input}")
     public Set<Test> findTests(@PathVariable String input) {
         return testService.findTests(input);
+    }
+
+    @PostMapping("/createQuestions")
+    public Set<Question> createQuestions(@RequestBody Set<Question> questions){
+        return testService.createQuestions(questions);
     }
 }

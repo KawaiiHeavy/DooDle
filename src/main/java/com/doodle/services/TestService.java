@@ -1,6 +1,8 @@
 package com.doodle.services;
 
+import com.doodle.models.Question;
 import com.doodle.models.Test;
+import com.doodle.repostitories.QuestionRepository;
 import com.doodle.models.TestInput;
 import com.doodle.repostitories.TestRepository;
 import com.doodle.repostitories.UserRepository;
@@ -14,6 +16,9 @@ import java.util.*;
 public class TestService {
 
     private TestRepository testRepository;
+
+
+    private QuestionRepository questionRepository;
 
     private UserRepository userRepository;
 
@@ -37,5 +42,9 @@ public class TestService {
             System.out.println("Given not an id: " + ex);
         }
         return new HashSet<>(testsList);
+    }
+
+    public Set<Question> createQuestions(Set<Question> questions){
+        return new HashSet<>(questionRepository.saveAll(questions));
     }
 }
