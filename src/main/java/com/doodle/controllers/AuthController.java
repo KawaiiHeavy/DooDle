@@ -98,18 +98,27 @@ public class AuthController {
         } else {
             reqRoles.forEach(r -> {
                 switch (r) {
-                    case "admin":
+                    case "ADMIN":
                         Role adminRole = roleRepository
                                 .findByName(ERole.ADMIN)
                                 .orElseThrow(() -> new RuntimeException("Error, Role ADMIN is not found"));
                         roles.add(adminRole);
 
                         break;
-                    case "trainer":
-                        Role modRole = roleRepository
+
+                    case "TRAINER":
+                        Role trainerRole = roleRepository
                                 .findByName(ERole.TRAINER)
-                                .orElseThrow(() -> new RuntimeException("Error, Role MODERATOR is not found"));
-                        roles.add(modRole);
+                                .orElseThrow(() -> new RuntimeException("Error, Role TRAINER is not found"));
+                        roles.add(trainerRole);
+
+                        break;
+
+                    case "STUDENT":
+                        Role studentRole = roleRepository
+                                .findByName(ERole.STUDENT)
+                                .orElseThrow(() -> new RuntimeException("Error, Role STUDENT is not found"));
+                        roles.add(studentRole);
 
                         break;
 

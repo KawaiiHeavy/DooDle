@@ -21,10 +21,12 @@ public class Test {
     @Column(name="id")
     private UUID id;
 
+    @Column(nullable = false)
     private String title;
 
     @ManyToOne
     @JoinColumn(name = "creator")
+    @Column(nullable = false)
     private User creator;
 
     @ManyToMany(cascade = { CascadeType.ALL })
