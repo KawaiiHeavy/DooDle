@@ -25,8 +25,7 @@ public class Test {
     private String title;
 
     @ManyToOne
-    @JoinColumn(name = "creator")
-    @Column(nullable = false)
+    @JoinColumn(name = "creator", nullable = false)
     private User creator;
 
     @ManyToMany(cascade = { CascadeType.ALL })
