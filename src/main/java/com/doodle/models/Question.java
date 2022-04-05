@@ -8,7 +8,6 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "Questions")
@@ -24,7 +23,13 @@ public class Question {
 
     private Double scoreWeight;
 
-    @OneToMany(mappedBy = "questionId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private Set<Answer> possibleAnswers;
+
+    public Question(UUID id, String questionText, Double scoreWeight){
+        this.id = id;
+        this.questionText = questionText;
+        this.scoreWeight = scoreWeight;
+    }
 
 }

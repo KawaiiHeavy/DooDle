@@ -1,6 +1,7 @@
 package com.doodle.repostitories;
 
 import com.doodle.models.User;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,4 +15,7 @@ public interface UserRepository extends CrudRepository<User, UUID> {
     Optional<User> findById(UUID id);
     Boolean existsByNickname(String nickname);
     Boolean existsByEmail(String email);
+
+    @Query("SELECT u from Users u where u.nickname like '%1' ")
+    Optional<User> getRandomUser();
 }

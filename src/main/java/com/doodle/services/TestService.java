@@ -1,12 +1,15 @@
 package com.doodle.services;
 
+import com.doodle.models.Answer;
 import com.doodle.models.Question;
 import com.doodle.models.Test;
+import com.doodle.repostitories.AnswerRepository;
 import com.doodle.repostitories.QuestionRepository;
 import com.doodle.models.TestInput;
 import com.doodle.repostitories.TestRepository;
 import com.doodle.repostitories.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -17,8 +20,9 @@ public class TestService {
 
     private TestRepository testRepository;
 
-
     private QuestionRepository questionRepository;
+
+    private AnswerRepository answerRepository;
 
     private UserRepository userRepository;
 
@@ -46,5 +50,12 @@ public class TestService {
 
     public Set<Question> createQuestions(Set<Question> questions){
         return new HashSet<>(questionRepository.saveAll(questions));
+    }
+
+    public void createAnswers(Set<Answer> answers, Question question){
+        answerRepository.saveAll(answers);
+        for (Answer answer : answers) {
+            answerRepository.saveAnswerToQuestion(answer.getId(), question.getId());
+        }
     }
 }

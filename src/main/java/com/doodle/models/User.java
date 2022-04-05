@@ -11,7 +11,6 @@ import java.util.UUID;
 @Getter
 @Setter
 @Builder
-@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "Users")
@@ -29,10 +28,13 @@ public class User {
     @Column(name="id")
     private UUID id;
 
+    @Column(nullable = false)
     private String nickname;
 
+    @Column(nullable = false)
     private String email;
 
+    @Column(nullable = false)
     private String password;
 
     private String phone;
@@ -40,7 +42,7 @@ public class User {
     @ManyToMany(mappedBy = "members")
     private List<Test> ownedTests;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "user_role",
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "role_id"))

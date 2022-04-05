@@ -3,13 +3,14 @@ package com.doodle.models;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
 @Setter
 @Builder
-@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "Tests")
@@ -35,6 +36,12 @@ public class Test {
             inverseJoinColumns = { @JoinColumn(name = "ownedTests") }
     )
     private List<User> members;
+
+    @OneToMany
+    private List<Question> questions = new ArrayList<>();
+
+    @OneToMany
+    private List<Result> results = new ArrayList<>();
 
     private Double maxBall;
 

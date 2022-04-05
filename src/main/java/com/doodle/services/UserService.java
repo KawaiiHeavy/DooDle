@@ -39,4 +39,8 @@ public class UserService {
     public Iterable<User> findAll(){
         return userRepository.findAll();
     }
+
+    public Optional<User> getRandomUser(){
+        return userRepository.getRandomUser();
+    }
 }
