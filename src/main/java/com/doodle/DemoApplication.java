@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
 
+import javax.transaction.Transactional;
+import java.beans.Transient;
 import java.util.*;
 
 @SpringBootApplication
@@ -40,16 +42,11 @@ class DoodleCommandLineRunner implements CommandLineRunner{
         // Creating roles
         roleCreation();
 
-        userCreation(10);
-
         testCreation(10);
 
-        Set<Question> questions = questionCreation(10, 10);
+        Test test = (Test)testService.findTests("test1").toArray()[0];
 
-        for (Question question : questions){
-            answerCreation(question, 10);
-        }
-
+        testService.deleteTest(test);
     }
 
     public void roleCreation(){
@@ -62,21 +59,26 @@ class DoodleCommandLineRunner implements CommandLineRunner{
         roles.stream().filter(role -> !roleRepository.existsByName(role.getName())).forEach(role -> roleRepository.save(role));
     }
 
-    public void userCreation(int count){
+    public Set<User> userCreation(int count){
+
+        Set<User> users = new HashSet<>();
+
         for (int i = 0; i < count; ++i){
 
             String prefix = getPrefixForCreation();
 
-            userService.save(new User(
+            User user = new User(
                     UUID.randomUUID(),
                     new StringBuffer(prefix).append(i).toString(),
                     new StringBuffer(prefix).append(i).append("@gmail.com").toString(),
                     new StringBuffer(prefix).append(i).toString(),
                     getRandomPhone(),
                     null,
-                    convertRoleToPrivileges(prefix.toUpperCase())
-            ));
+                    convertRoleToPrivileges(prefix.toUpperCase()));
+
+            users.add(user);
         }
+        return users;
     }
 
     public String getPrefixForCreation(){
@@ -129,34 +131,59 @@ class DoodleCommandLineRunner implements CommandLineRunner{
 
     public void testCreation(int count){
         String prefix = "test";
+
+        Set<User> members = userCreation(10);
+        Set<Result> results = resultsCreation(10);
+
+        User leader = (User)members.toArray()[0];
+
+        System.out.println(leader);
+
         for (int i = 0; i < count; ++i){
-            testService.createTest(new TestInput(
-                    new StringBuffer("test").append(i).toString(),
-                    userService.getRandomUser().get().getId(),
-                    (double) new Random().nextInt(100),
-                    new Random().nextInt(100)
-            ));
+            Test test = new Test();
+
+            test.setId(UUID.randomUUID());
+            test.setMaxBall((double) new Random().nextInt(100));
+            test.setSeconds(new Random().nextInt(100));
+            test.setMembers(members);
+            test.setCreator(leader);
+            test.setTitle(new StringBuffer(prefix).append(i).toString());
+            test.setQuestions(questionCreation(10, 10));
+
+            testService.createTest(test);
+
+            for (Result result: results){
+                result.setParticipant(leader);
+                test.addResult(result);
+            }
+
+            testService.createTest(test);
+
         }
+
     }
 
     public Set<Question> questionCreation(int questionCount, int answerCount){
         String prefix = "question";
-        Set<Question> result = new HashSet<>();
+
+        Set<Question> questions = new HashSet<>();
+        Set<Answer> answers = answerCreation(answerCount);
+
         for (int i = 0; i < questionCount; ++i){
-            Set<Question> questions = new HashSet<>();
             UUID questionId = UUID.randomUUID();
-            questions.add(new Question(
+            Question question = new Question(
                     questionId,
                     new StringBuffer(prefix).append(i).toString(),
-                    15 * new Random().nextDouble()
-            ));
-            testService.createQuestions(questions);
-            result.addAll(questions);
+                    15 * new Random().nextDouble());
+            for (Answer answer: answers){
+                question.addAnswer(answer);
+            }
+            questions.add(question);
         }
-        return result;
+        return questions;
     }
 
-    public void answerCreation(Question question, int count){
+    public Set<Answer> answerCreation(int count){
         String prefix = "answer";
         Set<Answer> answers = new HashSet<>();
         for (int i = 0; i < count; ++i){
@@ -166,6 +193,15 @@ class DoodleCommandLineRunner implements CommandLineRunner{
                     new Random().nextBoolean()
             ));
         }
-        testService.createAnswers(answers, question);
+        return answers;
+    }
+
+    public Set<Result> resultsCreation(int count){
+
+        Set<Result> results = new HashSet<>();
+        for (int i = 0; i < count; ++i){
+            results.add(new Result(UUID.randomUUID(),15 * new Random().nextDouble()));
+        }
+        return results;
     }
 }

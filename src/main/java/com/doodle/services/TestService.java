@@ -35,6 +35,10 @@ public class TestService {
         return testRepository.save(test);
     }
 
+    public Test createTest(Test test){
+        return testRepository.save(test);
+    }
+
     public Set<Test> findTests(String input){
         List<Test> testsList = testRepository.findByTitle(input);
         try {
@@ -57,5 +61,9 @@ public class TestService {
         for (Answer answer : answers) {
             answerRepository.saveAnswerToQuestion(answer.getId(), question.getId());
         }
+    }
+
+    public void deleteTest(Test test){
+        testRepository.delete(test);
     }
 }

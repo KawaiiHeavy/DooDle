@@ -21,7 +21,7 @@ public class Answer {
     @Column(name="id")
     private UUID id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Question question;
 
     private String answerText;
