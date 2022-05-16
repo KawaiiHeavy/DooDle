@@ -1,15 +1,12 @@
 package com.doodle.models;
 
 import lombok.*;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.data.annotation.CreatedBy;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -59,5 +56,4 @@ public class Test {
         this.results.remove(result);
         result.setTest(null);
     }
-
 }

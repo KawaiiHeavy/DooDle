@@ -46,7 +46,7 @@ class DoodleCommandLineRunner implements CommandLineRunner{
 
         Test test = (Test)testService.findTests("test1").toArray()[0];
 
-        testService.deleteTest(test);
+//        testService.deleteTest(test);
     }
 
     public void roleCreation(){
