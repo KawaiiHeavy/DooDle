@@ -7,7 +7,7 @@ import { TokenStorageService } from './auth/token-storage.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit{
-  
+
   roles: string[];
   authority: string;
 
@@ -15,16 +15,21 @@ export class AppComponent implements OnInit{
 
   ngOnInit() {
     if (this.tokenStorage.getToken()) {
-      this.roles = this.tokenStorage.getAuthorities();
+      this.roles = this.tokenStorage.getAuthorities().reverse();
       this.roles.every(role => {
-        if (role === 'ROLE_ADMIN') {
+        if (role === 'ADMIN') {
           this.authority = 'admin';
           return false;
-        } else if (role === 'ROLE_PM') {
-          this.authority = 'pm';
+        } else if (role === 'TRAINER') {
+          this.authority = 'trainer';
+          return false;
+        } else if (role === 'STUDENT') {
+          this.authority = 'student';
+          return false;
+        } else {
+          this.authority = 'user';
           return false;
         }
-        this.authority = 'user';
         return true;
       });
     }
