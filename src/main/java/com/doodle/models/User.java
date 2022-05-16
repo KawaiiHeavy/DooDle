@@ -1,6 +1,8 @@
 package com.doodle.models;
 
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -14,13 +16,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "Users")
-@Table(name="user", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {
-                "nickname"
-        }),
-        @UniqueConstraint(columnNames = {
-                "email"
-        })}, schema = "public")
+@Table(name="user", schema = "public")
 public class User {
 
     @Id
@@ -42,7 +38,7 @@ public class User {
     @ManyToMany(mappedBy = "members")
     private List<Test> ownedTests;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_role",
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -53,5 +49,18 @@ public class User {
         this.nickname = nickname;
         this.email = email;
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", nickname='" + nickname + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", phone='" + phone + '\'' +
+                ", ownedTests=" + ownedTests +
+                ", roles=" + roles +
+                '}';
     }
 }

@@ -3,6 +3,7 @@ package com.doodle.models;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -23,8 +24,8 @@ public class Question {
 
     private Double scoreWeight;
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
-    private Set<Answer> possibleAnswers;
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Answer> possibleAnswers = new HashSet<>();
 
     public Question(UUID id, String questionText, Double scoreWeight){
         this.id = id;
@@ -32,4 +33,13 @@ public class Question {
         this.scoreWeight = scoreWeight;
     }
 
+    public void addAnswer(Answer answer){
+        this.possibleAnswers.add(answer);
+        answer.setQuestion(this);
+    }
+
+    public void removeAnswer(Answer answer){
+        this.possibleAnswers.remove(answer);
+        answer.setQuestion(null);
+    }
 }

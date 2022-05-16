@@ -1,10 +1,10 @@
 package com.doodle.models;
 
 import lombok.*;
+import org.springframework.data.annotation.CreatedBy;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -25,25 +25,35 @@ public class Test {
     @Column(nullable = false)
     private String title;
 
-    @ManyToOne
-    @JoinColumn(name = "creator", nullable = false)
+    @CreatedBy
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private User creator;
 
-    @ManyToMany(cascade = { CascadeType.ALL })
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "members_tests",
             joinColumns = { @JoinColumn(name = "members") },
             inverseJoinColumns = { @JoinColumn(name = "ownedTests") }
     )
-    private List<User> members;
+    private Set<User> members;
 
-    @OneToMany
-    private List<Question> questions = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<Question> questions = new HashSet<>();
 
-    @OneToMany
-    private List<Result> results = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Result> results = new HashSet<>();
 
     private Double maxBall;
 
     private Integer seconds;
+
+    public void addResult(Result result){
+        this.results.add(result);
+        result.setTest(this);
+    }
+
+    public void removeResult(Result result){
+        this.results.remove(result);
+        result.setTest(null);
+    }
 }

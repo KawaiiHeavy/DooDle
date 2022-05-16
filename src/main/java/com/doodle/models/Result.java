@@ -28,4 +28,9 @@ public class Result {
 
     @Column(nullable = false)
     private Double score;
+
+    public Result(UUID id, Double score){
+        this.id = id;
+        this.score = score;
+    }
 }
