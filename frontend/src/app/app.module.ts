@@ -16,6 +16,7 @@ import { StudentpageComponent } from './components/page/studentpage/studentpage.
 import { FormsModule } from '@angular/forms';
 
 import { httpInterceptorProviders } from './auth/auth-interceptor';
+import { TestingComponent } from './components/testing/testing.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { httpInterceptorProviders } from './auth/auth-interceptor';
     AdminpageComponent,
     TrainerpageComponent,
     StudentpageComponent,
+    TestingComponent,
   ],
   imports: [
     BrowserModule,

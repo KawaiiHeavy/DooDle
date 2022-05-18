@@ -11,6 +11,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @Entity(name = "Questions")
 @Table(name="question", schema = "public")
 public class Question {
@@ -24,7 +25,7 @@ public class Question {
 
     private Double scoreWeight;
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Answer> possibleAnswers = new HashSet<>();
 
     public Question(UUID id, String questionText, Double scoreWeight){

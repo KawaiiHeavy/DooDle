@@ -45,6 +45,7 @@ class DoodleCommandLineRunner implements CommandLineRunner{
         testCreation(10);
 
         Test test = (Test)testService.findTests("test1").toArray()[0];
+        System.out.println(test);
 
 //        testService.deleteTest(test);
     }

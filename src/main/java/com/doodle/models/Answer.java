@@ -1,9 +1,6 @@
 package com.doodle.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -12,6 +9,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @Entity(name = "Answers")
 @Table(name="answer", schema = "public")
 public class Answer {
@@ -22,6 +20,7 @@ public class Answer {
     private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ToString.Exclude
     private Question question;
 
     private String answerText;

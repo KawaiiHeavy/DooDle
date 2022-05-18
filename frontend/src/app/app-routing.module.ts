@@ -8,6 +8,7 @@ import { StudentpageComponent } from "./components/page/studentpage/studentpage.
 import { TrainerpageComponent } from "./components/page/trainerpage/trainerpage.component";
 import { UserpageComponent } from "./components/page/userpage/userpage.component";
 import { RegisterComponent } from "./components/register/register.component";
+import { TestingComponent } from "./components/testing/testing.component";
 
 const routes: Routes = [
     {
@@ -37,6 +38,10 @@ const routes: Routes = [
     {
         path: 'signup',
         component: RegisterComponent
+    },
+    {
+        path: 'testing',
+        component: TestingComponent
     },
     {
         path: '',

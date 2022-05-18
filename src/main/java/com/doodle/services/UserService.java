@@ -1,11 +1,13 @@
 package com.doodle.services;
 
+import com.doodle.models.Test;
 import com.doodle.models.User;
 import com.doodle.repostitories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -42,5 +44,9 @@ public class UserService {
 
     public Optional<User> getRandomUser(){
         return userRepository.getRandomUser();
+    }
+
+    public Set<Test> getTestsByUser(UUID userId){
+        return userRepository.findOwnedTestsById(userId);
     }
 }

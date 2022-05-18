@@ -12,10 +12,12 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.*;
 
 @Service
 @AllArgsConstructor
+@Transactional
 public class TestService {
 
     private TestRepository testRepository;
@@ -40,7 +42,10 @@ public class TestService {
     }
 
     public Set<Test> findTests(String input){
-        List<Test> testsList = testRepository.findByTitle(input);
+        Set<Test> testsList = testRepository.findByTitle(input);
+        if (!testsList.isEmpty()){
+            return testsList;
+        }
         try {
             UUID id = UUID.fromString(input);
             Test testById = testRepository.findById(id).get();

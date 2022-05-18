@@ -1,9 +1,13 @@
 package com.doodle.controllers;
 
+import com.doodle.models.Test;
 import com.doodle.models.User;
 import com.doodle.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Set;
+import java.util.UUID;
 
 
 @RestController
@@ -30,5 +34,10 @@ public class UserController {
         Iterable<User> users = userService.getUsers();
         System.out.println(users);
         return users;
+    }
+
+    @GetMapping("/getTestsByUser/{userId}")
+    public Set<Test> getTestsByUser(@PathVariable UUID userId){
+        return userService.getTestsByUser(userId);
     }
 }
