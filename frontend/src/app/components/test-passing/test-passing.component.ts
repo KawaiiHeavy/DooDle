@@ -38,8 +38,8 @@ export class TestPassingComponent implements OnInit {
         this.test.questions[i].id,
         this.test.questions[i].questionText,
         this.test.questions[i].scoreWeight,
-        this.test.questions[i].answers,
-        this.test.questions[i].answers));
+        JSON.parse(JSON.stringify(this.test.questions[i].answers)),
+        JSON.parse(JSON.stringify(this.test.questions[i].answers))))
     }
   }
 
@@ -67,6 +67,9 @@ export class TestPassingComponent implements OnInit {
   }
 
   checkTest(){
+    console.log(this.test.questions);
+    console.log(this.questionBlanks);
+
     return this.testService.checkTest(this.questionBlanks).subscribe(data => {
       this.result = data;
     });

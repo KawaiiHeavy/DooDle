@@ -1,6 +1,5 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-6"></div>
     <div class="col-md-6">
       <ul>
         <li *ngFor="let test of this.tests">
@@ -8,6 +7,9 @@
             <a class="nav-link"><button (click)="startTest(test, user)">>Пройти тест</button></a>
         </li>
       </ul>
+    </div>
+    <div class="col-md-6">
+      
     </div>
   </div>
 </div>

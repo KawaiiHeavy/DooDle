@@ -95,41 +95,17 @@ public class TestService {
 
     public Result checkTest(List<QuestionBlank> questionBlankList){
 
-        double score = 0.0;
+        System.out.println(questionBlankList);
 
-        for (QuestionBlank questionBlank: questionBlankList){
-            List<Answer> answers = questionBlank.getAnswers();
-            Integer countOfRightAnswers = getCountOfRightAnswers(answers);
-            List<Answer> userAnswers = questionBlank.getUserAnswers();
-
-            System.out.println(questionBlank.getScoreWeight());
-            System.out.println(countOfRightAnswers);
-
-            for (int i = 0; i < questionBlank.getAnswers().size(); i++){
-                if (answers.get(i).getCorrect() == userAnswers.get(i).getCorrect()){
-                    if (answers.get(i).getCorrect())
-                        score += (questionBlank.getScoreWeight() / countOfRightAnswers);
-                }
-                else {
-                    score -= (questionBlank.getScoreWeight() / answers.size());
-                }
-            }
-        }
+        double score = resultService.calculateScoreForTest(questionBlankList);
 
         Result result = new Result();
         result.setId(UUID.randomUUID());
         result.setScore(score);
 
+        resultService.save(result);
+
         return result;
     }
 
-    public Integer getCountOfRightAnswers(List<Answer> answers){
-        int count = 0;
-        for (Answer answer: answers){
-            if (answer.getCorrect()){
-                count += 1;
-            }
-        }
-        return count;
-    }
 }
