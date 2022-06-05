@@ -49,7 +49,7 @@ export class TestingComponent implements OnInit {
     //console.log(this.user.id);
     //console.log(test.id);
 
-    test.questions = this.preparedDataService.getPreparedQuestions();
+    test.questions = this.preparedDataService.getPreparedQuestions2();
     console.log(`User with ${user.id} completing the test with ${test.id}`);
     this.router.navigateByUrl('testing/testPassing', {state: test});
   }
