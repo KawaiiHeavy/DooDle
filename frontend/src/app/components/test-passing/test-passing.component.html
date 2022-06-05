@@ -1,0 +1,18 @@
+<p>test-passing works!</p>
+<p>
+    Название теста: {{ this.test.title }}
+    Создатель: {{ this.test.creator.nickname }}
+    Время: {{ this.test.seconds }}
+    Вопросы: {{ this.test.questions }}
+</p>
+
+<ul>
+    <li *ngFor="let question of this.test.questions">
+        Вопрос: {{question.questionText}},
+        <ul>
+            <li *ngFor="let answer of question.answers">
+                {{ answer.answerText }}
+            </li>
+        </ul>
+    </li>
+</ul>

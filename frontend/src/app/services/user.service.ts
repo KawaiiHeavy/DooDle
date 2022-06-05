@@ -1,17 +1,14 @@
-import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Injectable, OnInit } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { User } from "../models/user.model";
+import { Test } from "../models/test.model";
 
-const httpOptions = {
-    headers: new HttpHeaders({ "Content-Type": "application/json",
-    "Authorization": `Bearer ${localStorage.getItem("jwt")}`,}),
-  };
 
 @Injectable({
     providedIn: "root",
 })
-export class UserService {
+export class UserService implements OnInit {
 
     private userUrl = 'http://localhost:9090/api/test/user';
     private trainerUrl = 'http://localhost:9090/api/test/trainer';
@@ -19,6 +16,8 @@ export class UserService {
     private adminUrl = 'http://localhost:9090/api/test/admin';
 
     constructor(private http: HttpClient){}
+
+    ngOnInit(): void {}
 
     getUserBoard(): Observable<string> {
         return this.http.get(this.userUrl, { responseType: 'text' });
@@ -36,19 +35,24 @@ export class UserService {
         return this.http.get(this.studentUrl, { responseType: 'text' });
     }
 
-    public createUser(userNickname: string, userPassword: string, userEmail: string) {
+    createUser(userNickname: string, userPassword: string, userEmail: string) {
 
         let user = new User(null, userNickname, userPassword, userEmail, null, null, null);
 
         console.log("It's working")
-
         return this.http.post<User>(`/api/users/save`, user);
     }
 
-    public getUsers(): Observable<any>{
-
+    getUsers(){
         console.log("It's working 2")
+        return this.http.get<any[]>(`api/users/getAllUsers`);
+    }
 
-        return this.http.get(`api/users/get`);
+    getUserByNickname(nickname: string){
+        return this.http.get<User>(`api/users/getUserByNickname/${nickname}`);
+    }
+
+    getUserOwnedTests(user: User){
+        return this.http.get<Test[]>(`api/users/getTestsByUser/${user.id}`)
     }
 }

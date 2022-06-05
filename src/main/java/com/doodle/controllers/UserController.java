@@ -6,6 +6,7 @@ import com.doodle.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -24,20 +25,21 @@ public class UserController {
 
     @PostMapping("/save")
     public User createUser(@RequestBody User user){
-        System.out.println(user.toString());
         return userService.save(user);
     }
 
-
-    @GetMapping("/get")
-    public Iterable<User> get(){
-        Iterable<User> users = userService.getUsers();
-        System.out.println(users);
-        return users;
+    @GetMapping("/getAllUsers")
+    public Iterable<User> getAllUsers(){
+        return userService.getUsers();
     }
 
     @GetMapping("/getTestsByUser/{userId}")
     public Set<Test> getTestsByUser(@PathVariable UUID userId){
         return userService.getTestsByUser(userId);
+    }
+
+    @GetMapping("/getUserByNickname/{nickname}")
+    public User getUserByNickname(@PathVariable String nickname){
+        return userService.getUserByNickname(nickname);
     }
 }

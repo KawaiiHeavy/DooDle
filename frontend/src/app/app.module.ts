@@ -1,6 +1,8 @@
+import { CommonModule } from '@angular/common';  
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +19,7 @@ import { FormsModule } from '@angular/forms';
 
 import { httpInterceptorProviders } from './auth/auth-interceptor';
 import { TestingComponent } from './components/testing/testing.component';
+import { TestPassingComponent } from './components/test-passing/test-passing.component';
 
 
 @NgModule({
@@ -32,11 +35,13 @@ import { TestingComponent } from './components/testing/testing.component';
     TrainerpageComponent,
     StudentpageComponent,
     TestingComponent,
+    TestPassingComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    CommonModule,
     HttpClientModule
   ],
   providers: [httpInterceptorProviders],

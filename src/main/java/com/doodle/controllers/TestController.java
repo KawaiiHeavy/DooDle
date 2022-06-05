@@ -43,4 +43,9 @@ public class TestController {
     public Set<Question> createQuestions(@RequestBody Set<Question> questions){
         return testService.createQuestions(questions);
     }
+
+    @GetMapping("/getTests")
+    public Set<Test> getTests(){
+        return testService.getTests();
+    }
 }

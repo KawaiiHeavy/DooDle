@@ -20,8 +20,8 @@
       <li *ngIf="!authority" class="nav-item">
         <a class="nav-link" routerLink="auth/login">Login</a>
       </li>
-      <li *ngIf="authority !== 'user'" class="nav-item">
-        <a class="nav-link" routerLink="testing"></a>
+      <li *ngIf="authority && authority !== 'user'" class="nav-item">
+        <a class="nav-link" routerLink="testing">Testing</a>
       </li>
     </ul>
   </div>

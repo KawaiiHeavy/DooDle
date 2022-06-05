@@ -9,6 +9,7 @@ import com.doodle.models.*;
 import com.doodle.repostitories.RoleRepository;
 import com.doodle.repostitories.UserRepository;
 import com.doodle.services.UserDetailsImpl;
+import com.doodle.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -33,6 +34,9 @@ public class AuthController {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    UserService userService;
 
     @Autowired
     RoleRepository roleRepository;
@@ -131,7 +135,7 @@ public class AuthController {
             });
         }
         user.setRoles(roles);
-        userRepository.save(user);
+        userService.save(user);
         return ResponseEntity.ok(new MessageResponse("User CREATED"));
     }
 

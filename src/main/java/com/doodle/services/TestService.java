@@ -9,11 +9,13 @@ import com.doodle.models.TestInput;
 import com.doodle.repostitories.TestRepository;
 import com.doodle.repostitories.UserRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 @Service
 @AllArgsConstructor
@@ -35,6 +37,20 @@ public class TestService {
         test.setMaxBall(testInput.getMaxBall());
         test.setSeconds(testInput.getSeconds());
         return testRepository.save(test);
+    }
+
+    public Set<Test> getTests(){
+        Set<Test> rawData = StreamSupport.stream(testRepository.findAll().spliterator(), false)
+                .collect(Collectors.toSet());
+        Stream<Test> stream = rawData.stream();
+        rawData.forEach(test -> {
+            test.setMembers(null);
+            test.setQuestions(null);
+//            test.setCreator(null);
+            test.setResults(null);
+        });
+        System.out.println(rawData);
+        return rawData;
     }
 
     public Test createTest(Test test){
