@@ -1,4 +1,3 @@
-<p>test-passing works!</p>
 <p>
     Название теста: {{ this.test.title }}
     Создатель: {{ this.test.creator.nickname }}
@@ -7,12 +6,19 @@
 </p>
 
 <ul>
-    <li *ngFor="let question of this.test.questions">
-        Вопрос: {{question.questionText}},
+    <li *ngFor="let questionBlank of this.questionBlanks">
+        Вопрос: {{questionBlank.questionText}},
         <ul>
-            <li *ngFor="let answer of question.answers">
-                {{ answer.answerText }}
-            </li>
+            <div *ngFor="let userAnswer of questionBlank.userAnswers">
+                <input type="checkbox" [(ngModel)]="userAnswer.correct" (ngModelChange)="onChange()"/>
+                {{ userAnswer.answerText }}
+            </div>
         </ul>
     </li>
 </ul>
+
+<button (click)="checkTest()">Отправить на проверку</button>
+<div *ngIf="this.result">
+    ID результата: {{ this.result.id }}<br>
+    Результат: {{ this.result.score }}
+</div>
