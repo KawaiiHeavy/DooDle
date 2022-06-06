@@ -12,14 +12,14 @@ export class User{
         password: string,
         email: string,
         phone: any,
-        userRole: any,
-        ownedTests: any){
+        roles: any,
+        ownedTests: any[]){
             this.id = id;
             this.nickname = nickname;
             this.password = password;
             this.email = email;
             this.phone = phone;
-            this.userRole = userRole;
+            this.roles = roles;
             this.ownedTests = ownedTests;
         }
 
@@ -28,6 +28,6 @@ export class User{
     password: string;
     email: string;
     phone: string;
-    userRole: Role;
-    ownedTests: string;
+    roles: Role[];
+    ownedTests: any[];
 }

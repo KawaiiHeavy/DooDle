@@ -1,5 +1,6 @@
 package com.doodle.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -18,11 +19,12 @@ public class Result {
     @Column(name="id")
     private UUID id;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(nullable = false)
     private Test test;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", columnDefinition="uuid not null")
     private User participant;
 

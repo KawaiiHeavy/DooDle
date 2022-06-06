@@ -1,30 +1,39 @@
 package com.doodle.services;
 
-import com.doodle.models.Answer;
-import com.doodle.models.Question;
-import com.doodle.models.Test;
+import com.doodle.models.*;
 import com.doodle.repostitories.AnswerRepository;
 import com.doodle.repostitories.QuestionRepository;
-import com.doodle.models.TestInput;
 import com.doodle.repostitories.TestRepository;
 import com.doodle.repostitories.UserRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.parameters.P;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 @Service
 @AllArgsConstructor
+@Transactional
 public class TestService {
 
+    @Autowired
     private TestRepository testRepository;
 
+    @Autowired
     private QuestionRepository questionRepository;
 
+    @Autowired
     private AnswerRepository answerRepository;
 
+    @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ResultService resultService;
 
     public Test createTest(TestInput testInput){
         Test test = new Test();
@@ -35,12 +44,32 @@ public class TestService {
         return testRepository.save(test);
     }
 
+    public Test saveTest(Test test){
+        return this.testRepository.save(test);
+    }
+
+    public Set<Test> getTests(){
+//        Set<Test> rawData = StreamSupport.stream(testRepository.findAll().spliterator(), false)
+//                .collect(Collectors.toSet());
+//        Stream<Test> stream = rawData.stream();
+//        rawData.forEach(test -> {
+//            test.setMembers(null);
+//            test.setQuestions(null);
+//            test.setResults(null);
+//        });
+//        System.out.println(rawData);
+        return new HashSet<Test>((Collection<? extends Test>) testRepository.findAll());
+    }
+
     public Test createTest(Test test){
         return testRepository.save(test);
     }
 
     public Set<Test> findTests(String input){
-        List<Test> testsList = testRepository.findByTitle(input);
+        Set<Test> testsList = testRepository.findByTitle(input);
+        if (!testsList.isEmpty()){
+            return testsList;
+        }
         try {
             UUID id = UUID.fromString(input);
             Test testById = testRepository.findById(id).get();
@@ -66,4 +95,22 @@ public class TestService {
     public void deleteTest(Test test){
         testRepository.delete(test);
     }
+
+    public Result checkTest(TestBlank testBlank){
+
+        System.out.println(testBlank);
+
+        double score = resultService.calculateScoreForTest(testBlank);
+
+        Result result = new Result();
+        result.setId(UUID.randomUUID());
+        result.setScore(score);
+        result.setTest(testRepository.findById(testBlank.getId()).get());
+        result.setParticipant(testBlank.getParticipant());
+
+        resultService.save(result);
+
+        return result;
+    }
+
 }

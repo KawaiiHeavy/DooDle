@@ -1,0 +1,8 @@
+<p>Введите текст ответа</p>
+<mat-form-field>
+    <input matInput type="text" placeholder="Текст ответа" [(ngModel)]="answer.answerText">
+</mat-form-field>
+<br>
+<p>Является данный ответ правильным?</p>
+<mat-checkbox class="example-margin" [(ngModel)]="answer.correct" (ngModelChange)="onChange()"></mat-checkbox>
+

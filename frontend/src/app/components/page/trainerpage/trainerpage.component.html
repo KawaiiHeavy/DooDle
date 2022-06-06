@@ -1,1 +1,4 @@
-<p>trainerpage works!</p>
+<button mat-raised-button color="primary" (click)="changeTestCreatingVisibility()" [disabled]="this.creatingTestShow">Создать тест</button>
+<div *ngIf="this.creatingTestShow">
+    <app-test-creating [creator]="this.trainer"></app-test-creating>
+</div>

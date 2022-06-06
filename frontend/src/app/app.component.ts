@@ -14,24 +14,35 @@ export class AppComponent implements OnInit{
   constructor(private tokenStorage: TokenStorageService) { }
 
   ngOnInit() {
-    if (this.tokenStorage.getToken()) {
-      this.roles = this.tokenStorage.getAuthorities().reverse();
-      this.roles.every(role => {
-        if (role === 'ADMIN') {
-          this.authority = 'admin';
-          return false;
-        } else if (role === 'TRAINER') {
-          this.authority = 'trainer';
-          return false;
-        } else if (role === 'STUDENT') {
-          this.authority = 'student';
-          return false;
-        } else {
-          this.authority = 'user';
-          return false;
-        }
-        return true;
-      });
+
+    const potentialToken = localStorage.getItem('auth-token');
+    if (potentialToken !== null) {
+      this.tokenStorage.saveToken(potentialToken);
     }
+
+    if (this.tokenStorage.getToken()) {
+      this.roles = this.tokenStorage.getAuthorities();
+
+      if (this.roles.includes("ADMIN")) {
+        this.authority = "admin";
+        return false;
+      }
+
+      if (this.roles.includes("TRAINER")) {
+        this.authority = "trainer";
+        return false;
+      }
+
+      if (this.roles.includes("STUDENT")) {
+        this.authority = "student";
+        return false;
+      }
+
+      this.authority = "user";
+      return false;
+
+    }
+
+    return true;
   }
 }

@@ -1,16 +1,14 @@
 package com.doodle.controllers;
 
-import com.doodle.models.Question;
-import com.doodle.models.ERole;
-import com.doodle.models.Role;
-import com.doodle.models.Test;
-import com.doodle.models.TestInput;
+import com.doodle.models.*;
 import com.doodle.services.TestService;
 import com.doodle.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("api/tests")
@@ -41,5 +39,20 @@ public class TestController {
     @PostMapping("/createQuestions")
     public Set<Question> createQuestions(@RequestBody Set<Question> questions){
         return testService.createQuestions(questions);
+    }
+
+    @PostMapping("/check")
+    public Result checkTest(@RequestBody TestBlank testBlank){
+        return testService.checkTest(testBlank);
+    }
+
+    @GetMapping("/getTests")
+    public Set<Test> getTests(){
+        return testService.getTests();
+    }
+
+    @PostMapping("/saveTest")
+    public Test saveTest(@RequestBody Test test){
+        return this.testService.saveTest(test);
     }
 }

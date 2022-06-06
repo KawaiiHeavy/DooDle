@@ -15,6 +15,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity(name = "Tests")
 @Table(name="test", schema = "public")
+@ToString
 public class Test {
 
     @Id
@@ -29,7 +30,7 @@ public class Test {
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private User creator;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "members_tests",
             joinColumns = { @JoinColumn(name = "members") },
@@ -37,10 +38,10 @@ public class Test {
     )
     private Set<User> members;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Question> questions = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Result> results = new HashSet<>();
 
     private Double maxBall;

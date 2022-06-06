@@ -1,8 +1,7 @@
 package com.doodle.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -35,10 +34,11 @@ public class User {
 
     private String phone;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "members")
     private List<Test> ownedTests;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -59,7 +59,6 @@ public class User {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", phone='" + phone + '\'' +
-                ", ownedTests=" + ownedTests +
                 ", roles=" + roles +
                 '}';
     }

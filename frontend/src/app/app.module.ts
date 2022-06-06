@@ -1,6 +1,15 @@
+import { CommonModule } from '@angular/common';  
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { MatDividerModule } from '@angular/material/divider';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatButtonModule } from '@angular/material/button';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +25,12 @@ import { StudentpageComponent } from './components/page/studentpage/studentpage.
 import { FormsModule } from '@angular/forms';
 
 import { httpInterceptorProviders } from './auth/auth-interceptor';
+import { TestingComponent } from './components/testing/testing.component';
+import { TestPassingComponent } from './components/test-passing/test-passing.component';
+import { TestCreatingComponent } from './components/test-creating/test-creating.component';
+import { QuestionCreatingComponent } from './components/question-creating/question-creating.component';
+import { AnswerCreatingComponent } from './components/answer-creating/answer-creating.component';
+import { FilterPipe } from './components/testing/filter.pipe';
 
 
 @NgModule({
@@ -30,12 +45,26 @@ import { httpInterceptorProviders } from './auth/auth-interceptor';
     AdminpageComponent,
     TrainerpageComponent,
     StudentpageComponent,
+    TestingComponent,
+    TestPassingComponent,
+    TestCreatingComponent,
+    QuestionCreatingComponent,
+    AnswerCreatingComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    CommonModule,
+    HttpClientModule,
+    MatSliderModule,
+    MatCardModule,
+    MatInputModule,
+    MatDividerModule,
+    NoopAnimationsModule,
+    MatCheckboxModule,
+    MatButtonModule
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent],
