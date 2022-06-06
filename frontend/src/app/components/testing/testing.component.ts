@@ -32,9 +32,7 @@ export class TestingComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getUserByNickname(this.tokenStorageService.getNickname()).subscribe(data => this.user = data);
     this.userService.getUserByNickname(this.tokenStorageService.getNickname());
-    console.log(this.user);
     this.getTests();
-    console.log(this.tests);
   }
 
   getUser(){
@@ -42,7 +40,11 @@ export class TestingComponent implements OnInit {
   }
 
   getTests(){
-    this.testService.getTests().subscribe(data => this.tests = data);
+    this.testService.getTests().subscribe(data => {
+      this.tests = data;
+      console.log(this.tests);
+    });
+    
     
   }
 
@@ -58,5 +60,9 @@ export class TestingComponent implements OnInit {
     test.questions = this.preparedDataService.getPreparedQuestions2();
     console.log(`User with ${user.id} completing the test with ${test.id}`);
     this.router.navigateByUrl('testing/testPassing', {state: {test: test, user: user}});
+  }
+
+  getTestDetailInfo(test: Test){
+    this.router.navigateByUrl('testing/getDetailInfo', {state: test});
   }
 }

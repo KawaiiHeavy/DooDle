@@ -8,6 +8,7 @@ import { StudentpageComponent } from "./components/page/studentpage/studentpage.
 import { TrainerpageComponent } from "./components/page/trainerpage/trainerpage.component";
 import { UserpageComponent } from "./components/page/userpage/userpage.component";
 import { RegisterComponent } from "./components/register/register.component";
+import { TestDetailInfoComponent } from "./components/test-detail-info/test-detail-info.component";
 import { TestPassingComponent } from "./components/test-passing/test-passing.component";
 import { TestingComponent } from "./components/testing/testing.component";
 
@@ -47,6 +48,10 @@ const routes: Routes = [
     {
         path: 'testing/testPassing',
         component: TestPassingComponent
+    },
+    {
+        path: 'testing/getDetailInfo',
+        component: TestDetailInfoComponent
     },
     {
         path: '',
