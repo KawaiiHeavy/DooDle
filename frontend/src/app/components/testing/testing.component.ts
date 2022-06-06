@@ -7,6 +7,7 @@ import { PreparedDataService } from 'src/app/services/preparedData.service';
 import { TestService } from 'src/app/services/test.service';
 import { UserService } from 'src/app/services/user.service';
 
+
 @Component({
   selector: 'app-testing',
   templateUrl: './testing.component.html',
@@ -18,6 +19,8 @@ export class TestingComponent implements OnInit {
   user: User;
 
   tests: Test[];
+
+  searchTitle: string = "";
 
   constructor(private userService: UserService, 
     private testService: TestService, 

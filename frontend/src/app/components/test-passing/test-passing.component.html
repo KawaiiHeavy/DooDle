@@ -1,20 +1,20 @@
 <p>Название теста: {{ this.test.title }}</p>
 <p>Создатель: {{ this.test.creator.nickname }}</p>
-<p>Время: {{ this.getTime() }}</p>
+<p><strong>Время:</strong> {{ this.getTime() }}</p>
 
-<ul>
-    <li *ngFor="let questionBlank of this.questionBlanks">
-        Вопрос: {{questionBlank.questionText}},
-        <ul>
-            <div *ngFor="let userAnswer of questionBlank.userAnswers">
-                <input type="checkbox" [(ngModel)]="userAnswer.correct"/>
-                {{ userAnswer.answerText }}
-            </div>
-        </ul>
-    </li>
-</ul>
 
-<button (click)="checkTest()" [disabled]="this.getTime() == 0">Отправить на проверку</button>
+<div *ngFor="let questionBlank of this.questionBlanks">
+    <strong>Вопрос:</strong> {{questionBlank.questionText}},
+    <ul>
+        <div *ngFor="let userAnswer of questionBlank.userAnswers">
+            <input type="checkbox" [(ngModel)]="userAnswer.correct"/>
+            {{ userAnswer.answerText }}
+        </div>
+    </ul>
+</div>
+
+
+<button mat-raised-button color="primary" (click)="checkTest()" [disabled]="this.getTime() == 0">Отправить на проверку</button>
 <div *ngIf="this.result">
     ID результата: {{ this.result.id }}<br>
     Результат: {{ this.result.score }}

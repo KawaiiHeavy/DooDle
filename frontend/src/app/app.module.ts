@@ -30,6 +30,7 @@ import { TestPassingComponent } from './components/test-passing/test-passing.com
 import { TestCreatingComponent } from './components/test-creating/test-creating.component';
 import { QuestionCreatingComponent } from './components/question-creating/question-creating.component';
 import { AnswerCreatingComponent } from './components/answer-creating/answer-creating.component';
+import { FilterPipe } from './components/testing/filter.pipe';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import { AnswerCreatingComponent } from './components/answer-creating/answer-cre
     TestCreatingComponent,
     QuestionCreatingComponent,
     AnswerCreatingComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,

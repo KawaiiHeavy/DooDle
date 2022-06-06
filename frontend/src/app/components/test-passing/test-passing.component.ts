@@ -25,7 +25,7 @@ export class TestPassingComponent implements OnInit {
   timerSubscription: Subscription; 
 
   constructor(private router: Router, 
-    private activatedRoute:ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private testService: TestService,
     private timerService: UtilsTimerService) { 
     
@@ -50,10 +50,10 @@ export class TestPassingComponent implements OnInit {
     this.timerService.setTime(this.test.seconds);
     this.timerService.startTimer();
 
-    this.timerSubscription = timer(0, this.timerService.getTime() * 1000).pipe( 
-      map(() => { 
+    this.timerSubscription = timer(this.timerService.getTime() * 1000).pipe( 
+      map(() => {
         this.checkTest();
-      }) 
+      })
     ).subscribe(); 
   }
 

@@ -1,12 +1,15 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6">
-      <ul>
-        <li *ngFor="let test of this.tests">
-            Название: {{test.title}}, Создатель: {{test.creator.nickname}}, id теста: {{ test.id }}
-            <a class="nav-link"><button (click)="startTest(test, user)">>Пройти тест</button></a>
-        </li>
-      </ul>
+      <input type="search" [(ngModel)]="searchTitle">
+      <div class="margin-top-10" *ngFor="let test of (this.tests | filter:searchTitle) as Test">
+        <p>Название: {{test.title}}</p>
+        <p>Создатель: {{test.creator.nickname}}</p>
+        <p>id теста: {{ test.id }}</p>
+        <a class="nav-link"><button mat-raised-button color="primary" (click)="startTest(test, user)">Пройти тест</button></a>
+        <p></p>
+        <mat-divider></mat-divider>
+      </div>
     </div>
     <div class="col-md-6">
       

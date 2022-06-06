@@ -41,9 +41,6 @@ public class ResultService {
             if (answers.get(i).getCorrect() == userAnswers.get(i).getCorrect()){
                 score += (scoreWeight / answers.size());
             }
-            else {
-                score -= (scoreWeight / answers.size());
-            }
         }
         return score;
     }
