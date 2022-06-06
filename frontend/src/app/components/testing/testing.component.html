@@ -2,8 +2,9 @@
   <div class="row">
     <div class="col-md-6">
       <input type="search" [(ngModel)]="searchTitle">
+      <p></p>
       <div class="margin-top-10" *ngFor="let test of (this.tests | filter:searchTitle) as Test">
-        <p>Название: {{test.title}}</p>
+        <p>Название: {{test.title}}       <button mat-mini-fab color="primary" (click)="getTestDetailInfo(this.test)"><mat-icon>menu</mat-icon></button></p>
         <p>Создатель: {{test.creator.nickname}}</p>
         <p>id теста: {{ test.id }}</p>
         <a class="nav-link"><button mat-raised-button color="primary" (click)="startTest(test, user)">Пройти тест</button></a>

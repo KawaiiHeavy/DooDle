@@ -9,6 +9,9 @@ import { MatDividerModule } from '@angular/material/divider';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -31,6 +34,7 @@ import { TestCreatingComponent } from './components/test-creating/test-creating.
 import { QuestionCreatingComponent } from './components/question-creating/question-creating.component';
 import { AnswerCreatingComponent } from './components/answer-creating/answer-creating.component';
 import { FilterPipe } from './components/testing/filter.pipe';
+import { TestDetailInfoComponent } from './components/test-detail-info/test-detail-info.component';
 
 
 @NgModule({
@@ -50,7 +54,8 @@ import { FilterPipe } from './components/testing/filter.pipe';
     TestCreatingComponent,
     QuestionCreatingComponent,
     AnswerCreatingComponent,
-    FilterPipe
+    FilterPipe,
+    TestDetailInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +69,11 @@ import { FilterPipe } from './components/testing/filter.pipe';
     MatDividerModule,
     NoopAnimationsModule,
     MatCheckboxModule,
-    MatButtonModule
+    MatButtonModule,
+    MatIconModule,
+    MatTableModule,
+    MatPaginatorModule,
+    
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent],
