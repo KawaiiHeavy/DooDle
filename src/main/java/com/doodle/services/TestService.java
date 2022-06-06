@@ -96,15 +96,17 @@ public class TestService {
         testRepository.delete(test);
     }
 
-    public Result checkTest(List<QuestionBlank> questionBlankList){
+    public Result checkTest(TestBlank testBlank){
 
-        System.out.println(questionBlankList);
+        System.out.println(testBlank);
 
-        double score = resultService.calculateScoreForTest(questionBlankList);
+        double score = resultService.calculateScoreForTest(testBlank);
 
         Result result = new Result();
         result.setId(UUID.randomUUID());
         result.setScore(score);
+        result.setTest(testRepository.findById(testBlank.getId()).get());
+        result.setParticipant(testBlank.getParticipant());
 
         resultService.save(result);
 

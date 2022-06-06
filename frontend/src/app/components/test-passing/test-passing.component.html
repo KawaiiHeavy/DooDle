@@ -1,9 +1,6 @@
-<p>
-    Название теста: {{ this.test.title }}
-    Создатель: {{ this.test.creator.nickname }}
-    Время: {{ this.test.seconds }}
-    Вопросы: {{ this.test.questions }}
-</p>
+<p>Название теста: {{ this.test.title }}</p>
+<p>Создатель: {{ this.test.creator.nickname }}</p>
+<p>Время: {{ this.getTime() }}</p>
 
 <ul>
     <li *ngFor="let questionBlank of this.questionBlanks">
@@ -17,7 +14,7 @@
     </li>
 </ul>
 
-<button (click)="checkTest()">Отправить на проверку</button>
+<button (click)="checkTest()" [disabled]="this.getTime() == 0">Отправить на проверку</button>
 <div *ngIf="this.result">
     ID результата: {{ this.result.id }}<br>
     Результат: {{ this.result.score }}

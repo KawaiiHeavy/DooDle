@@ -3,6 +3,7 @@ import { Injectable, OnInit } from "@angular/core";
 import { QuestionBlank } from "../models/questionBlank.model";
 import { Result } from "../models/result.model";
 import { Test } from "../models/test.model";
+import { TestBlank } from "../models/testBlank.model";
 
 @Injectable({
     providedIn: "root",
@@ -17,8 +18,8 @@ export class TestService implements OnInit {
         return this.http.get<Test[]>(`/api/tests/getTests`);
     }
 
-    checkTest(test: QuestionBlank[]){
-        return this.http.post<Result>(`/api/tests/check`, test);
+    checkTest(testBlank: TestBlank){
+        return this.http.post<Result>(`/api/tests/check`, testBlank);
     }
 
     saveTest(test: Test){

@@ -42,8 +42,8 @@ public class TestController {
     }
 
     @PostMapping("/check")
-    public Result checkTest(@RequestBody List<QuestionBlank> questionBlankList){
-        return testService.checkTest(questionBlankList);
+    public Result checkTest(@RequestBody TestBlank testBlank){
+        return testService.checkTest(testBlank);
     }
 
     @GetMapping("/getTests")

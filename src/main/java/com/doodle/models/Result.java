@@ -24,7 +24,7 @@ public class Result {
     @JoinColumn(nullable = false)
     private Test test;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", columnDefinition="uuid not null")
     private User participant;
 

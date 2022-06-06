@@ -3,6 +3,7 @@ package com.doodle.services;
 import com.doodle.models.Answer;
 import com.doodle.models.QuestionBlank;
 import com.doodle.models.Result;
+import com.doodle.models.TestBlank;
 import com.doodle.repostitories.ResultRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +18,10 @@ public class ResultService {
     @Autowired
     private ResultRepository resultRepository;
 
-    public double calculateScoreForTest(List<QuestionBlank> questionBlankList){
+    public double calculateScoreForTest(TestBlank testBlank){
         double score = 0;
 
-        for (QuestionBlank questionBlank: questionBlankList){
+        for (QuestionBlank questionBlank: testBlank.getQuestionBlanks()){
             List<Answer> answers = questionBlank.getAnswers();
             Integer countOfRightAnswers = getCountOfRightAnswers(answers);
             List<Answer> userAnswers = questionBlank.getUserAnswers();
