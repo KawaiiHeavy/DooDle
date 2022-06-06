@@ -50,7 +50,9 @@ public class Test {
 
     public void addResult(Result result){
         this.results.add(result);
-        result.setTest(this);
+        if (result.getTest() != this) {
+            result.setTest(this);
+        }
     }
 
     public void removeResult(Result result){

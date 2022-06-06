@@ -20,7 +20,7 @@ public class Result {
     private UUID id;
 
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
     @JoinColumn(nullable = false)
     private Test test;
 
@@ -34,5 +34,10 @@ public class Result {
     public Result(UUID id, Double score){
         this.id = id;
         this.score = score;
+    }
+
+    public void saveTest(Test test){
+        test.addResult(this);
+        this.test = test;
     }
 }

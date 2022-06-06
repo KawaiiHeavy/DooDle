@@ -107,12 +107,10 @@ public class TestService {
         Result result = new Result();
         result.setId(UUID.randomUUID());
         result.setScore(score);
-        result.setTest(testRepository.findById(testBlank.getId()).get());
+        Test test = testRepository.findById(testBlank.getId()).get();
+        result.saveTest(test);
         result.setParticipant(testBlank.getParticipant());
-
-        testRepository.findById(testBlank.getId()).get().addResult(result);
-
-        resultService.save(result);
+        saveTest(test);
 
         return result;
     }
