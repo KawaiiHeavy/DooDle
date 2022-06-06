@@ -9,7 +9,12 @@ export class TrainerpageComponent implements OnInit {
 
   constructor() { }
 
+  creatingTestShow : boolean = false;
+
   ngOnInit(): void {
   }
 
+  changeTestCreatingVisibility(){
+    this.creatingTestShow = !this.creatingTestShow;
+  }
 }

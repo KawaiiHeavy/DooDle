@@ -43,24 +43,6 @@ export class TestPassingComponent implements OnInit {
     }
   }
 
-  /*onChange(currentQuestion: Question, currentAnswer: Answer, isChecked: Event) {
-    
-    console.log("Here");
-    // Переставление правильности ответа непосредственно у пользователя
-
-    for (let i = 0; i < this.questionBlanks.length; i++){
-      if (currentQuestion.id === this.questionBlanks[i].id){
-        for (let j = 0; j < this.questionBlanks[i].userAnswers.length; j++){
-          if (currentAnswer.id === this.questionBlanks[i].userAnswers[j].id){
-            console.log(`Вопрос с текстом ${this.questionBlanks[i].questionText}, ответ ${this.questionBlanks[i].userAnswers[j].answerText} пользователь ранее отметил как ${this.questionBlanks[i].userAnswers[j].correct}`);
-            this.questionBlanks[i].userAnswers[j].correct = event.checked;
-            console.log(`Теперь же ${this.questionBlanks[i].userAnswers[j].answerText}`);
-          }
-        }
-      }
-    }
-  }
-  */
   
   onChange(){
     console.log("Something happened");

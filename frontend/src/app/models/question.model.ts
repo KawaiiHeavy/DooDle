@@ -5,4 +5,6 @@ export class Question{
     questionText: string;
     scoreWeight: number;
     answers: Answer[];
+
+    constructor(){};
 }

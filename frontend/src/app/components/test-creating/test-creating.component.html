@@ -1,0 +1,18 @@
+<p>Выберите количество вопросов</p>
+<mat-slider
+    [max]="maxValue"
+    [min]="minValue"
+    [step]="step"
+    [(value)]="countOfQuestions"
+    (change)="onChange()"
+    class="example-margin"
+    aria-labelledby="example-name-label">
+</mat-slider>
+<span>{{ this.countOfQuestions }}</span>
+<div *ngFor="let question of questions">
+    <app-question-creating></app-question-creating>
+    <mat-divider></mat-divider>
+</div>
+<div>
+    <button mat-raised-button color="primary" (click)="saveTest()">Сохранить тест</button>
+</div>

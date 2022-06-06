@@ -5,4 +5,6 @@ export class Answer{
     question: Question;
     answerText: string;
     correct: boolean;
+
+    constructor(){};
 }

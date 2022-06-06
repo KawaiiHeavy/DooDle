@@ -1,0 +1,20 @@
+<mat-divider class="question-divider"></mat-divider>
+<p>Введите текст вопроса</p>
+<mat-form-field>
+    <input matInput type="text" placeholder="Текст вопроса" [(ngModel)]="questionText">
+</mat-form-field>
+<p>Выберите количество ответов</p>
+<mat-slider
+    [max]="maxValue"
+    [min]="minValue"
+    [step]="1"
+    [(value)]="countOfAnswers"
+    (change)="onChange()"
+    class="example-margin"
+    color="primary">
+</mat-slider>
+<span>{{ this.countOfAnswers }}</span>
+<div *ngFor="let answer of answers">
+    <app-answer-creating></app-answer-creating>
+    <mat-divider></mat-divider>
+</div>

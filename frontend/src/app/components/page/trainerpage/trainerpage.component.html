@@ -1,0 +1,4 @@
+<button mat-raised-button color="primary" (click)="changeTestCreatingVisibility()">Создать тест</button>
+<div *ngIf="this.creatingTestShow">
+    <app-test-creating></app-test-creating>
+</div>

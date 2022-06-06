@@ -2,6 +2,13 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { MatDividerModule } from '@angular/material/divider';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatButtonModule } from '@angular/material/button';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -20,6 +27,9 @@ import { FormsModule } from '@angular/forms';
 import { httpInterceptorProviders } from './auth/auth-interceptor';
 import { TestingComponent } from './components/testing/testing.component';
 import { TestPassingComponent } from './components/test-passing/test-passing.component';
+import { TestCreatingComponent } from './components/test-creating/test-creating.component';
+import { QuestionCreatingComponent } from './components/question-creating/question-creating.component';
+import { AnswerCreatingComponent } from './components/answer-creating/answer-creating.component';
 
 
 @NgModule({
@@ -36,13 +46,23 @@ import { TestPassingComponent } from './components/test-passing/test-passing.com
     StudentpageComponent,
     TestingComponent,
     TestPassingComponent,
+    TestCreatingComponent,
+    QuestionCreatingComponent,
+    AnswerCreatingComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     CommonModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSliderModule,
+    MatCardModule,
+    MatInputModule,
+    MatDividerModule,
+    NoopAnimationsModule,
+    MatCheckboxModule,
+    MatButtonModule
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent],
