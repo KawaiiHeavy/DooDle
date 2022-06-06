@@ -37,12 +37,28 @@ public class ResultService {
 
     public double calculateScoreForQuestion(List<Answer> answers, List<Answer> userAnswers, double scoreWeight){
         double score = 0;
+        int correctAns = 0;
+        int totalTrueAns = 0;
+        int incorrectAns = 0;
         for (int i = 0; i < answers.size(); i++){
-            if (answers.get(i).getCorrect() == userAnswers.get(i).getCorrect()){
-                score += (scoreWeight / answers.size());
+            if (answers.get(i).getCorrect() && userAnswers.get(i).getCorrect()){
+               // score += (scoreWeight / answers.size());
+                correctAns += 1;
+                totalTrueAns += 1;
+            }
+            else if (answers.get(i).getCorrect() && !userAnswers.get(i).getCorrect()){
+                totalTrueAns += 1;
+                incorrectAns += 1;
+            }
+            else if (!answers.get(i).getCorrect() && userAnswers.get(i).getCorrect()){
+                incorrectAns += 1;
             }
         }
-        return score;
+        score = correctAns * (scoreWeight / totalTrueAns) - incorrectAns * (scoreWeight / (answers.size() - totalTrueAns));
+        if(score > 0) {
+            return score;
+        }
+        else return 0;
     }
 
     public Integer getCountOfRightAnswers(List<Answer> answers){
