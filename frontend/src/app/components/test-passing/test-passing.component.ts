@@ -57,10 +57,6 @@ export class TestPassingComponent implements OnInit {
     ).subscribe(); 
   }
 
-  onChange(){
-    this.checkTest();
-  }
-
   checkTest(){
     let testBlank : TestBlank = new TestBlank(this.test, this.user, this.questionBlanks);
 

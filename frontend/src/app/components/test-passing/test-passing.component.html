@@ -7,7 +7,7 @@
         Вопрос: {{questionBlank.questionText}},
         <ul>
             <div *ngFor="let userAnswer of questionBlank.userAnswers">
-                <input type="checkbox" [(ngModel)]="userAnswer.correct" (ngModelChange)="onChange()"/>
+                <input type="checkbox" [(ngModel)]="userAnswer.correct"/>
                 {{ userAnswer.answerText }}
             </div>
         </ul>
