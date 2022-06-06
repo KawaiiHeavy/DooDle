@@ -27,6 +27,8 @@ export class TestCreatingComponent implements OnInit {
 
   questions: Question[] = [];
 
+  isSaved: boolean = false;
+
   ngOnInit(): void {
   }
 
@@ -53,6 +55,7 @@ export class TestCreatingComponent implements OnInit {
   }
 
   saveTest(){
+    this.isSaved = true;
     let test: Test = new Test(
       uuidv4(),
       this.title,

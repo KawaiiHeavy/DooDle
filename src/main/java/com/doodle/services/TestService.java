@@ -11,9 +11,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 @Service
 @AllArgsConstructor
@@ -45,6 +42,11 @@ public class TestService {
     }
 
     public Test saveTest(Test test){
+        double maxBall = 0;
+        for (Question question: test.getQuestions()){
+            maxBall += question.getScoreWeight();
+        }
+        test.setMaxBall(maxBall);
         return this.testRepository.save(test);
     }
 
@@ -107,6 +109,8 @@ public class TestService {
         result.setScore(score);
         result.setTest(testRepository.findById(testBlank.getId()).get());
         result.setParticipant(testBlank.getParticipant());
+
+        testRepository.findById(testBlank.getId()).get().addResult(result);
 
         resultService.save(result);
 
