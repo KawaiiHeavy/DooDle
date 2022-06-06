@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Answer } from 'src/app/models/answer.model';
+import { Question } from 'src/app/models/question.model';
 
 @Component({
   selector: 'app-question-creating',
@@ -8,12 +9,12 @@ import { Answer } from 'src/app/models/answer.model';
 })
 export class QuestionCreatingComponent implements OnInit {
 
+  @Input()
+  question: Question;
+
   minValue = 2;
   maxValue = 6;
   countOfAnswers: number;
-  questionText: string;
-  scoreForQuestion: number;
-  answers: Answer[] = []
 
   constructor() { }
 
@@ -21,9 +22,11 @@ export class QuestionCreatingComponent implements OnInit {
   }
 
   onChange(){
-    this.answers = [];
+    this.question.answers = [];
     for (let i = 0; i < this.countOfAnswers; i++){
-      this.answers.push(new Answer());
+      this.question.answers.push(new Answer(
+        "", false
+      ));
     }
   }
 

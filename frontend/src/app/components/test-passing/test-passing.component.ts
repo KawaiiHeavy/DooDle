@@ -30,7 +30,8 @@ export class TestPassingComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.test = history.state;
+    this.test = history.state[0];
+    this.user = history.state[1];
     console.log(this.test);
     for (let i = 0; i < this.test.questions.length; i++){
       console.log("Something");

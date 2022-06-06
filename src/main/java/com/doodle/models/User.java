@@ -1,10 +1,7 @@
 package com.doodle.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -37,6 +34,7 @@ public class User {
 
     private String phone;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "members")
     private List<Test> ownedTests;
 

@@ -44,18 +44,21 @@ public class TestService {
         return testRepository.save(test);
     }
 
+    public Test saveTest(Test test){
+        return this.testRepository.save(test);
+    }
+
     public Set<Test> getTests(){
-        Set<Test> rawData = StreamSupport.stream(testRepository.findAll().spliterator(), false)
-                .collect(Collectors.toSet());
-        Stream<Test> stream = rawData.stream();
-        rawData.forEach(test -> {
-            test.setMembers(null);
-            test.setQuestions(null);
-//            test.setCreator(null);
-            test.setResults(null);
-        });
-        System.out.println(rawData);
-        return rawData;
+//        Set<Test> rawData = StreamSupport.stream(testRepository.findAll().spliterator(), false)
+//                .collect(Collectors.toSet());
+//        Stream<Test> stream = rawData.stream();
+//        rawData.forEach(test -> {
+//            test.setMembers(null);
+//            test.setQuestions(null);
+//            test.setResults(null);
+//        });
+//        System.out.println(rawData);
+        return new HashSet<Test>((Collection<? extends Test>) testRepository.findAll());
     }
 
     public Test createTest(Test test){

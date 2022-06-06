@@ -1,3 +1,19 @@
+<p>Впишите название теста</p>
+<mat-form-field>
+    <input matInput type="text" placeholder="Название теста" [(ngModel)]="this.title">
+</mat-form-field>
+
+<p>Выберите ограничение по времени (в секундах)</p>
+<mat-slider
+    [max]="3600"
+    [min]="10"
+    [step]="1"
+    [(value)]="seconds"
+    class="example-margin"
+    aria-labelledby="example-name-label">
+</mat-slider>
+<span>{{ this.seconds }}</span>
+
 <p>Выберите количество вопросов</p>
 <mat-slider
     [max]="maxValue"
@@ -10,7 +26,7 @@
 </mat-slider>
 <span>{{ this.countOfQuestions }}</span>
 <div *ngFor="let question of questions">
-    <app-question-creating></app-question-creating>
+    <app-question-creating [question]="question"></app-question-creating>
     <mat-divider></mat-divider>
 </div>
 <div>

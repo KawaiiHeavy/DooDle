@@ -1,8 +1,21 @@
 <mat-divider class="question-divider"></mat-divider>
+
 <p>Введите текст вопроса</p>
 <mat-form-field>
-    <input matInput type="text" placeholder="Текст вопроса" [(ngModel)]="questionText">
+    <input matInput type="text" placeholder="Текст вопроса" [(ngModel)]="this.question.questionText">
 </mat-form-field>
+
+<p>Укажите максимальное количество баллов за данный вопрос</p>
+<mat-slider
+    [max]="100"
+    [min]="1"
+    [step]="1"
+    [(value)]="this.question.scoreWeight"
+    class="example-margin"
+    color="primary">
+</mat-slider>
+<span>{{ this.question.scoreWeight }}</span>
+
 <p>Выберите количество ответов</p>
 <mat-slider
     [max]="maxValue"
@@ -14,7 +27,8 @@
     color="primary">
 </mat-slider>
 <span>{{ this.countOfAnswers }}</span>
-<div *ngFor="let answer of answers">
-    <app-answer-creating></app-answer-creating>
-    <mat-divider></mat-divider>
+
+<div *ngFor="let answer of this.question.answers">
+    <app-answer-creating [answer]="answer"></app-answer-creating>
+    <mat-divider class="answer-divider"></mat-divider>
 </div>

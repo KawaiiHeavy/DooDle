@@ -6,5 +6,8 @@ export class Answer{
     answerText: string;
     correct: boolean;
 
-    constructor(){};
+    constructor(answerText: string, correct: boolean){
+        this.answerText = answerText;
+        this.correct = correct;
+    };
 }

@@ -6,5 +6,8 @@ export class Question{
     scoreWeight: number;
     answers: Answer[];
 
-    constructor(){};
+    constructor(questionText: string, scoreWeight: number){
+        this.questionText = questionText;
+        this.scoreWeight = scoreWeight;
+    };
 }

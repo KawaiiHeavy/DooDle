@@ -50,4 +50,9 @@ public class TestController {
     public Set<Test> getTests(){
         return testService.getTests();
     }
+
+    @PostMapping("/saveTest")
+    public Test saveTest(@RequestBody Test test){
+        return this.testService.saveTest(test);
+    }
 }

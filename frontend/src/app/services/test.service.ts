@@ -18,6 +18,10 @@ export class TestService implements OnInit {
     }
 
     checkTest(test: QuestionBlank[]){
-        return this.http.post<Result>(`/api/tests/check`, test)
+        return this.http.post<Result>(`/api/tests/check`, test);
+    }
+
+    saveTest(test: Test){
+        return this.http.post<Test>(`/api/tests/saveTest`, test);
     }
 }

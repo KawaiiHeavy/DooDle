@@ -31,6 +31,7 @@ export class TestingComponent implements OnInit {
     this.userService.getUserByNickname(this.tokenStorageService.getNickname());
     console.log(this.user);
     this.getTests();
+    console.log(this.tests);
   }
 
   getUser(){
@@ -39,6 +40,7 @@ export class TestingComponent implements OnInit {
 
   getTests(){
     this.testService.getTests().subscribe(data => this.tests = data);
+    
   }
 
   getUsers(): void {
@@ -49,8 +51,9 @@ export class TestingComponent implements OnInit {
     //console.log(this.user.id);
     //console.log(test.id);
 
+    console.log(test);
     test.questions = this.preparedDataService.getPreparedQuestions2();
     console.log(`User with ${user.id} completing the test with ${test.id}`);
-    this.router.navigateByUrl('testing/testPassing', {state: test});
+    this.router.navigateByUrl('testing/testPassing', {state: {test, user}});
   }
 }

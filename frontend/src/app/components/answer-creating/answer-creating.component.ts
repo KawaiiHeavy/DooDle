@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Answer } from 'src/app/models/answer.model';
 
 @Component({
   selector: 'app-answer-creating',
@@ -7,8 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AnswerCreatingComponent implements OnInit {
 
-  answerText: string;
-  correct: boolean = false;
+  @Input()
+  answer: Answer;
 
   constructor() { }
 
