@@ -6,12 +6,14 @@ export class QuestionBlank{
     scoreWeight: number;
     answers: Answer[];
     userAnswers: Answer[];
+    imageUrl: string;
 
-    constructor(id: string, questiontText: string, scoreWeight: number, answers: Answer[], userAnswers: Answer[]){
+    constructor(id: string, questiontText: string, scoreWeight: number, answers: Answer[], userAnswers: Answer[], imageUrl: string){
         this.id = id;
         this.questionText = questiontText;
         this.scoreWeight = scoreWeight;
         this.answers = answers;
         this.userAnswers = userAnswers;
+        this.imageUrl = imageUrl;
     }
 }

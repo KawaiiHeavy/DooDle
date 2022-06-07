@@ -44,6 +44,9 @@ export class TestDetailInfoComponent implements OnInit {
     
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+
+    console.log("Sorting: " + this.sort);
+    console.log("Pagination: " + this.paginator);
   }
 
   applyFilter(filterValue: string) {

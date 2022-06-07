@@ -44,9 +44,17 @@ export class TestPassingComponent implements OnInit {
         this.test.questions[i].id,
         this.test.questions[i].questionText,
         this.test.questions[i].scoreWeight,
-        this.test.questions[i].possibleAnswers,
-        this.test.questions[i].possibleAnswers));
+        JSON.parse(JSON.stringify(this.test.questions[i].possibleAnswers)),
+        JSON.parse(JSON.stringify(this.test.questions[i].possibleAnswers)),
+        this.test.questions[i].imageUrl
+        ));
     }
+
+    this.questionBlanks.forEach(questionBlank => {
+      questionBlank.userAnswers.forEach(answer => {
+        answer.correct = false;
+      })
+    })
 
     console.log(this.questionBlanks);
 

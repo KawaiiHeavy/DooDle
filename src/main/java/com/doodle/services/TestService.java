@@ -45,6 +45,9 @@ public class TestService {
         double maxBall = 0;
         for (Question question: test.getQuestions()){
             maxBall += question.getScoreWeight();
+            for (Answer answer: question.getPossibleAnswers()){
+                answer.setQuestion(question);
+            }
         }
         test.setMaxBall(maxBall);
         return this.testRepository.save(test);

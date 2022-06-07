@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { Test } from 'src/app/models/test.model';
 import { User } from 'src/app/models/user.model';
-import { PreparedDataService } from 'src/app/services/preparedData.service';
 import { TestService } from 'src/app/services/test.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -25,7 +24,6 @@ export class TestingComponent implements OnInit {
   constructor(private userService: UserService, 
     private testService: TestService, 
     private tokenStorageService: TokenStorageService,
-    private preparedDataService: PreparedDataService,
     private router: Router) { }
 
 

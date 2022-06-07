@@ -22,9 +22,9 @@ export class QuestionCreatingComponent implements OnInit {
   }
 
   onChange(){
-    this.question.answers = [];
+    this.question.possibleAnswers = [];
     for (let i = 0; i < this.countOfAnswers; i++){
-      this.question.answers.push(new Answer(
+      this.question.possibleAnswers.push(new Answer(
         "", false
       ));
     }

@@ -48,10 +48,8 @@ class DoodleCommandLineRunner implements CommandLineRunner{
 
         getTest1();
         getTest2();
+        getTest3();
 
-        System.out.println(getTest1());
-
-//        testService.deleteTest(test);
     }
 
     public void roleCreation(){
@@ -372,6 +370,107 @@ class DoodleCommandLineRunner implements CommandLineRunner{
         return question;
     }
 
+    // Лилечка
+    public Question getQuestion11(){
+        Question question = new Question();
+        question.setQuestionText("Кто это?");
+        question.setScoreWeight(10.0);
+        question.setId(UUID.randomUUID());
+        question.addAnswer(new Answer(UUID.randomUUID(),
+                "Алла Пугачева", false));
+        question.addAnswer(new Answer(UUID.randomUUID(),
+                "Владимир Путин", false));
+        question.addAnswer(new Answer(UUID.randomUUID(),
+                "Лилия Владимировна", true));
+        question.addAnswer(new Answer(UUID.randomUUID(),
+                "Людмила Владимировна", false));
+        question.setImageUrl("http://tk.ssau.ru/images/img/staff/academic/Loganova-300-!!.JPG");
+
+        questionService.save(question);
+        return question;
+    }
+
+    // Головастиков
+    public Question getQuestion12(){
+        Question question = new Question();
+        question.setQuestionText("Кто это?");
+        question.setScoreWeight(10.0);
+        question.setId(UUID.randomUUID());
+        question.addAnswer(new Answer(UUID.randomUUID(),
+                "Куприянов Александр Викторович", false));
+        question.addAnswer(new Answer(UUID.randomUUID(),
+                "Коломиец Эдуард Иванович", false));
+        question.addAnswer(new Answer(UUID.randomUUID(),
+                "Головастиков Никита Сергеевич", true));
+        question.addAnswer(new Answer(UUID.randomUUID(),
+                "Суханов Сергей Васильевич", false));
+        question.setImageUrl("https://cabinet.ssau.ru/storage/photos/photo-284846061-619dfedfb2a0b.jpg");
+
+        questionService.save(question);
+        return question;
+    }
+
+    // ОВГ
+    public Question getQuestion13(){
+        Question question = new Question();
+        question.setQuestionText("Кто это?");
+        question.setScoreWeight(10.0);
+        question.setId(UUID.randomUUID());
+        question.addAnswer(new Answer(UUID.randomUUID(),
+                "Горячкин Олег Валерьевич", true));
+        question.addAnswer(new Answer(UUID.randomUUID(),
+                "Калядин Владимир Петрович", false));
+        question.addAnswer(new Answer(UUID.randomUUID(),
+                "ОВГ", true));
+        question.addAnswer(new Answer(UUID.randomUUID(),
+                "КВП", false));
+
+        question.setImageUrl("https://www.psuti.ru/sites/default/files/field/image/goryachkin_o.v-1.jpg");
+        questionService.save(question);
+        return question;
+    }
+
+    // Храмов
+    public Question getQuestion14(){
+        Question question = new Question();
+        question.setQuestionText("Кто это");
+        question.setScoreWeight(10.0);
+        question.setId(UUID.randomUUID());
+        question.addAnswer(new Answer(UUID.randomUUID(),
+                "Филонин Олег Васильевич", false));
+        question.addAnswer(new Answer(UUID.randomUUID(),
+                "Храмов Александр Григорьевич", true));
+        question.addAnswer(new Answer(UUID.randomUUID(),
+                "Кузьмин Бяка Бякович", false));
+        question.addAnswer(new Answer(UUID.randomUUID(),
+                "Микенберг Михаил Аврамович", false));
+        question.setImageUrl("http://tk.ssau.ru/images/img/staff/academic/khramov.jpg");
+
+
+        questionService.save(question);
+        return question;
+    }
+
+    // Гайдель
+    public Question getQuestion15(){
+        Question question = new Question();
+        question.setQuestionText("Кто это");
+        question.setScoreWeight(10.0);
+        question.setId(UUID.randomUUID());
+        question.addAnswer(new Answer(UUID.randomUUID(),
+                "Шлакоблок", true));
+        question.addAnswer(new Answer(UUID.randomUUID(),
+                "Кириленко Михаил Сергеевич (КМС)", false));
+        question.addAnswer(new Answer(UUID.randomUUID(),
+                "Дегтярев Сергей Александрович", false));
+        question.addAnswer(new Answer(UUID.randomUUID(),
+                "Гайдель Андрей Викторович", true));
+        question.setImageUrl("https://do.ssau.ru/img/imageTeacher/6826фотоГайдельА.В..png");
+
+        questionService.save(question);
+        return question;
+    }
+
     public Test getTest1(){
 
         Set<User> members = userCreation(10);
@@ -436,6 +535,42 @@ class DoodleCommandLineRunner implements CommandLineRunner{
         test.addQuestion(getQuestion8());
         test.addQuestion(getQuestion9());
         test.addQuestion(getQuestion10());
+
+        test.setResults(resultsCreation(10, test, leader));
+
+        testService.saveTest(test);
+
+        return test;
+    }
+
+    public Test getTest3(){
+
+        Set<User> members = userCreation(10);
+        User leader = (User)members.toArray()[0];
+
+        double maxBall = 0;
+
+        maxBall += getQuestion11().getScoreWeight();
+        maxBall += getQuestion12().getScoreWeight();
+        maxBall += getQuestion13().getScoreWeight();
+        maxBall += getQuestion14().getScoreWeight();
+        maxBall += getQuestion15().getScoreWeight();
+
+        UUID id = UUID.randomUUID();
+
+        Test test = new Test();
+        test.setTitle("test3");
+        test.setId(id);
+        test.setMaxBall(maxBall);
+        test.setSeconds(300);
+        test.setMembers(members);
+        test.setCreator(leader);
+
+        test.addQuestion(getQuestion11());
+        test.addQuestion(getQuestion12());
+        test.addQuestion(getQuestion13());
+        test.addQuestion(getQuestion14());
+        test.addQuestion(getQuestion15());
 
         test.setResults(resultsCreation(10, test, leader));
 

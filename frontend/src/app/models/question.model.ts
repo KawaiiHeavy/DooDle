@@ -5,6 +5,7 @@ export class Question{
     questionText: string;
     scoreWeight: number;
     possibleAnswers: Answer[];
+    imageUrl: string;
 
     constructor(questionText: string, scoreWeight: number){
         this.questionText = questionText;
