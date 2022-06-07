@@ -4,7 +4,7 @@ export class Question{
     id: string;
     questionText: string;
     scoreWeight: number;
-    answers: Answer[];
+    possibleAnswers: Answer[];
 
     constructor(questionText: string, scoreWeight: number){
         this.questionText = questionText;

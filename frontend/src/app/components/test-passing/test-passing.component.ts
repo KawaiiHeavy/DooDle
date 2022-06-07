@@ -44,9 +44,12 @@ export class TestPassingComponent implements OnInit {
         this.test.questions[i].id,
         this.test.questions[i].questionText,
         this.test.questions[i].scoreWeight,
-        JSON.parse(JSON.stringify(this.test.questions[i].answers)),
-        JSON.parse(JSON.stringify(this.test.questions[i].answers))))
+        this.test.questions[i].possibleAnswers,
+        this.test.questions[i].possibleAnswers));
     }
+
+    console.log(this.questionBlanks);
+
     this.timerService.setTime(this.test.seconds);
     this.timerService.startTimer();
 

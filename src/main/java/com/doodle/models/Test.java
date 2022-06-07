@@ -59,4 +59,12 @@ public class Test {
         this.results.remove(result);
         result.setTest(null);
     }
+
+    public void addQuestion(Question question){
+        this.questions.add(question);
+    }
+
+    public void removeQuestion(Question question){
+        this.questions.remove(question);
+    }
 }
