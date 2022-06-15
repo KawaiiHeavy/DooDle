@@ -29,18 +29,20 @@ export class RegisterComponent implements OnInit {
       this.form.password,
       this.form.roles);
 
-    this.authService.signUp(this.signupInfo).subscribe(
-      data => {
-        console.log(data);
-        this.isSignedUp = true;
-        this.isSignUpFailed = false;
-      },
-      error => {
-        console.log(error);
-        this.errorMessage = error.error.message;
-        this.isSignUpFailed = true;
-      }
-    );
+    if (this.form.password.length >= 6 && this.form.email.indexOf('@') > -1){
+      this.authService.signUp(this.signupInfo).subscribe(
+        data => {
+          console.log(data);
+          this.isSignedUp = true;
+          this.isSignUpFailed = false;
+        },
+        error => {
+          console.log(error);
+          this.errorMessage = error.error.message;
+          this.isSignUpFailed = true;
+        }
+      );
+    }
   }
 
   setTrainerRoles() {

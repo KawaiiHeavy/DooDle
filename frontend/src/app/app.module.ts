@@ -6,12 +6,13 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatDividerModule } from '@angular/material/divider';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort'; 
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -35,6 +36,7 @@ import { QuestionCreatingComponent } from './components/question-creating/questi
 import { AnswerCreatingComponent } from './components/answer-creating/answer-creating.component';
 import { FilterPipe } from './components/testing/filter.pipe';
 import { TestDetailInfoComponent } from './components/test-detail-info/test-detail-info.component';
+import { ResultDetailInfoComponent } from './components/result-detail-info/result-detail-info.component';
 
 
 @NgModule({
@@ -55,7 +57,8 @@ import { TestDetailInfoComponent } from './components/test-detail-info/test-deta
     QuestionCreatingComponent,
     AnswerCreatingComponent,
     FilterPipe,
-    TestDetailInfoComponent
+    TestDetailInfoComponent,
+    ResultDetailInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -67,12 +70,13 @@ import { TestDetailInfoComponent } from './components/test-detail-info/test-deta
     MatCardModule,
     MatInputModule,
     MatDividerModule,
-    NoopAnimationsModule,
+    BrowserAnimationsModule,
     MatCheckboxModule,
     MatButtonModule,
     MatIconModule,
     MatTableModule,
     MatPaginatorModule,
+    MatSortModule
     
   ],
   providers: [httpInterceptorProviders],

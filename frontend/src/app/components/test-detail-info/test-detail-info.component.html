@@ -1,11 +1,11 @@
 <p>Название теста: {{ this.test.title }}</p>
-<p>Id теста: {{ this.test.id }}</p>
+<p>ID теста: {{ this.test.id }}</p>
 <p>Создатель теста: {{ this.test.creator.nickname }}</p>
 <p>Максимально возможный балл: {{ this.test.maxBall }}</p>
 <p>Время на прохождение: {{ this.test.seconds }}</p>
 <p>Количество вопросов: {{ this.test.questions.length }}</p>
 
-<p>Участники теста:</p>
+<p>Результаты теста:</p>
 <mat-form-field>
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
 </mat-form-field>
@@ -15,20 +15,20 @@
 
         <!-- ID Column -->
         <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>id</th>
         <td mat-cell *matCellDef="let row"> {{row.id}} </td>
         </ng-container>
 
         <!-- Nickname Column -->
         <ng-container matColumnDef="nickname">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nickname </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>nickname</th>
         <td mat-cell *matCellDef="let row"> {{row.nickname}} </td>
         </ng-container>
 
         <!-- Score Column -->
         <ng-container matColumnDef="score">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Score </th>
-        <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.score}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>score</th>
+        <td mat-cell *matCellDef="let row"> {{row.score}} </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

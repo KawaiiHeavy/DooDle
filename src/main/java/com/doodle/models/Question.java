@@ -28,6 +28,8 @@ public class Question {
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Answer> possibleAnswers = new HashSet<>();
 
+    private String imageUrl;
+
     public Question(UUID id, String questionText, Double scoreWeight){
         this.id = id;
         this.questionText = questionText;

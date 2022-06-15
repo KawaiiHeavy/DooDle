@@ -28,7 +28,7 @@
 </mat-slider>
 <span>{{ this.countOfAnswers }}</span>
 
-<div *ngFor="let answer of this.question.answers">
+<div *ngFor="let answer of this.question.possibleAnswers">
     <app-answer-creating [answer]="answer"></app-answer-creating>
     <mat-divider class="answer-divider"></mat-divider>
 </div>

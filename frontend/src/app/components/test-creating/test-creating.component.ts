@@ -27,6 +27,8 @@ export class TestCreatingComponent implements OnInit {
 
   questions: Question[] = [];
 
+  isSaved: boolean = false;
+
   ngOnInit(): void {
   }
 
@@ -45,7 +47,7 @@ export class TestCreatingComponent implements OnInit {
     console.log(result);
     result.forEach(question => {
       question.id = uuidv4();
-      question.answers.forEach(answer => {
+      question.possibleAnswers.forEach(answer => {
         answer.id = uuidv4();
       })
     })
@@ -53,6 +55,7 @@ export class TestCreatingComponent implements OnInit {
   }
 
   saveTest(){
+    this.isSaved = true;
     let test: Test = new Test(
       uuidv4(),
       this.title,

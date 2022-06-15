@@ -40,6 +40,10 @@ public class ResultService {
         int correctAns = 0;
         int totalTrueAns = 0;
         int incorrectAns = 0;
+
+        System.out.println(answers);
+        System.out.println(userAnswers);
+
         for (int i = 0; i < answers.size(); i++){
             if (answers.get(i).getCorrect() && userAnswers.get(i).getCorrect()){
                // score += (scoreWeight / answers.size());
@@ -55,7 +59,7 @@ public class ResultService {
             }
         }
         score = correctAns * (scoreWeight / totalTrueAns) - incorrectAns * (scoreWeight / (answers.size() - totalTrueAns));
-        if(score > 0) {
+        if (score > 0) {
             return score;
         }
         else return 0;

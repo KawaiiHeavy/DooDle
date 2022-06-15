@@ -30,5 +30,6 @@
     <mat-divider></mat-divider>
 </div>
 <div>
-    <button mat-raised-button color="primary" (click)="saveTest()">Сохранить тест</button>
+    <button mat-raised-button color="primary" (click)="saveTest()" [disabled]="this.title == ''">Сохранить тест</button>
 </div>
+<p *ngIf="this.isSaved">Тест сохранен</p>
