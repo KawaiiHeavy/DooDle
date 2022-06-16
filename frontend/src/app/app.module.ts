@@ -37,6 +37,7 @@ import { AnswerCreatingComponent } from './components/answer-creating/answer-cre
 import { FilterPipe } from './components/testing/filter.pipe';
 import { TestDetailInfoComponent } from './components/test-detail-info/test-detail-info.component';
 import { ResultDetailInfoComponent } from './components/result-detail-info/result-detail-info.component';
+import { TestEditingComponent } from './components/test-editing/test-editing.component';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import { ResultDetailInfoComponent } from './components/result-detail-info/resul
     AnswerCreatingComponent,
     FilterPipe,
     TestDetailInfoComponent,
-    ResultDetailInfoComponent
+    ResultDetailInfoComponent,
+    TestEditingComponent
   ],
   imports: [
     BrowserModule,

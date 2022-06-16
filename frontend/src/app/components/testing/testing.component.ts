@@ -42,24 +42,23 @@ export class TestingComponent implements OnInit {
       this.tests = data;
       console.log(this.tests);
     });
-    
-    
   }
 
   getUsers(): void {
     this.userService.getUsers().subscribe(user => console.log(user));
   }
 
-  startTest(test: Test, user: User){
-    //console.log(this.user.id);
-    //console.log(test.id);
-
+  startTest(test: Test, user: User): void {
     console.log(test);
     console.log(`User with ${user.id} completing the test with ${test.id}`);
     this.router.navigateByUrl('testing/testPassing', {state: {test: test, user: user}});
   }
 
-  getTestDetailInfo(test: Test){
-    this.router.navigateByUrl('testing/getDetailInfo', {state: test});
+  getTestDetailInfo(test: Test): void {
+    this.router.navigateByUrl('testing/testGettingDetailInfo', {state: test});
+  }
+
+  editTest(test: Test): void {
+    this.router.navigateByUrl('testing/testCreating', { state : test });
   }
 }

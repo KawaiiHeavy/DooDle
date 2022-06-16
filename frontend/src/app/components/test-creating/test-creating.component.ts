@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { httpInterceptorProviders } from 'src/app/auth/auth-interceptor';
 import { Question } from 'src/app/models/question.model';
 import { Test } from 'src/app/models/test.model';
@@ -13,21 +14,30 @@ import { v4 as uuidv4 } from 'uuid';
 })
 export class TestCreatingComponent implements OnInit {
 
-  constructor(private testService: TestService) { }
-
-  countOfQuestions = 5;
-  minValue = 1;
-  maxValue = 10;
-  step = 1;
+  test: Test;
+  countOfQuestions: number = 5;
+  minValue: number = 1;
+  maxValue: number = 10;
+  step: number = 1;
 
   @Input()
   creator: User;
   title: string = "";
   seconds: number = 600;
-
   questions: Question[] = [];
 
-  isSaved: boolean = false;
+  constructor(private router: Router, 
+    private testService: TestService) {
+    this.test = history.state;
+    console.log(this.router.getCurrentNavigation().extras.state);
+    if (this.test) {
+      this.creator = this.test.creator;
+      this.title = this.test.title;
+      this.seconds = this.test.seconds;
+      this.countOfQuestions = this.test.questions.length;
+      this.questions = this.test.questions;
+    }
+  }
 
   ngOnInit(): void {
   }
