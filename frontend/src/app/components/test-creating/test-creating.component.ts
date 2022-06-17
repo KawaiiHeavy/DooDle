@@ -19,6 +19,7 @@ export class TestCreatingComponent implements OnInit {
   minValue: number = 1;
   maxValue: number = 10;
   step: number = 1;
+  isSaved: boolean = false;
 
   @Input()
   creator: User;
@@ -66,16 +67,33 @@ export class TestCreatingComponent implements OnInit {
 
   saveTest(){
     this.isSaved = true;
-    let test: Test = new Test(
-      uuidv4(),
-      this.title,
-      this.creator,
-      null,
-      this.addUUIDToTestObjects(),
-      null,
-      null,
-      this.seconds
-    );
+
+    let test: Test;
+
+    if (!this.test.id){
+      test = new Test(
+        uuidv4(),
+        this.title,
+        this.creator,
+        null,
+        this.addUUIDToTestObjects(),
+        null,
+        null,
+        this.seconds
+      );
+    }
+    else {
+      test = new Test(
+        this.test.id,
+        this.title,
+        this.creator,
+        null,
+        this.addUUIDToTestObjects(),
+        null,
+        null,
+        this.seconds
+      );
+    }
     
     this.testService.saveTest(test).subscribe(data => console.log("Это работает"));
   }
