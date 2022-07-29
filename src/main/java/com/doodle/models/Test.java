@@ -1,6 +1,7 @@
 package com.doodle.models;
 
 import lombok.*;
+import org.hibernate.engine.internal.Cascade;
 import org.springframework.data.annotation.CreatedBy;
 
 import javax.persistence.*;
@@ -8,13 +9,11 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-@Getter
+@Entity
+@Table
 @Setter
-@Builder
+@Getter
 @NoArgsConstructor
-@AllArgsConstructor
-@Entity(name = "Tests")
-@Table(name="test", schema = "public")
 @ToString
 public class Test {
 
@@ -27,44 +26,14 @@ public class Test {
     private String title;
 
     @CreatedBy
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private User creator;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "members_tests",
-            joinColumns = { @JoinColumn(name = "members") },
-            inverseJoinColumns = { @JoinColumn(name = "ownedTests") }
-    )
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<User> members;
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Question> questions = new HashSet<>();
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Result> results = new HashSet<>();
 
     private Double maxBall;
 
     private Integer seconds;
 
-    public void addResult(Result result){
-        this.results.add(result);
-        if (result.getTest() != this) {
-            result.setTest(this);
-        }
-    }
-
-    public void removeResult(Result result){
-        this.results.remove(result);
-        result.setTest(null);
-    }
-
-    public void addQuestion(Question question){
-        this.questions.add(question);
-    }
-
-    public void removeQuestion(Question question){
-        this.questions.remove(question);
-    }
 }

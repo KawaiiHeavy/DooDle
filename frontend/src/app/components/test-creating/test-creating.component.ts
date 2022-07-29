@@ -27,11 +27,13 @@ export class TestCreatingComponent implements OnInit {
   seconds: number = 600;
   questions: Question[] = [];
 
+  // TODO: Временная затычка, переделать на инжект теста (возможно)
   constructor(private router: Router, 
     private testService: TestService) {
     this.test = history.state;
-    console.log(this.router.getCurrentNavigation().extras.state);
-    if (this.test) {
+    //console.log(this.router.getCurrentNavigation().extras.state);
+    console.log(this.test);
+    if (this.test.creator) {
       this.creator = this.test.creator;
       this.title = this.test.title;
       this.seconds = this.test.seconds;

@@ -9,7 +9,9 @@ import com.doodle.models.*;
 import com.doodle.repostitories.RoleRepository;
 import com.doodle.repostitories.UserRepository;
 import com.doodle.services.UserDetailsImpl;
-import com.doodle.services.UserService;
+import com.doodle.services.impl.UserServiceImpl;
+import com.doodle.utils.Mapper;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,25 +29,16 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/auth")
 @CrossOrigin(origins = "*", maxAge = 3600)
+@AllArgsConstructor
 public class AuthController {
 
-    @Autowired
-    AuthenticationManager authenticationManager;
-
-    @Autowired
-    UserRepository userRepository;
-
-    @Autowired
-    UserService userService;
-
-    @Autowired
-    RoleRepository roleRepository;
-
-    @Autowired
-    PasswordEncoder passwordEncoder;
-
-    @Autowired
-    JwtUtils jwtUtils;
+    private AuthenticationManager authenticationManager;
+    private UserRepository userRepository;
+    private UserServiceImpl userService;
+    private RoleRepository roleRepository;
+    private PasswordEncoder passwordEncoder;
+    private JwtUtils jwtUtils;
+    private Mapper mapper;
 
     @PostMapping("/signin")
     public ResponseEntity<?> authUser(@RequestBody LoginRequest loginRequest){
@@ -87,9 +80,10 @@ public class AuthController {
                     .body(new MessageResponse("Error: Email is busy"));
         }
 
-        User user = new User(signUpRequest.getNickname(),
-                signUpRequest.getEmail(),
-                passwordEncoder.encode(signUpRequest.getPassword()));
+        User user = new User();
+        user.setNickname(signUpRequest.getNickname());
+        user.setEmail(signUpRequest.getEmail());
+        user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
 
         Set<String> reqRoles = signUpRequest.getRoles();
         Set<Role> roles = new HashSet<>();
@@ -135,7 +129,7 @@ public class AuthController {
             });
         }
         user.setRoles(roles);
-        userService.save(user);
+        userService.createUser(mapper.mapToCreatedUserDTO(user));
         return ResponseEntity.ok(new MessageResponse("User CREATED"));
     }
 

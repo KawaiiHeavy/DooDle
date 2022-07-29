@@ -1,58 +1,55 @@
 package com.doodle.controllers;
 
-import com.doodle.models.*;
+import com.doodle.dto.TestDTO;
 import com.doodle.services.TestService;
-import com.doodle.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.doodle.services.impl.TestServiceImpl;
+import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/tests")
+@RequestMapping("api/test")
+@AllArgsConstructor
 public class TestController {
 
-    @Autowired
     private TestService testService;
 
-    @Autowired
-    private UserService userService;
-
-    @PostMapping("/createTest")
-    public Test createTest(@RequestBody TestInput test){
-        Role role1 = new Role(ERole.USER);
-        for(Role role : userService.getUserById(test.getCreatorId()).getRoles()) {
-            role1 = role;
-        }
-        if (role1.getName().equals(ERole.ADMIN) || role1.getName().equals(ERole.TRAINER))
-            return testService.createTest(test);
-        else return null;
+    @PostMapping("/add")
+    public ResponseEntity<TestDTO.Read> createTest(@RequestBody TestDTO.Create testDTO){
+        TestDTO.Read test = testService.createTest(testDTO);
+        return new ResponseEntity<>(test, HttpStatus.CREATED);
     }
 
-    @GetMapping("/findTests/{input}")
-    public Set<Test> findTests(@PathVariable String input) {
-        return testService.findTests(input);
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteTest(@PathVariable UUID id){
+        testService.deleteTest(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/createQuestions")
-    public Set<Question> createQuestions(@RequestBody Set<Question> questions){
-        return testService.createQuestions(questions);
+    @GetMapping("/all")
+    public ResponseEntity<Set<TestDTO.Read>> findAllTests(){
+        Set<TestDTO.Read> tests = testService.getAllTests();
+        return new ResponseEntity<>(tests, HttpStatus.OK);
     }
 
-    @PostMapping("/check")
-    public Result checkTest(@RequestBody TestBlank testBlank){
-        return testService.checkTest(testBlank);
+    @PutMapping("/update")
+    public ResponseEntity<TestDTO.Read> updateTest(@RequestBody TestDTO.Read testDTO){
+        TestDTO.Read test = testService.updateTest(testDTO);
+        return new ResponseEntity<>(test, HttpStatus.OK);
     }
 
-    @GetMapping("/getTests")
-    public Set<Test> getTests(){
-        return testService.getTests();
-    }
-
-    @PostMapping("/saveTest")
-    public Test saveTest(@RequestBody Test test){
-        return this.testService.saveTest(test);
+    @GetMapping("/allPageable")
+    public ResponseEntity<Page<TestDTO.Read>> getAllTestsPaging(@RequestParam(defaultValue = "0") int page,
+                                                               @RequestParam(defaultValue = "3") int size) {
+        Pageable paging = PageRequest.of(page, size);
+        Page<TestDTO.Read> testPage = testService.getAllTestsPageable(paging);
+        return new ResponseEntity<>(testPage, HttpStatus.OK);
     }
 }

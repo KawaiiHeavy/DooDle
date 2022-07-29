@@ -1,45 +1,62 @@
 package com.doodle.controllers;
 
+import com.doodle.dto.UserDTO;
 import com.doodle.models.Test;
 import com.doodle.models.User;
 import com.doodle.services.UserService;
+import com.doodle.services.impl.UserServiceImpl;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
+import java.net.http.HttpResponse;
 import java.util.Set;
 import java.util.UUID;
 
 
 @RestController
-@RequestMapping("api/users")
+@RequestMapping("api/user")
+@AllArgsConstructor
 public class UserController {
 
-    @Autowired
     private UserService userService;
 
-    @GetMapping(value = {"", "/"})
-    public Iterable<User> findAll(){
-        return this.userService.findAll();
+    @PostMapping("/add")
+    public ResponseEntity<UserDTO.Read> createUser(@RequestBody UserDTO.Create userDTO) {
+        UserDTO.Read user = userService.createUser(userDTO);
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
-    @PostMapping("/save")
-    public User createUser(@RequestBody User user){
-        return userService.save(user);
+    @GetMapping("/all")
+    public ResponseEntity<Set<UserDTO.Read>> getAllUsers() {
+        Set<UserDTO.Read> users = userService.getAllUsers();
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @GetMapping("/getAllUsers")
-    public Iterable<User> getAllUsers(){
-        return userService.getUsers();
+    @GetMapping("/get/{id}")
+    public ResponseEntity<UserDTO.Read> getById(@PathVariable UUID id) {
+        UserDTO.Read user = userService.findUserById(id);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @GetMapping("/getTestsByUser/{userId}")
-    public Set<Test> getTestsByUser(@PathVariable UUID userId){
-        return userService.getTestsByUser(userId);
+    @GetMapping("/allPageable")
+    public ResponseEntity<Page<UserDTO.Read>> getAllAnswersPaging(@RequestParam(defaultValue = "0") int page,
+                                                               @RequestParam(defaultValue = "3") int size) {
+        Pageable paging = PageRequest.of(page, size);
+        Page<UserDTO.Read> userPage = userService.getAllUsersPageable(paging);
+        return new ResponseEntity<>(userPage, HttpStatus.OK);
     }
 
-    @GetMapping("/getUserByNickname/{nickname}")
-    public User getUserByNickname(@PathVariable String nickname){
-        return userService.getUserByNickname(nickname);
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable UUID id) {
+        userService.deleteUser(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
+
+
 }

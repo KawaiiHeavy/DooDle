@@ -6,12 +6,12 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.UUID;
 
-@Getter
+@Entity
+@Table(name = "results")
 @Setter
+@Getter
 @NoArgsConstructor
-@AllArgsConstructor
-@Entity(name = "Results")
-@Table(name="result", schema = "public")
+@ToString
 public class Result {
 
     @Id
@@ -19,25 +19,13 @@ public class Result {
     @Column(name="id")
     private UUID id;
 
-    @JsonIgnore
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
-    @JoinColumn(nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Test test;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", columnDefinition="uuid not null")
+    @ManyToOne(fetch = FetchType.LAZY)
     private User participant;
 
     @Column(nullable = false)
     private Double score;
 
-    public Result(UUID id, Double score){
-        this.id = id;
-        this.score = score;
-    }
-
-    public void saveTest(Test test){
-        test.addResult(this);
-        this.test = test;
-    }
 }

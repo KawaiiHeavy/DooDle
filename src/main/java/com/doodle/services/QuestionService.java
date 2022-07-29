@@ -1,21 +1,19 @@
 package com.doodle.services;
 
-import com.doodle.models.Question;
-import com.doodle.repostitories.QuestionRepository;
-import com.doodle.repostitories.ResultRepository;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.doodle.dto.QuestionDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-@Service
-@AllArgsConstructor
-public class QuestionService {
+import java.util.Set;
+import java.util.UUID;
 
-    @Autowired
-    private QuestionRepository questionRepository;
+public interface QuestionService {
 
-    public Question save(Question question){
-        return questionRepository.save(question);
-    }
-
+    Set<QuestionDTO.Read> getAllQuestions();
+    Page<QuestionDTO.Read> getAllQuestionsPageable(Pageable pageable);
+    QuestionDTO.Read createQuestion(QuestionDTO.Create questionDTO);
+    QuestionDTO.Read findQuestionById(UUID id);
+    QuestionDTO.Read updateQuestion(QuestionDTO.Read questionDTO);
+    void deleteQuestion(UUID id);
+    
 }

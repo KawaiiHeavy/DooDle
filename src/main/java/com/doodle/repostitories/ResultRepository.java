@@ -11,8 +11,4 @@ import java.util.UUID;
 
 @Repository
 public interface ResultRepository extends JpaRepository<Result, UUID> {
-
-    @Query("SELECT AVG(r.score) from Results r where r.participant.id = :userId")
-    Double getAverageRateForUser(@Param("userId") UUID userId);
-
 }

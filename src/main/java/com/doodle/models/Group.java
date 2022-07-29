@@ -4,28 +4,28 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
-@Getter
+@Entity
+@Table(name = "groups")
 @Setter
-@Builder
+@Getter
 @NoArgsConstructor
-@AllArgsConstructor
-@Entity(name = "Groups")
-@Table(name = "group", schema = "public")
+@ToString
 public class Group {
 
     @Id
     @GeneratedValue()
-    @Column(name="id")
     private UUID id;
 
+    @Column(nullable = false)
     private String title;
 
-    @ManyToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private User groupLeader;
 
-    @ManyToMany
-    private List<User> members;
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<User> members;
 
 }

@@ -1,17 +1,19 @@
 package com.doodle.models;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.UUID;
 
-@Getter
-@Setter
-@ToString
 @Entity
 @Table(name = "roles")
+@Setter
+@Getter
+@NoArgsConstructor
+@ToString
 public class Role {
 
     @Id
@@ -21,8 +23,6 @@ public class Role {
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
     private ERole name;
-
-    public Role(){}
 
     public Role(ERole name){
         this.name = name;

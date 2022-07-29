@@ -10,7 +10,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @Repository
-public interface TestRepository extends CrudRepository<Test, UUID> {
+public interface TestRepository extends JpaRepository<Test, UUID> {
 
     Set<Test> findByTitle(String title);
 

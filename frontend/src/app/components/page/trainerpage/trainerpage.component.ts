@@ -20,6 +20,7 @@ export class TrainerpageComponent implements OnInit {
   }
 
   changeTestCreatingVisibility(){
+    console.log(this.creatingTestShow);
     this.creatingTestShow = !this.creatingTestShow;
   }
 }

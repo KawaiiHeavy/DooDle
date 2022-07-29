@@ -6,13 +6,12 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.UUID;
 
-@Getter
+@Entity
+@Table(name = "answers")
 @Setter
+@Getter
 @NoArgsConstructor
-@AllArgsConstructor
 @ToString
-@Entity(name = "Answers")
-@Table(name="answer", schema = "public")
 public class Answer {
 
     @Id
@@ -20,18 +19,11 @@ public class Answer {
     @Column(name="id")
     private UUID id;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @ToString.Exclude
+    @ManyToOne(fetch = FetchType.LAZY)
     private Question question;
 
     private String answerText;
 
     private Boolean correct;
 
-    public Answer(UUID id, String answerText, Boolean correct) {
-        this.id = id;
-        this.answerText = answerText;
-        this.correct = correct;
-    }
 }

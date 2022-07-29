@@ -13,10 +13,4 @@ import java.util.UUID;
 
 @Repository
 public interface AnswerRepository extends JpaRepository<Answer, UUID> {
-
-    @Modifying
-    @Transactional
-    @Query("UPDATE Answers q set q.question.id = :questionId where q.id = :answerId")
-    void saveAnswerToQuestion(@Param("answerId") UUID answerId, @Param("questionId") UUID questionId);
-
 }
