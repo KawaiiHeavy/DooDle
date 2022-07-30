@@ -2,7 +2,8 @@ import { Injectable, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { User } from "../models/user.model";
-import { Test } from "../models/test.model";
+import { environment } from "src/environments/environment";
+import { Pageable } from "../models/pageable";
 
 
 @Injectable({
@@ -10,49 +11,55 @@ import { Test } from "../models/test.model";
 })
 export class UserService implements OnInit {
 
-    private userUrl = 'http://localhost:9090/api/test/user';
-    private trainerUrl = 'http://localhost:9090/api/test/trainer';
-    private studentUrl = 'http://localhost:9090/api/test/student';
-    private adminUrl = 'http://localhost:9090/api/test/admin';
+    private apiServerUrl = environment.apiBaseUrl;
+
+    private userUrl = environment.apiBaseUrl + '/user/userPage';
+    private trainerUrl = environment.apiBaseUrl + '/user/trainerPage';
+    private studentUrl = environment.apiBaseUrl + '/user/studentPage';
+    private adminUrl = environment.apiBaseUrl + '/api/user/adminPage';
 
     constructor(private http: HttpClient){}
 
     ngOnInit(): void {}
 
-    getUserBoard(): Observable<string> {
+    public getUserBoard(): Observable<string> {
         return this.http.get(this.userUrl, { responseType: 'text' });
     }
     
-    getAdminBoard(): Observable<string> {
+    public getAdminBoard(): Observable<string> {
         return this.http.get(this.adminUrl, { responseType: 'text' });
     }
     
-    getTrainerBoard(): Observable<string> {
+    public getTrainerBoard(): Observable<string> {
         return this.http.get(this.trainerUrl, { responseType: 'text' });
     }
 
-    getStudentBoard(): Observable<string> {
+    public getStudentBoard(): Observable<string> {
         return this.http.get(this.studentUrl, { responseType: 'text' });
     }
 
-    createUser(userNickname: string, userPassword: string, userEmail: string) {
-
-        let user = new User(null, userNickname, userPassword, userEmail, null, null, null);
-
-        console.log("It's working")
-        return this.http.post<User>(`/api/users/save`, user);
+    public getAllUsers(): Observable<User[]> {
+        return this.http.get<User[]>(`${this.apiServerUrl}/user/all`);
     }
 
-    getUsers(){
-        console.log("It's working 2")
-        return this.http.get<any[]>(`api/users/getAllUsers`);
+    public addUser(user: User): Observable<User> {
+        return this.http.post<User>(`${this.apiServerUrl}/user/add`, user);
+    } 
+
+    public updateUser(user: User): Observable<User> {
+        return this.http.put<User>(`${this.apiServerUrl}/user/update`, user);
     }
 
-    getUserByNickname(nickname: string){
-        return this.http.get<User>(`api/users/getUserByNickname/${nickname}`);
+    public deleteUser(userId: string): Observable<void> {
+        return this.http.delete<void>(`${this.apiServerUrl}/user/delete/${userId}`);
     }
 
-    getUserOwnedTests(user: User){
-        return this.http.get<Test[]>(`api/users/getTestsByUser/${user.id}`)
+    public getUserById(userId: string): Observable<User> {
+        return this.http.get<User>(`${this.apiServerUrl}/user/find/${userId}`);
     }
+    
+    public getAllUserPageable(page: number, size: number): Observable<Pageable<User>> {
+        return this.http.get<Pageable<User>>(`${this.apiServerUrl}/user/allPageable?page=${page}&size=${size}`);
+    }
+
 }
