@@ -1,5 +1,8 @@
 package com.doodle.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Setter;
 import lombok.Value;
 
 import javax.validation.constraints.NotBlank;
@@ -38,15 +41,18 @@ public enum UserDTO {
         List<TestDTO> getOwnedTests();
     }
 
-    @Value
+    @Data
+    @AllArgsConstructor
     public static class Create implements Nickname, Password, Email, Roles {
         String nickname;
         String password;
         String email;
         Set<RoleDTO> roles;
+
     }
 
-    @Value
+    @Data
+    @AllArgsConstructor
     public static class Read implements Id, Nickname, Password, Roles {
         UUID id;
         String nickname;

@@ -48,8 +48,8 @@ public class Mapper {
 
     public RoleDTO mapToReadRoleDTO(Role role){
         RoleDTO roleDTO = new RoleDTO();
-        roleDTO.setId(roleDTO.getId());
-        roleDTO.setName(roleDTO.getName());
+        roleDTO.setId(role.getRole_id());
+        roleDTO.setName(role.getName());
         return roleDTO;
     }
 
@@ -74,6 +74,7 @@ public class Mapper {
 
     public User mapToUser(UserDTO.Read userDTO){
         User user = new User();
+        System.out.println(userDTO);
         user.setId(userDTO.getId());
         user.setNickname(userDTO.getNickname());
         user.setPassword(userDTO.getPassword());
@@ -86,6 +87,7 @@ public class Mapper {
         User user = new User();
         user.setNickname(userDTO.getNickname());
         user.setPassword(userDTO.getPassword());
+        user.setEmail(userDTO.getEmail());
         user.setPhone(user.getPhone());
         user.setRoles(userDTO.getRoles().stream().map(this::mapToRole).collect(Collectors.toSet()));
         return user;

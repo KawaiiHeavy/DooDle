@@ -33,7 +33,7 @@ public class User {
 
     private String phone;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinTable(name = "user_role")
     private Set<Role> roles = new HashSet<>();
 

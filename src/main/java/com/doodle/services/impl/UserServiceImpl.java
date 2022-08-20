@@ -4,6 +4,7 @@ import com.doodle.dto.UserDTO;
 import com.doodle.exceptions.QuestionNotFoundException;
 import com.doodle.exceptions.UserNotFoundException;
 import com.doodle.models.User;
+import com.doodle.repostitories.RoleRepository;
 import com.doodle.repostitories.UserRepository;
 import com.doodle.services.UserService;
 import com.doodle.utils.Mapper;
@@ -21,9 +22,14 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
+    private RoleRepository roleRepository;
     private Mapper mapper;
 
     public UserDTO.Read createUser(UserDTO.Create userDTO) {
+        userDTO.setRoles(userDTO.getRoles()
+                .stream()
+                .map(roleDTO -> mapper.mapToReadRoleDTO(roleRepository.findByName(roleDTO.getName()).get()))
+                .collect(Collectors.toSet()));
         return mapper.mapToReadUserDTO(
                 userRepository.save(
                         mapper.mapToUser(userDTO)

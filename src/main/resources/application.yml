@@ -1,0 +1,27 @@
+server:
+  port: 9090
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/doodle
+    username: superuser-doodle
+    password: doodle
+    driver-class-name: org.postgresql.Driver
+
+  main:
+    allow-bean-definition-overriding: true
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+
+app:
+  jwtSecret: MegaSecretDoodleKeyForApplicationMegaSecretDoodleKeyForApplicationMegaSecretDoodleKeyForApplication
+  jwtExpirationMs: 86400000
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui-custom.html
+    operationSorter: method
+  api-docs:
+    path: /api-docs

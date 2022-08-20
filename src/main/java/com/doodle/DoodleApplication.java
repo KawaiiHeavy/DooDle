@@ -37,7 +37,9 @@ class DoodleCommandLineRunner implements CommandLineRunner {
         roles.add(new Role(ERole.STUDENT));
         roles.add(new Role(ERole.USER));
 
-        roles.stream().filter(role -> !roleRepository.existsByName(role.getName())).forEach(role -> roleRepository.save(role));
+        roles.stream()
+                .filter(role -> !roleRepository.existsByName(role.getName()))
+                .forEach(role -> roleRepository.save(role));
     }
 
 }
