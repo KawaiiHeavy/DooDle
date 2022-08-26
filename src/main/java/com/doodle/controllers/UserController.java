@@ -46,7 +46,7 @@ public class UserController {
 
     @GetMapping("/allPageable")
     public ResponseEntity<Page<UserDTO.Read>> getAllAnswersPaging(@RequestParam(defaultValue = "0") int page,
-                                                               @RequestParam(defaultValue = "3") int size) {
+                                                                  @RequestParam(defaultValue = "3") int size) {
         Pageable paging = PageRequest.of(page, size);
         Page<UserDTO.Read> userPage = userService.getAllUsersPageable(paging);
         return new ResponseEntity<>(userPage, HttpStatus.OK);
@@ -58,5 +58,11 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @GetMapping("/findByNickname/{nickname}")
+    public ResponseEntity<UserDTO.Read> findUserByNickname(@PathVariable String nickname) {
+        System.out.println(nickname);
+        UserDTO.Read user = userService.findUserByNickname(nickname);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
 
 }

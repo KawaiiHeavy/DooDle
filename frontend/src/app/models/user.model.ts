@@ -7,21 +7,7 @@ export enum Role {
 
 export class User{
 
-    constructor(id: any,
-        nickname: string,
-        password: string,
-        email: string,
-        phone: any,
-        roles: any,
-        ownedTests: any[]){
-            this.id = id;
-            this.nickname = nickname;
-            this.password = password;
-            this.email = email;
-            this.phone = phone;
-            this.roles = roles;
-            this.ownedTests = ownedTests;
-        }
+    constructor(){}
 
     id: string;
     nickname: string;

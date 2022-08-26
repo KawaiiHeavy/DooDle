@@ -26,7 +26,7 @@ public class Test {
     private String title;
 
     @CreatedBy
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne()
     private User creator;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

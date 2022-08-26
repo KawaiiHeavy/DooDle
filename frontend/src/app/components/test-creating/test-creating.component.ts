@@ -1,6 +1,5 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { httpInterceptorProviders } from 'src/app/auth/auth-interceptor';
 import { Question } from 'src/app/models/question.model';
 import { Test } from 'src/app/models/test.model';
 import { User } from 'src/app/models/user.model';
@@ -30,19 +29,10 @@ export class TestCreatingComponent implements OnInit {
   // TODO: Временная затычка, переделать на инжект теста (возможно)
   constructor(private router: Router, 
     private testService: TestService) {
-    this.test = history.state;
-    //console.log(this.router.getCurrentNavigation().extras.state);
-    console.log(this.test);
-    if (this.test.creator) {
-      this.creator = this.test.creator;
-      this.title = this.test.title;
-      this.seconds = this.test.seconds;
-      this.countOfQuestions = this.test.questions.length;
-      this.questions = this.test.questions;
-    }
   }
 
   ngOnInit(): void {
+    this.test = new Test();
   }
 
   onChange(){
@@ -69,34 +59,6 @@ export class TestCreatingComponent implements OnInit {
 
   saveTest(){
     this.isSaved = true;
-
-    let test: Test;
-
-    if (!this.test.id){
-      test = new Test(
-        uuidv4(),
-        this.title,
-        this.creator,
-        null,
-        this.addUUIDToTestObjects(),
-        null,
-        null,
-        this.seconds
-      );
-    }
-    else {
-      test = new Test(
-        this.test.id,
-        this.title,
-        this.creator,
-        null,
-        this.addUUIDToTestObjects(),
-        null,
-        null,
-        this.seconds
-      );
-    }
-    
-    this.testService.saveTest(test).subscribe(data => console.log("Это работает"));
+    this.testService.addTest(this.test).subscribe(data => console.log("Это работает"));
   }
 }

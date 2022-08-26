@@ -14,5 +14,7 @@ public interface UserService {
     UserDTO.Read createUser(UserDTO.Create userDTO);
     UserDTO.Read findUserById(UUID id);
     void deleteUser(UUID id);
+
+    UserDTO.Read findUserByNickname(String nickname);
     
 }

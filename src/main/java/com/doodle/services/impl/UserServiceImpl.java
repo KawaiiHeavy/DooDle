@@ -49,6 +49,12 @@ public class UserServiceImpl implements UserService {
         userRepository.delete(user);
     }
 
+    @Override
+    public UserDTO.Read findUserByNickname(String nickname) {
+        return mapper.mapToReadUserDTO(userRepository.findByNickname(nickname)
+                .orElseThrow(() -> new UserNotFoundException("User by nickname " + nickname + " was not found")));
+    }
+
     public Set<UserDTO.Read> getAllUsers() {
         return userRepository.findAll().stream()
                 .map(mapper::mapToReadUserDTO)

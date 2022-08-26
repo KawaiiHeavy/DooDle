@@ -38,14 +38,14 @@ export class TestingComponent implements OnInit {
   }
 
   getTests(){
-    this.testService.getTests().subscribe(data => {
+    this.testService.getAllTests().subscribe(data => {
       this.tests = data;
       console.log(this.tests);
     });
   }
 
   getUsers(): void {
-    this.userService.getUsers().subscribe(user => console.log(user));
+    this.userService.getAllUsers().subscribe(user => console.log(user));
   }
 
   startTest(test: Test, user: User): void {

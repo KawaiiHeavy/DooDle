@@ -62,4 +62,7 @@ export class UserService implements OnInit {
         return this.http.get<Pageable<User>>(`${this.apiServerUrl}/user/allPageable?page=${page}&size=${size}`);
     }
 
+    public getUserByNickname(nickname: string): Observable<User> {
+        return this.http.get<User>(`${this.apiServerUrl}/user/findByNickname/${nickname}`);
+    }
 }

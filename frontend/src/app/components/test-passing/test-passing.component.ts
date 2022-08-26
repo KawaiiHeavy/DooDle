@@ -34,6 +34,7 @@ export class TestPassingComponent implements OnInit {
 
   ngOnInit(): void {
     
+    /*
     this.timerService.pauseTimer();
     this.test = history.state.test;
     this.user = history.state.user;
@@ -65,15 +66,18 @@ export class TestPassingComponent implements OnInit {
       map(() => {
         this.checkTest();
       })
-    ).subscribe(); 
+    ).subscribe();
+    */ 
   }
 
   checkTest(){
-    let testBlank : TestBlank = new TestBlank(this.test, this.user, this.questionBlanks);
 
+    let testBlank : TestBlank = new TestBlank(this.test, this.user, this.questionBlanks);
+    /*
     return this.testService.checkTest(testBlank).subscribe(data => {
       this.result = data;
     });
+    */
   }
 
   getTime(){

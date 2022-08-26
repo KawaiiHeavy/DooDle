@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from 'src/app/models/user.model';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -18,11 +19,15 @@ export class MainComponent implements OnInit {
   }
 
   createUser(nickname: string, password: string, email: string){
-    return this.userService.createUser(nickname, password, email).subscribe();
+    let user: User = new User();
+    user.nickname = nickname;
+    user.password = password;
+    user.email = email;
+    return this.userService.addUser(user).subscribe();
   }
 
   get(){
-    return this.userService.getUsers().subscribe();
+    return this.userService.getAllUsers().subscribe();
   }
   
 }
