@@ -1,6 +1,6 @@
 package com.doodle.authorization.jwt;
 
-import com.doodle.services.UserDetailsServiceImpl;
+import com.doodle.services.impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

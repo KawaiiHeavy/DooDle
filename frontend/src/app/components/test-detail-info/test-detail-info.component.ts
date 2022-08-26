@@ -3,7 +3,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { Result } from 'src/app/models/result.model';
 import { Test } from 'src/app/models/test.model';
+import { ResultService } from 'src/app/services/result.service';
 import { TestService } from 'src/app/services/test.service';
 
 export interface ResultData {
@@ -20,23 +22,21 @@ export interface ResultData {
 export class TestDetailInfoComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'nickname', 'score'];
-  dataSource: MatTableDataSource<ResultData>
+  dataSource: MatTableDataSource<Result>
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   test: Test;
+  results: Result[];
 
   constructor(private router: Router, 
-              private testService: TestService) 
+              private testService: TestService,
+              private resultService: ResultService) 
   {
     this.test = history.state;
-    console.log(this.router.getCurrentNavigation().extras.state);
-    const results = [];
-    this.test.results.forEach(result => {
-      results.push(this.createMemberData(result.id, result.participant.nickname, result.score))
-    })
-    this.dataSource = new MatTableDataSource(results);
+    resultService.findResultsByTest(this.test.id).subscribe(results => this.results = results);
+    this.dataSource = new MatTableDataSource(this.results);
   }
     
 

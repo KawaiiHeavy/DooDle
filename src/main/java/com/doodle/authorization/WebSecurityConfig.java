@@ -2,7 +2,7 @@ package com.doodle.authorization;
 
 import com.doodle.authorization.jwt.AuthEntryPointJwt;
 import com.doodle.authorization.jwt.AuthTokenFilter;
-import com.doodle.services.UserDetailsServiceImpl;
+import com.doodle.services.impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

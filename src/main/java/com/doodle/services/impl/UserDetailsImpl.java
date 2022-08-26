@@ -1,4 +1,4 @@
-package com.doodle.services;
+package com.doodle.services.impl;
 
 import com.doodle.models.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;

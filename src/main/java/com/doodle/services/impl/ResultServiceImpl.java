@@ -119,4 +119,9 @@ public class ResultServiceImpl implements ResultService {
         Result result = resultRepository.getById(id);
         resultRepository.delete(result);
     }
+
+    @Override
+    public Set<ResultDTO.Read> findResultsByTest(UUID testId) {
+        return resultRepository.findResultsByTest(testId);
+    }
 }

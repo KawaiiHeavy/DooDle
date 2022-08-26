@@ -1,6 +1,6 @@
 package com.doodle.authorization.jwt;
 
-import com.doodle.services.UserDetailsImpl;
+import com.doodle.services.impl.UserDetailsImpl;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;

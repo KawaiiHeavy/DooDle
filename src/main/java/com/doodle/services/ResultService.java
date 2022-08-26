@@ -16,4 +16,5 @@ public interface ResultService {
     ResultDTO.Read updateResult(ResultDTO.Read resultDTO);
     void deleteResult(UUID id);
 
+    Set<ResultDTO.Read> findResultsByTest(UUID testId);
 }

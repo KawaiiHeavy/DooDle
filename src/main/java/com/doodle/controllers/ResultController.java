@@ -52,4 +52,10 @@ public class ResultController {
         return new ResponseEntity<>(resultPage, HttpStatus.OK);
     }
 
+    @GetMapping("/findByTest/{testId}")
+    public ResponseEntity<Set<ResultDTO.Read>> findResultsByTest(@PathVariable UUID testId) {
+        Set<ResultDTO.Read> results = resultService.findResultsByTest(testId);
+        return new ResponseEntity<>(results, HttpStatus.OK);
+    }
+
 }

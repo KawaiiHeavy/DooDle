@@ -4,6 +4,7 @@ import { Question } from 'src/app/models/question.model';
 import { Test } from 'src/app/models/test.model';
 import { User } from 'src/app/models/user.model';
 import { TestService } from 'src/app/services/test.service';
+import { UserService } from 'src/app/services/user.service';
 import { v4 as uuidv4 } from 'uuid';
 
 @Component({
@@ -27,18 +28,19 @@ export class TestCreatingComponent implements OnInit {
   questions: Question[] = [];
 
   // TODO: Временная затычка, переделать на инжект теста (возможно)
-  constructor(private router: Router, 
-    private testService: TestService) {
+  constructor(private router: Router,
+    private testService: TestService,
+    private userService: UserService) {
   }
 
   ngOnInit(): void {
     this.test = new Test();
+    this.test.questions = [];
   }
 
   onChange(){
-    this.questions = [];
     for (let i = 0; i < this.countOfQuestions; i++){
-      this.questions.push(new Question(
+      this.test.questions.push(new Question(
         "",
         0
       ));
@@ -59,6 +61,7 @@ export class TestCreatingComponent implements OnInit {
 
   saveTest(){
     this.isSaved = true;
+    this.test.creator = this.creator;
     this.testService.addTest(this.test).subscribe(data => console.log("Это работает"));
   }
 }

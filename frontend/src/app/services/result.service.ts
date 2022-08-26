@@ -40,4 +40,8 @@ export class ResultService {
     public getAllResultPageable(page: number, size: number): Observable<Pageable<Result>> {
         return this.http.get<Pageable<Result>>(`${this.apiServerUrl}/result/allPageable?page=${page}&size=${size}`);
     }
+
+    public findResultsByTest(testId: string): Observable<Result[]> {
+        return this.http.get<Result[]>(`${this.apiServerUrl}/result/findByTest/${testId}`);
+    }
 }

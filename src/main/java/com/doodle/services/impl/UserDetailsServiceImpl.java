@@ -1,7 +1,8 @@
-package com.doodle.services;
+package com.doodle.services.impl;
 
 import com.doodle.models.User;
 import com.doodle.repostitories.UserRepository;
+import com.doodle.services.impl.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
