@@ -1,14 +1,13 @@
 import { Answer } from "./answer.model";
+import { Test } from "./test.model";
 
 export class Question{
     id: string;
     questionText: string;
     scoreWeight: number;
-    possibleAnswers: Answer[];
     imageUrl: string;
+    test: Test;
+    answers: Answer[];
 
-    constructor(questionText: string, scoreWeight: number){
-        this.questionText = questionText;
-        this.scoreWeight = scoreWeight;
-    };
+    constructor(){};
 }

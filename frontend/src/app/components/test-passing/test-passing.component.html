@@ -2,6 +2,7 @@
 <p>Создатель: {{ this.test.creator.nickname }}</p>
 <p><strong>Время:</strong> {{ this.getTime() }}</p>
 
+<!--
 <ng-container *ngIf="!this.result; else isResult">
     <div *ngFor="let questionBlank of this.questionBlanks">
         <strong>Вопрос:</strong> {{ questionBlank.questionText }}
@@ -31,7 +32,7 @@
         </ul>
     </div>
 </ng-template>
-
+-->
 
 <button mat-raised-button color="primary" (click)="checkTest()" [disabled]="this.getTime() == 0 || this.result">Отправить на проверку</button>
 <div *ngIf="this.result">

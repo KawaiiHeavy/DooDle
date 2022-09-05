@@ -3,6 +3,8 @@ package com.doodle.dto;
 import lombok.Value;
 
 import javax.validation.constraints.NotBlank;
+import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 public enum TestDTO {;
@@ -27,21 +29,27 @@ public enum TestDTO {;
         @NotBlank Integer getSeconds();
     }
 
+    private interface Questions {
+        @NotBlank Set<QuestionDTO.Create> getQuestions();
+    }
+
     @Value
-    public static class Create implements Title, Creator, MaxBall, Seconds {
+    public static class Create implements Title, Creator, MaxBall, Seconds, Questions {
         String title;
         UserDTO.Read creator;
         Double maxBall;
         Integer seconds;
+        Set<QuestionDTO.Create> questions;
     }
 
     @Value
-    public static class Read implements Id, Title, Creator, MaxBall, Seconds {
+    public static class Read implements Id, Title, Creator, MaxBall, Seconds, Questions {
         UUID id;
         String title;
         UserDTO.Read creator;
         Double maxBall;
         Integer seconds;
+        Set<QuestionDTO.Create> questions;
     }
 
 }

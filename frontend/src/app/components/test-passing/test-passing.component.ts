@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, timer } from 'rxjs';  
-import { QuestionBlank } from 'src/app/models/questionBlank.model';
 import { Result } from 'src/app/models/result.model';
 import { Test } from 'src/app/models/test.model';
-import { TestBlank } from 'src/app/models/testBlank.model';
 import { User } from 'src/app/models/user.model';
 import { TestService } from 'src/app/services/test.service';
 import { UtilsTimerService } from 'src/app/services/utils.timer.service';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-test-passing',
@@ -18,7 +15,6 @@ import { map } from 'rxjs/operators';
 export class TestPassingComponent implements OnInit {
 
   test: Test;
-  questionBlanks: QuestionBlank[] = [];
   result: Result;
   user: User;
 
@@ -34,11 +30,11 @@ export class TestPassingComponent implements OnInit {
 
   ngOnInit(): void {
     
-    /*
     this.timerService.pauseTimer();
-    this.test = history.state.test;
+    this.testService.getTestById(history.state.id).subscribe(test => this.test = test);
     this.user = history.state.user;
     console.log(this.test);
+    /*
     for (let i = 0; i < this.test.questions.length; i++){
       console.log("Something");
       this.questionBlanks.push(new QuestionBlank(
@@ -72,8 +68,7 @@ export class TestPassingComponent implements OnInit {
 
   checkTest(){
 
-    let testBlank : TestBlank = new TestBlank(this.test, this.user, this.questionBlanks);
-    /*
+    /*let testBlank : TestBlank = new TestBlank(this.test, this.user, this.questionBlanks);
     return this.testService.checkTest(testBlank).subscribe(data => {
       this.result = data;
     });

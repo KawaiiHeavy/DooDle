@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -24,8 +25,9 @@ public class Question {
 
     private Double scoreWeight;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    private Test test;
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private Set<Answer> answers;
 
     private String imageUrl;
 

@@ -1,11 +1,12 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Answer } from 'src/app/models/answer.model';
 import { Question } from 'src/app/models/question.model';
 import { Test } from 'src/app/models/test.model';
 import { User } from 'src/app/models/user.model';
+import { AnswerService } from 'src/app/services/answer.service';
+import { QuestionService } from 'src/app/services/question.service';
 import { TestService } from 'src/app/services/test.service';
-import { UserService } from 'src/app/services/user.service';
-import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-test-creating',
@@ -27,10 +28,8 @@ export class TestCreatingComponent implements OnInit {
   seconds: number = 600;
   questions: Question[] = [];
 
-  // TODO: Временная затычка, переделать на инжект теста (возможно)
   constructor(private router: Router,
-    private testService: TestService,
-    private userService: UserService) {
+    private testService: TestService) {
   }
 
   ngOnInit(): void {
@@ -39,29 +38,19 @@ export class TestCreatingComponent implements OnInit {
   }
 
   onChange(){
+    this.questions = [];
     for (let i = 0; i < this.countOfQuestions; i++){
-      this.test.questions.push(new Question(
-        "",
-        0
-      ));
+      let question : Question = new Question();
+      this.test.questions.push(question);
+      question.scoreWeight = 0;
     }
-  }
-
-  addUUIDToTestObjects(){
-    let result : Question[] = JSON.parse(JSON.stringify(this.questions));
-    console.log(result);
-    result.forEach(question => {
-      question.id = uuidv4();
-      question.possibleAnswers.forEach(answer => {
-        answer.id = uuidv4();
-      })
-    })
-    return result;
   }
 
   saveTest(){
     this.isSaved = true;
     this.test.creator = this.creator;
-    this.testService.addTest(this.test).subscribe(data => console.log("Это работает"));
+    this.testService.addTest(this.test).subscribe(recvTest => { 
+      console.log(`Test ${this.test.title} has sent`); 
+    });
   }
 }

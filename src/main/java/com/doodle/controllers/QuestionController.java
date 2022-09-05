@@ -1,6 +1,7 @@
 package com.doodle.controllers;
 
 import com.doodle.dto.QuestionDTO;
+import com.doodle.dto.TestDTO;
 import com.doodle.services.QuestionService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -22,6 +23,7 @@ public class QuestionController {
 
     @PostMapping("/add")
     public ResponseEntity<QuestionDTO.Read> createQuestion(@RequestBody QuestionDTO.Create questionDTO){
+        System.out.println(questionDTO);
         QuestionDTO.Read question = questionService.createQuestion(questionDTO);
         return new ResponseEntity<>(question, HttpStatus.CREATED);
     }
@@ -51,5 +53,10 @@ public class QuestionController {
         Page<QuestionDTO.Read> questionPage = questionService.getAllQuestionsPageable(paging);
         return new ResponseEntity<>(questionPage, HttpStatus.OK);
     }
-    
+
+    @GetMapping("/find/{id}")
+    public ResponseEntity<QuestionDTO.Read> findQuestion(@PathVariable UUID id){
+        QuestionDTO.Read question = questionService.findQuestionById(id);
+        return new ResponseEntity<>(question, HttpStatus.OK);
+    }
 }

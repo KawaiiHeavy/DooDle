@@ -22,11 +22,12 @@ export class QuestionCreatingComponent implements OnInit {
   }
 
   onChange(){
-    this.question.possibleAnswers = [];
+    this.question.answers = [];
     for (let i = 0; i < this.countOfAnswers; i++){
-      this.question.possibleAnswers.push(new Answer(
-        "", false
-      ));
+      let answer : Answer = new Answer();
+      answer.answerText = "";
+      answer.correct = false;
+      this.question.answers.push(answer);
     }
   }
 

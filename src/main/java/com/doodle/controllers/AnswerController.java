@@ -1,6 +1,7 @@
 package com.doodle.controllers;
 
 import com.doodle.dto.AnswerDTO;
+import com.doodle.dto.TestDTO;
 import com.doodle.services.AnswerService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -22,6 +23,7 @@ public class AnswerController {
 
     @PostMapping("/add")
     public ResponseEntity<AnswerDTO.Read> createAnswer(@RequestBody AnswerDTO.Create answerDTO){
+        System.out.println(answerDTO);
         AnswerDTO.Read answer = answerService.createAnswer(answerDTO);
         return new ResponseEntity<>(answer, HttpStatus.CREATED);
     }
@@ -50,6 +52,12 @@ public class AnswerController {
         Pageable paging = PageRequest.of(page, size);
         Page<AnswerDTO.Read> answerPage = answerService.getAllAnswersPageable(paging);
         return new ResponseEntity<>(answerPage, HttpStatus.OK);
+    }
+
+    @GetMapping("/find/{id}")
+    public ResponseEntity<AnswerDTO.Read> findAnswer(@PathVariable UUID id){
+        AnswerDTO.Read answer = answerService.findAnswerById(id);
+        return new ResponseEntity<>(answer, HttpStatus.OK);
     }
 
 }

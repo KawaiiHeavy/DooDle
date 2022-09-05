@@ -19,9 +19,6 @@ public class Answer {
     @Column(name="id")
     private UUID id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Question question;
-
     private String answerText;
 
     private Boolean correct;

@@ -14,7 +14,8 @@ public class Mapper {
                 test.getTitle(),
                 mapToReadUserDTO(test.getCreator()),
                 test.getMaxBall(),
-                test.getSeconds()
+                test.getSeconds(),
+                test.getQuestions().stream().map(this::mapToCreatedQuestionDTO).collect(Collectors.toSet())
         );
     }
 
@@ -24,7 +25,8 @@ public class Mapper {
                 test.getTitle(),
                 mapToReadUserDTO(test.getCreator()),
                 test.getMaxBall(),
-                test.getSeconds()
+                test.getSeconds(),
+                test.getQuestions().stream().map(this::mapToCreatedQuestionDTO).collect(Collectors.toSet())
         );
     }
 
@@ -59,6 +61,7 @@ public class Mapper {
         test.setCreator(mapToUser(testDTO.getCreator()));
         test.setSeconds(testDTO.getSeconds());
         test.setMaxBall(testDTO.getMaxBall());
+        test.setQuestions(testDTO.getQuestions().stream().map(this::mapToQuestion).collect(Collectors.toSet()));
         return test;
     }
 
@@ -69,12 +72,12 @@ public class Mapper {
         test.setCreator(mapToUser(testDTO.getCreator()));
         test.setSeconds(testDTO.getSeconds());
         test.setMaxBall(testDTO.getMaxBall());
+        test.setQuestions(testDTO.getQuestions().stream().map(this::mapToQuestion).collect(Collectors.toSet()));
         return test;
     }
 
     public User mapToUser(UserDTO.Read userDTO){
         User user = new User();
-        System.out.println(userDTO);
         user.setId(userDTO.getId());
         user.setNickname(userDTO.getNickname());
         user.setPassword(userDTO.getPassword());
@@ -104,7 +107,8 @@ public class Mapper {
         return new QuestionDTO.Create(
                 question.getQuestionText(),
                 question.getScoreWeight(),
-                question.getImageUrl()
+                question.getImageUrl(),
+                question.getAnswers().stream().map(this::mapToCreatedAnswerDTO).collect(Collectors.toSet())
         );
     }
 
@@ -113,7 +117,8 @@ public class Mapper {
                 question.getId(),
                 question.getQuestionText(),
                 question.getScoreWeight(),
-                question.getImageUrl()
+                question.getImageUrl(),
+                question.getAnswers().stream().map(this::mapToCreatedAnswerDTO).collect(Collectors.toSet())
         );
     }
 
@@ -121,6 +126,7 @@ public class Mapper {
         Question question = new Question();
         question.setQuestionText(questionDTO.getQuestionText());
         question.setImageUrl(questionDTO.getImageUrl());
+        question.setAnswers(questionDTO.getAnswers().stream().map(this::mapToAnswer).collect(Collectors.toSet()));
         return question;
     }
 
@@ -129,6 +135,7 @@ public class Mapper {
         question.setId(questionDTO.getId());
         question.setQuestionText(questionDTO.getQuestionText());
         question.setImageUrl(questionDTO.getImageUrl());
+        question.setAnswers(questionDTO.getAnswers().stream().map(this::mapToAnswer).collect(Collectors.toSet()));
         return question;
     }
 

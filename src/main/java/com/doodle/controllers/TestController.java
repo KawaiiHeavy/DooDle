@@ -52,4 +52,10 @@ public class TestController {
         Page<TestDTO.Read> testPage = testService.getAllTestsPageable(paging);
         return new ResponseEntity<>(testPage, HttpStatus.OK);
     }
+
+    @GetMapping("/find/{id}")
+    public ResponseEntity<TestDTO.Read> findTest(@PathVariable UUID id){
+        TestDTO.Read test = testService.findTestById(id);
+        return new ResponseEntity<>(test, HttpStatus.OK);
+    }
 }

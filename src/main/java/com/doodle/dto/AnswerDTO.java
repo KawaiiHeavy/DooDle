@@ -13,7 +13,7 @@ public enum AnswerDTO {;
     private interface Correct { @NotBlank Boolean getCorrect(); }
 
     @Value
-    public static class Create implements AnswerText, Correct {
+    public static class Create implements AnswerText, Correct{
         String answerText;
         Boolean correct;
     }

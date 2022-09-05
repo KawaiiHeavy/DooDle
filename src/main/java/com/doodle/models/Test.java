@@ -32,6 +32,9 @@ public class Test {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<User> members;
 
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    private Set<Question> questions;
+
     private Double maxBall;
 
     private Integer seconds;

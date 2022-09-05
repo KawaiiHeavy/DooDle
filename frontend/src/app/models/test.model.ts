@@ -7,8 +7,8 @@ export class Test{
     title: string;
     creator: User;
     members: User[];
-    questions: Question[];
     results: Result[];
+    questions: Question[];
     maxBall: number;
     seconds: number;
 }

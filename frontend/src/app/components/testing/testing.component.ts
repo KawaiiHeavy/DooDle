@@ -51,11 +51,11 @@ export class TestingComponent implements OnInit {
   startTest(test: Test, user: User): void {
     console.log(test);
     console.log(`User with ${user.id} completing the test with ${test.id}`);
-    this.router.navigateByUrl('testing/testPassing', {state: {test: test, user: user}});
+    this.router.navigateByUrl('testing/testPassing', {state: { id: test.id, user: this.user }});
   }
 
   getTestDetailInfo(test: Test): void {
-    this.router.navigateByUrl('testing/testGettingDetailInfo', {state: test});
+    this.router.navigateByUrl('testing/testGettingDetailInfo', { state: test });
   }
 
   editTest(test: Test): void {
