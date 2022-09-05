@@ -30,6 +30,17 @@ public class Mapper {
         );
     }
 
+    public TestDTO.Passed mapToPassedTestDTO(Test test) {
+        return new TestDTO.Passed(
+                test.getId(),
+                test.getTitle(),
+                mapToReadUserDTO(test.getCreator()),
+                test.getMaxBall(),
+                test.getSeconds(),
+                test.getQuestions().stream().map(this::mapToPassedQuestionDTO).collect(Collectors.toSet())
+        );
+    }
+
     public UserDTO.Create mapToCreatedUserDTO(User user){
         return new UserDTO.Create(
                 user.getNickname(),
@@ -76,6 +87,17 @@ public class Mapper {
         return test;
     }
 
+    public Test mapToTest(TestDTO.Passed testDTO){
+        Test test = new Test();
+        test.setId(testDTO.getId());
+        test.setTitle(testDTO.getTitle());
+        test.setCreator(mapToUser(testDTO.getCreator()));
+        test.setSeconds(testDTO.getSeconds());
+        test.setMaxBall(testDTO.getMaxBall());
+        test.setQuestions(testDTO.getQuestions().stream().map(this::mapToQuestion).collect(Collectors.toSet()));
+        return test;
+    }
+
     public User mapToUser(UserDTO.Read userDTO){
         User user = new User();
         user.setId(userDTO.getId());
@@ -103,7 +125,7 @@ public class Mapper {
         return role;
     }
 
-    public QuestionDTO.Create mapToCreatedQuestionDTO (Question question) {
+    public QuestionDTO.Create mapToCreatedQuestionDTO(Question question) {
         return new QuestionDTO.Create(
                 question.getQuestionText(),
                 question.getScoreWeight(),
@@ -112,12 +134,23 @@ public class Mapper {
         );
     }
 
-    public QuestionDTO.Read mapToReadQuestionDTO (Question question) {
+    public QuestionDTO.Read mapToReadQuestionDTO(Question question) {
         return new QuestionDTO.Read(
                 question.getId(),
                 question.getQuestionText(),
                 question.getScoreWeight(),
                 question.getImageUrl(),
+                question.getAnswers().stream().map(this::mapToCreatedAnswerDTO).collect(Collectors.toSet())
+        );
+    }
+
+    public QuestionDTO.Passed mapToPassedQuestionDTO(Question question) {
+        return new QuestionDTO.Passed(
+                question.getId(),
+                question.getQuestionText(),
+                question.getScoreWeight(),
+                question.getImageUrl(),
+                question.getAnswers().stream().map(this::mapToCreatedAnswerDTO).collect(Collectors.toSet()),
                 question.getAnswers().stream().map(this::mapToCreatedAnswerDTO).collect(Collectors.toSet())
         );
     }
@@ -135,6 +168,16 @@ public class Mapper {
         question.setId(questionDTO.getId());
         question.setQuestionText(questionDTO.getQuestionText());
         question.setImageUrl(questionDTO.getImageUrl());
+        question.setAnswers(questionDTO.getAnswers().stream().map(this::mapToAnswer).collect(Collectors.toSet()));
+        return question;
+    }
+
+    public Question mapToQuestion(QuestionDTO.Passed questionDTO) {
+        Question question = new Question();
+        question.setId(questionDTO.getId());
+        question.setQuestionText(questionDTO.getQuestionText());
+        question.setImageUrl(questionDTO.getImageUrl());
+        question.setAnswers(questionDTO.getAnswers().stream().map(this::mapToAnswer).collect(Collectors.toSet()));
         question.setAnswers(questionDTO.getAnswers().stream().map(this::mapToAnswer).collect(Collectors.toSet()));
         return question;
     }

@@ -52,4 +52,13 @@ public enum TestDTO {;
         Set<QuestionDTO.Create> questions;
     }
 
+    @Value
+    public static class Passed implements Id, Title, Creator, MaxBall, Seconds, Questions {
+        UUID id;
+        String title;
+        UserDTO.Read creator;
+        Double maxBall;
+        Integer seconds;
+        Set<QuestionDTO.Passed> questions;
+    }
 }

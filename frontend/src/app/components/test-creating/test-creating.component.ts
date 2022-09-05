@@ -1,11 +1,8 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Answer } from 'src/app/models/answer.model';
 import { Question } from 'src/app/models/question.model';
 import { Test } from 'src/app/models/test.model';
 import { User } from 'src/app/models/user.model';
-import { AnswerService } from 'src/app/services/answer.service';
-import { QuestionService } from 'src/app/services/question.service';
 import { TestService } from 'src/app/services/test.service';
 
 @Component({

@@ -16,6 +16,8 @@ public enum QuestionDTO {;
 
     private interface Answers { @NotBlank Set<AnswerDTO.Create> getAnswers(); }
 
+    private interface UserAnswers { @NotBlank Set<AnswerDTO.Create> getUserAnswers(); }
+
     @Value
     public static class Create implements QuestionText, ScoreWeight, ImageUrl, Answers {
         String questionText;
@@ -31,5 +33,15 @@ public enum QuestionDTO {;
         Double scoreWeight;
         String imageUrl;
         Set<AnswerDTO.Create> answers;
+    }
+
+    @Value
+    public static class Passed implements Id, QuestionText, ScoreWeight, ImageUrl, Answers, UserAnswers {
+        UUID id;
+        String questionText;
+        Double scoreWeight;
+        String imageUrl;
+        Set<AnswerDTO.Create> answers;
+        Set<AnswerDTO.Create> userAnswers;
     }
 }
