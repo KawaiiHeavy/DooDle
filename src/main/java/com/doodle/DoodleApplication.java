@@ -1,9 +1,8 @@
 package com.doodle;
 
-import com.doodle.models.*;
+import com.doodle.models.ERole;
+import com.doodle.models.Role;
 import com.doodle.repostitories.RoleRepository;
-import com.doodle.services.impl.QuestionServiceImpl;
-import com.doodle.services.impl.TestServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -14,7 +13,9 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @SpringBootApplication
 public class DoodleApplication {

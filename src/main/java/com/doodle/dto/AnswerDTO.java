@@ -1,6 +1,8 @@
 package com.doodle.dto;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Value;
 
 import javax.validation.constraints.NotBlank;
@@ -12,13 +14,15 @@ public enum AnswerDTO {;
     private interface AnswerText { @NotBlank String getAnswerText(); }
     private interface Correct { @NotBlank Boolean getCorrect(); }
 
-    @Value
+    @Data
+    @AllArgsConstructor
     public static class Create implements AnswerText, Correct{
         String answerText;
         Boolean correct;
     }
 
-    @Value
+    @Data
+    @AllArgsConstructor
     public static class Read implements Id, AnswerText, Correct {
         UUID id;
         String answerText;

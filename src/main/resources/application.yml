@@ -1,3 +1,7 @@
+app:
+  jwtSecret: MegaSecretDoodleKeyForApplicationMegaSecretDoodleKeyForApplicationMegaSecretDoodleKeyForApplication
+  jwtExpirationMs: 86400000
+
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/doodle
@@ -11,10 +15,6 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: create-drop
-
-app:
-  jwtSecret: MegaSecretDoodleKeyForApplicationMegaSecretDoodleKeyForApplicationMegaSecretDoodleKeyForApplication
-  jwtExpirationMs: 86400000
 
 springdoc:
   swagger-ui:

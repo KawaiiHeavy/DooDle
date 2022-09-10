@@ -8,6 +8,7 @@ export class Question{
     imageUrl: string;
     test: Test;
     answers: Answer[];
+    userAnswers?: Answer[];
 
     constructor(){};
 }

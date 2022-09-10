@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription, timer } from 'rxjs';  
+import { map, Subscription, timer } from 'rxjs';  
 import { Result } from 'src/app/models/result.model';
 import { Test } from 'src/app/models/test.model';
 import { User } from 'src/app/models/user.model';
@@ -31,48 +31,34 @@ export class TestPassingComponent implements OnInit {
   ngOnInit(): void {
     
     this.timerService.pauseTimer();
-    this.testService.getTestById(history.state.id).subscribe(test => this.test = test);
+    this.testService.getTestById(history.state.id).subscribe(test => { 
+      this.test = test;
+      this.test.questions.forEach(question => {
+        question.userAnswers = JSON.parse(JSON.stringify(question.answers));
+        question.scoreWeight = 1;
+        question.userAnswers.forEach(answer => {
+          answer.correct = false;
+        })
+      });
+    });
     this.user = history.state.user;
-    console.log(this.test);
-    /*
-    for (let i = 0; i < this.test.questions.length; i++){
-      console.log("Something");
-      this.questionBlanks.push(new QuestionBlank(
-        this.test.questions[i].id,
-        this.test.questions[i].questionText,
-        this.test.questions[i].scoreWeight,
-        JSON.parse(JSON.stringify(this.test.questions[i].possibleAnswers)),
-        JSON.parse(JSON.stringify(this.test.questions[i].possibleAnswers)),
-        this.test.questions[i].imageUrl
-        ));
-    }
-
-    this.questionBlanks.forEach(questionBlank => {
-      questionBlank.userAnswers.forEach(answer => {
-        answer.correct = false;
-      })
-    })
-
-    console.log(this.questionBlanks);
-
+  
     this.timerService.setTime(this.test.seconds);
     this.timerService.startTimer();
 
     this.timerSubscription = timer(this.timerService.getTime() * 1000).pipe( 
       map(() => {
-        this.checkTest();
+        this.checkTest(this.test);
       })
     ).subscribe();
-    */ 
+    
   }
 
-  checkTest(){
-
-    /*let testBlank : TestBlank = new TestBlank(this.test, this.user, this.questionBlanks);
-    return this.testService.checkTest(testBlank).subscribe(data => {
-      this.result = data;
+  checkTest(test: Test){
+    console.log(test);
+    return this.testService.checkTest(test).subscribe(data => {
+      console.log(data);
     });
-    */
   }
 
   getTime(){

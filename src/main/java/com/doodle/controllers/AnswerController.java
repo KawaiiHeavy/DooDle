@@ -23,7 +23,6 @@ public class AnswerController {
 
     @PostMapping("/add")
     public ResponseEntity<AnswerDTO.Read> createAnswer(@RequestBody AnswerDTO.Create answerDTO){
-        System.out.println(answerDTO);
         AnswerDTO.Read answer = answerService.createAnswer(answerDTO);
         return new ResponseEntity<>(answer, HttpStatus.CREATED);
     }

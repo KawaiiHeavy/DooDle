@@ -1,6 +1,7 @@
 package com.doodle.dto;
 
 import com.doodle.models.ERole;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data

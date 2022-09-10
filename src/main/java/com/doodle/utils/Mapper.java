@@ -13,7 +13,6 @@ public class Mapper {
         return new TestDTO.Create(
                 test.getTitle(),
                 mapToReadUserDTO(test.getCreator()),
-                test.getMaxBall(),
                 test.getSeconds(),
                 test.getQuestions().stream().map(this::mapToCreatedQuestionDTO).collect(Collectors.toSet())
         );
@@ -71,7 +70,6 @@ public class Mapper {
         test.setTitle(testDTO.getTitle());
         test.setCreator(mapToUser(testDTO.getCreator()));
         test.setSeconds(testDTO.getSeconds());
-        test.setMaxBall(testDTO.getMaxBall());
         test.setQuestions(testDTO.getQuestions().stream().map(this::mapToQuestion).collect(Collectors.toSet()));
         return test;
     }

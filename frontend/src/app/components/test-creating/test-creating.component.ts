@@ -38,6 +38,7 @@ export class TestCreatingComponent implements OnInit {
     this.questions = [];
     for (let i = 0; i < this.countOfQuestions; i++){
       let question : Question = new Question();
+      question.imageUrl = "";
       this.test.questions.push(question);
       question.scoreWeight = 0;
     }

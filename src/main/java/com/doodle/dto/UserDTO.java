@@ -48,7 +48,6 @@ public enum UserDTO {
         String password;
         String email;
         Set<RoleDTO> roles;
-
     }
 
     @Data

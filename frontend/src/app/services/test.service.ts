@@ -11,6 +11,7 @@ import { Test } from "../models/test.model";
 export class TestService implements OnInit {
 
     private apiServerUrl = environment.apiBaseUrl;
+    private apiExtraUrl = environment.apiExtraUrl;
 
     constructor(private http: HttpClient){}
 
@@ -21,6 +22,7 @@ export class TestService implements OnInit {
     }
 
     public addTest(test: Test): Observable<Test> {
+        console.log(test);
         return this.http.post<Test>(`${this.apiServerUrl}/test/add`, test);
     } 
 
@@ -38,5 +40,9 @@ export class TestService implements OnInit {
     
     public getAllTestPageable(page: number, size: number): Observable<Pageable<Test>> {
         return this.http.get<Pageable<Test>>(`${this.apiServerUrl}/test/allPageable?page=${page}&size=${size}`);
+    }
+
+    public checkTest(test: Test): Observable<number> {
+        return this.http.post<number>(`${this.apiExtraUrl}/test/check`, test);
     }
 }

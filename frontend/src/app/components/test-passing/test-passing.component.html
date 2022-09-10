@@ -2,15 +2,15 @@
 <p>Создатель: {{ this.test.creator.nickname }}</p>
 <p><strong>Время:</strong> {{ this.getTime() }}</p>
 
-<!--
+
 <ng-container *ngIf="!this.result; else isResult">
-    <div *ngFor="let questionBlank of this.questionBlanks">
-        <strong>Вопрос:</strong> {{ questionBlank.questionText }}
-        <p><img *ngIf="questionBlank.imageUrl != ''" [src]="questionBlank.imageUrl" image-Height="200px" image-Width="200px"/></p>
+    <div *ngFor="let question of this.test.questions">
+        <strong>Вопрос:</strong> {{ question.questionText }}
+        <p><img *ngIf="question.imageUrl != ''" [src]="question.imageUrl" image-Height="200px" image-Width="200px"/></p>
         <ul>
-            <div *ngFor="let userAnswer of questionBlank.userAnswers">
-                <input type="checkbox" [(ngModel)]="userAnswer.correct"/>
-                {{ userAnswer.answerText }}
+            <div *ngFor="let answer of question.userAnswers">
+                <input type="checkbox" [(ngModel)]="answer.correct"/>
+                {{ answer.answerText }}
             </div>
         </ul>
     </div>
@@ -18,23 +18,22 @@
 
 
 <ng-template #isResult>
-    <div *ngFor="let questionBlank of this.questionBlanks">
-        <strong>Вопрос:</strong> {{ questionBlank.questionText }}
+    <div *ngFor="let question of this.test.questions">
+        <strong>Вопрос:</strong> {{ question.questionText }}
 
-        <p><img *ngIf="questionBlank.imageUrl != ''" [src]="questionBlank.imageUrl" image-Height="200px" image-Width="200px"/></p>
+        <p><img *ngIf="question.imageUrl != ''" [src]="question.imageUrl" image-Height="200px" image-Width="200px"/></p>
         <ul>
-            <div *ngFor="let userAnswer of questionBlank.userAnswers; let i = index">
-                <input type="checkbox" [disabled]="true" [(ngModel)]="userAnswer.correct"/>
-                {{ userAnswer.answerText }}
-                <span class="correctSpan" *ngIf="userAnswer.correct == questionBlank.answers[i].correct">Правильно</span>
-                <span class="incorrectSpan" *ngIf="userAnswer.correct != questionBlank.answers[i].correct">Неправильно</span>
+            <div *ngFor="let answer of question.answers; let i = index">
+                <input type="checkbox" [disabled]="true" [(ngModel)]="answer.correct"/>
+                {{ answer.answerText }}
+                <span class="correctSpan" *ngIf="answer.correct == question.answers[i].correct">Правильно</span>
+                <span class="incorrectSpan" *ngIf="answer.correct != question.answers[i].correct">Неправильно</span>
             </div>
         </ul>
     </div>
 </ng-template>
--->
 
-<button mat-raised-button color="primary" (click)="checkTest()" [disabled]="this.getTime() == 0 || this.result">Отправить на проверку</button>
+<button mat-raised-button color="primary" (click)="checkTest(test)" [disabled]="this.getTime() == 0 || this.result">Отправить на проверку</button>
 <div *ngIf="this.result">
     ID результата: {{ this.result.id }}<br>
     Результат: {{ this.result.score }} / {{ this.test.maxBall }}

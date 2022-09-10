@@ -1,5 +1,7 @@
 package com.doodle.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Value;
 
 import javax.validation.constraints.NotBlank;
@@ -18,7 +20,8 @@ public enum QuestionDTO {;
 
     private interface UserAnswers { @NotBlank Set<AnswerDTO.Create> getUserAnswers(); }
 
-    @Value
+    @Data
+    @AllArgsConstructor
     public static class Create implements QuestionText, ScoreWeight, ImageUrl, Answers {
         String questionText;
         Double scoreWeight;
@@ -26,7 +29,8 @@ public enum QuestionDTO {;
         Set<AnswerDTO.Create> answers;
     }
 
-    @Value
+    @Data
+    @AllArgsConstructor
     public static class Read implements Id, QuestionText, ScoreWeight, ImageUrl, Answers {
         UUID id;
         String questionText;
@@ -35,7 +39,8 @@ public enum QuestionDTO {;
         Set<AnswerDTO.Create> answers;
     }
 
-    @Value
+    @Data
+    @AllArgsConstructor
     public static class Passed implements Id, QuestionText, ScoreWeight, ImageUrl, Answers, UserAnswers {
         UUID id;
         String questionText;
