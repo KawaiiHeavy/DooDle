@@ -4,6 +4,9 @@ import com.doodle.dto.*;
 import com.doodle.models.*;
 import org.springframework.stereotype.Component;
 
+import javax.sql.rowset.serial.SerialBlob;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.stream.Collectors;
 
 @Component
@@ -14,6 +17,7 @@ public class Mapper {
                 test.getTitle(),
                 mapToReadUserDTO(test.getCreator()),
                 test.getSeconds(),
+                test.getMaxBall(),
                 test.getQuestions().stream().map(this::mapToCreatedQuestionDTO).collect(Collectors.toSet())
         );
     }
@@ -40,7 +44,7 @@ public class Mapper {
         );
     }
 
-    public UserDTO.Create mapToCreatedUserDTO(User user){
+    public UserDTO.Create mapToCreatedUserDTO(User user) {
         return new UserDTO.Create(
                 user.getNickname(),
                 user.getPassword(),
@@ -49,7 +53,7 @@ public class Mapper {
         );
     }
 
-    public UserDTO.Read mapToReadUserDTO(User user){
+    public UserDTO.Read mapToReadUserDTO(User user) {
         return new UserDTO.Read(
                 user.getId(),
                 user.getNickname(),
@@ -58,23 +62,24 @@ public class Mapper {
         );
     }
 
-    public RoleDTO mapToReadRoleDTO(Role role){
+    public RoleDTO mapToReadRoleDTO(Role role) {
         RoleDTO roleDTO = new RoleDTO();
         roleDTO.setId(role.getRole_id());
         roleDTO.setName(role.getName());
         return roleDTO;
     }
 
-    public Test mapToTest(TestDTO.Create testDTO){
+    public Test mapToTest(TestDTO.Create testDTO) {
         Test test = new Test();
         test.setTitle(testDTO.getTitle());
         test.setCreator(mapToUser(testDTO.getCreator()));
         test.setSeconds(testDTO.getSeconds());
+        test.setMaxBall(testDTO.getMaxBall());
         test.setQuestions(testDTO.getQuestions().stream().map(this::mapToQuestion).collect(Collectors.toSet()));
         return test;
     }
 
-    public Test mapToTest(TestDTO.Read testDTO){
+    public Test mapToTest(TestDTO.Read testDTO) {
         Test test = new Test();
         test.setId(testDTO.getId());
         test.setTitle(testDTO.getTitle());
@@ -85,7 +90,7 @@ public class Mapper {
         return test;
     }
 
-    public Test mapToTest(TestDTO.Passed testDTO){
+    public Test mapToTest(TestDTO.Passed testDTO) {
         Test test = new Test();
         test.setId(testDTO.getId());
         test.setTitle(testDTO.getTitle());
@@ -96,7 +101,7 @@ public class Mapper {
         return test;
     }
 
-    public User mapToUser(UserDTO.Read userDTO){
+    public User mapToUser(UserDTO.Read userDTO) {
         User user = new User();
         user.setId(userDTO.getId());
         user.setNickname(userDTO.getNickname());
@@ -106,7 +111,7 @@ public class Mapper {
         return user;
     }
 
-    public User mapToUser(UserDTO.Create userDTO){
+    public User mapToUser(UserDTO.Create userDTO) {
         User user = new User();
         user.setNickname(userDTO.getNickname());
         user.setPassword(userDTO.getPassword());
@@ -116,7 +121,7 @@ public class Mapper {
         return user;
     }
 
-    public Role mapToRole(RoleDTO roleDTO){
+    public Role mapToRole(RoleDTO roleDTO) {
         Role role = new Role();
         role.setName(roleDTO.getName());
         role.setRole_id(role.getRole_id());
@@ -124,59 +129,108 @@ public class Mapper {
     }
 
     public QuestionDTO.Create mapToCreatedQuestionDTO(Question question) {
+        byte[] imageBytes = null;
+        if (question.getImage() != null) {
+            try {
+                int blobLength = (int) question.getImage().length();
+                imageBytes = question.getImage().getBytes(1, blobLength);
+            } catch (SQLException ex) {
+                System.out.println(ex);
+            }
+        }
         return new QuestionDTO.Create(
                 question.getQuestionText(),
                 question.getScoreWeight(),
-                question.getImageUrl(),
+                imageBytes,
                 question.getAnswers().stream().map(this::mapToCreatedAnswerDTO).collect(Collectors.toSet())
-        );
+                );
     }
 
     public QuestionDTO.Read mapToReadQuestionDTO(Question question) {
+        byte[] imageBytes = null;
+        if (question.getImage() != null) {
+            try {
+                int blobLength = (int) question.getImage().length();
+                imageBytes = question.getImage().getBytes(1, blobLength);
+            } catch (SQLException ex) {
+                System.out.println(ex);
+            }
+        }
         return new QuestionDTO.Read(
                 question.getId(),
                 question.getQuestionText(),
                 question.getScoreWeight(),
-                question.getImageUrl(),
+                imageBytes,
                 question.getAnswers().stream().map(this::mapToCreatedAnswerDTO).collect(Collectors.toSet())
-        );
+                );
     }
 
     public QuestionDTO.Passed mapToPassedQuestionDTO(Question question) {
+        byte[] imageBytes = null;
+        if (question.getImage() != null) {
+            try {
+                int blobLength = (int) question.getImage().length();
+                imageBytes = question.getImage().getBytes(1, blobLength);
+            } catch (SQLException ex) {
+                System.out.println(ex);
+            }
+        }
         return new QuestionDTO.Passed(
                 question.getId(),
                 question.getQuestionText(),
                 question.getScoreWeight(),
-                question.getImageUrl(),
+                imageBytes,
                 question.getAnswers().stream().map(this::mapToCreatedAnswerDTO).collect(Collectors.toSet()),
                 question.getAnswers().stream().map(this::mapToCreatedAnswerDTO).collect(Collectors.toSet())
-        );
+                );
     }
 
     public Question mapToQuestion(QuestionDTO.Create questionDTO) {
         Question question = new Question();
+        Blob image = null;
+        try {
+            image = new javax.sql.rowset.serial.SerialBlob(questionDTO.getImage());
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
         question.setQuestionText(questionDTO.getQuestionText());
-        question.setImageUrl(questionDTO.getImageUrl());
+        question.setImage(image);
+        question.setScoreWeight(questionDTO.getScoreWeight());
         question.setAnswers(questionDTO.getAnswers().stream().map(this::mapToAnswer).collect(Collectors.toSet()));
         return question;
     }
 
     public Question mapToQuestion(QuestionDTO.Read questionDTO) {
         Question question = new Question();
-        question.setId(questionDTO.getId());
+        Blob image = null;
+        try {
+            image = new javax.sql.rowset.serial.SerialBlob(questionDTO.getImage());
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
         question.setQuestionText(questionDTO.getQuestionText());
-        question.setImageUrl(questionDTO.getImageUrl());
+        question.setImage(image);
+        question.setId(questionDTO.getId());
+        question.setScoreWeight(questionDTO.getScoreWeight());
         question.setAnswers(questionDTO.getAnswers().stream().map(this::mapToAnswer).collect(Collectors.toSet()));
         return question;
     }
 
     public Question mapToQuestion(QuestionDTO.Passed questionDTO) {
         Question question = new Question();
-        question.setId(questionDTO.getId());
+        Blob image = null;
+        try {
+            image = new javax.sql.rowset.serial.SerialBlob(questionDTO.getImage());
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
         question.setQuestionText(questionDTO.getQuestionText());
-        question.setImageUrl(questionDTO.getImageUrl());
+        question.setId(questionDTO.getId());
+        question.setImage(image);
+        question.setScoreWeight(questionDTO.getScoreWeight());
         question.setAnswers(questionDTO.getAnswers().stream().map(this::mapToAnswer).collect(Collectors.toSet()));
         question.setAnswers(questionDTO.getAnswers().stream().map(this::mapToAnswer).collect(Collectors.toSet()));
+
         return question;
     }
 
@@ -187,7 +241,7 @@ public class Mapper {
         );
     }
 
-    public AnswerDTO.Read mapToReadAnswerDTO(Answer answer){
+    public AnswerDTO.Read mapToReadAnswerDTO(Answer answer) {
         return new AnswerDTO.Read(
                 answer.getId(),
                 answer.getAnswerText(),
@@ -195,14 +249,14 @@ public class Mapper {
         );
     }
 
-    public Answer mapToAnswer(AnswerDTO.Create answerDTO){
+    public Answer mapToAnswer(AnswerDTO.Create answerDTO) {
         Answer answer = new Answer();
         answer.setAnswerText(answerDTO.getAnswerText());
         answer.setCorrect(answerDTO.getCorrect());
         return answer;
     }
 
-    public Answer mapToAnswer(AnswerDTO.Read answerDTO){
+    public Answer mapToAnswer(AnswerDTO.Read answerDTO) {
         Answer answer = new Answer();
         answer.setId(answerDTO.getId());
         answer.setAnswerText(answerDTO.getAnswerText());

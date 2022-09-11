@@ -5,7 +5,7 @@ export class Question{
     id: string;
     questionText: string;
     scoreWeight: number;
-    imageUrl: string;
+    image: any;
     test: Test;
     answers: Answer[];
     userAnswers?: Answer[];

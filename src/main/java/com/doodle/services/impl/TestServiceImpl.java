@@ -1,5 +1,6 @@
 package com.doodle.services.impl;
 
+import com.doodle.dto.QuestionDTO;
 import com.doodle.dto.TestDTO;
 import com.doodle.exceptions.TestNotFoundException;
 import com.doodle.models.Test;
@@ -37,6 +38,11 @@ public class TestServiceImpl implements TestService {
     }
 
     public TestDTO.Read createTest(TestDTO.Create testDTO) {
+        Double maxBall = 0.;
+        for (QuestionDTO.Create question : testDTO.getQuestions()) {
+            maxBall += question.getScoreWeight();
+        }
+        testDTO.setMaxBall(maxBall);
         return mapper.mapToReadTestDTO(testRepository.save(mapper.mapToTest(testDTO)));
     }
 

@@ -4,8 +4,17 @@
     border-color: #673ab7;
   }
 
-  .answer-divider{
-    border-top-width: 4px;
-    border-top-style: dashed;
-    border-color: #673ab7;
-  }
+.answer-divider{
+  border-top-width: 4px;
+  border-top-style: dashed;
+  border-color: #673ab7;
+}
+
+.mat-raised-button{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.h200 {
+  height: 200px;
+}

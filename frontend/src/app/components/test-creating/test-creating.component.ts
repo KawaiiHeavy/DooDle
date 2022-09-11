@@ -23,7 +23,6 @@ export class TestCreatingComponent implements OnInit {
   creator: User;
   title: string = "";
   seconds: number = 600;
-  questions: Question[] = [];
 
   constructor(private router: Router,
     private testService: TestService) {
@@ -35,10 +34,10 @@ export class TestCreatingComponent implements OnInit {
   }
 
   onChange(){
-    this.questions = [];
+    this.test.questions = [];
     for (let i = 0; i < this.countOfQuestions; i++){
       let question : Question = new Question();
-      question.imageUrl = "";
+      question.image = "";
       this.test.questions.push(question);
       question.scoreWeight = 0;
     }

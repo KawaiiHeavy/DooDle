@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -58,5 +59,11 @@ public class QuestionController {
     public ResponseEntity<QuestionDTO.Read> findQuestion(@PathVariable UUID id){
         QuestionDTO.Read question = questionService.findQuestionById(id);
         return new ResponseEntity<>(question, HttpStatus.OK);
+    }
+
+    @GetMapping("/getImage/{questionId}")
+    public ResponseEntity<byte[]> getImageFromQuestion(@PathVariable UUID questionId){
+        byte[] imageBytes = questionService.getImageFromQuestion(questionId);
+        return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(imageBytes);
     }
 }

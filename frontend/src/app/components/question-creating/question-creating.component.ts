@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Answer } from 'src/app/models/answer.model';
 import { Question } from 'src/app/models/question.model';
 
@@ -8,6 +9,10 @@ import { Question } from 'src/app/models/question.model';
   styleUrls: ['./question-creating.component.scss']
 })
 export class QuestionCreatingComponent implements OnInit {
+
+  @ViewChild('input') inputRef: ElementRef;
+  form: FormGroup;
+  imagePreview: any = '';
 
   @Input()
   question: Question;
@@ -19,6 +24,8 @@ export class QuestionCreatingComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.countOfAnswers = 2;
+    this.onChange();
   }
 
   onChange(){
@@ -31,4 +38,20 @@ export class QuestionCreatingComponent implements OnInit {
     }
   }
 
+  triggerClick() {
+    this.inputRef.nativeElement.click();
+  }
+
+  onFileUpload(event: any) {
+    const file = event.target.files[0];
+    this.question.image = file;
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      this.imagePreview = reader.result;
+    }
+
+    reader.readAsDataURL(file);
+  }
 }

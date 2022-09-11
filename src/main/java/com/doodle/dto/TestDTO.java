@@ -45,6 +45,7 @@ public enum TestDTO {;
         String title;
         UserDTO.Read creator;
         Integer seconds;
+        Double maxBall;
         Set<QuestionDTO.Create> questions;
     }
 

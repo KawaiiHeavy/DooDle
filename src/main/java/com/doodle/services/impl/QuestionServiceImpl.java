@@ -12,6 +12,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -62,5 +64,19 @@ public class QuestionServiceImpl implements QuestionService {
     public void deleteQuestion(UUID id) {
         Question question = questionRepository.getById(id);
         questionRepository.delete(question);
+    }
+
+    public byte[] getImageFromQuestion(UUID questionId) {
+        byte[] imageBytes = null;
+        Optional<Question> question = questionRepository.findById(questionId);
+        if (question.isPresent()) {
+            try {
+                imageBytes = question.get().getImage().getBytes(1,
+                        (int) question.get().getImage().length());
+            } catch (SQLException ex) {
+                System.out.println(ex);
+            }
+        }
+        return imageBytes;
     }
 }

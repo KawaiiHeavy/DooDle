@@ -3,6 +3,7 @@ package com.doodle.models;
 import lombok.*;
 
 import javax.persistence.*;
+import java.sql.Blob;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -29,7 +30,7 @@ public class Question {
     @ToString.Exclude
     private Set<Answer> answers;
 
-    private String imageUrl;
+    private Blob image;
 
 
 }

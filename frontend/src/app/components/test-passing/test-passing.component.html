@@ -6,7 +6,7 @@
 <ng-container *ngIf="!this.result; else isResult">
     <div *ngFor="let question of this.test.questions">
         <strong>Вопрос:</strong> {{ question.questionText }}
-        <p><img *ngIf="question.imageUrl != ''" [src]="question.imageUrl" image-Height="200px" image-Width="200px"/></p>
+        <p><img *ngIf="question.image != ''" [src]="question.image" image-Height="200px" image-Width="200px"/></p>
         <ul>
             <div *ngFor="let answer of question.userAnswers">
                 <input type="checkbox" [(ngModel)]="answer.correct"/>
@@ -21,7 +21,7 @@
     <div *ngFor="let question of this.test.questions">
         <strong>Вопрос:</strong> {{ question.questionText }}
 
-        <p><img *ngIf="question.imageUrl != ''" [src]="question.imageUrl" image-Height="200px" image-Width="200px"/></p>
+        <p><img *ngIf="question.image != ''" [src]="question.image" image-Height="200px" image-Width="200px"/></p>
         <ul>
             <div *ngFor="let answer of question.answers; let i = index">
                 <input type="checkbox" [disabled]="true" [(ngModel)]="answer.correct"/>

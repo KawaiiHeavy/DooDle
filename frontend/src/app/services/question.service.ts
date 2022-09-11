@@ -39,4 +39,8 @@ export class QuestionService {
     public getAllQuestionsPageable(page: number, size: number): Observable<Pageable<Question>> {
         return this.http.get<Pageable<Question>>(`${this.apiServerUrl}/question/allPageable?page=${page}&size=${size}`);
     }
+
+    public getImageFromQuestion(questionId: string): Observable<Blob> {
+        return this.http.get<Blob>(`${this.apiServerUrl}/question/getImage/${questionId}`);
+    }
 }

@@ -15,5 +15,7 @@ public interface QuestionService {
     QuestionDTO.Read findQuestionById(UUID id);
     QuestionDTO.Read updateQuestion(QuestionDTO.Read questionDTO);
     void deleteQuestion(UUID id);
+
+    byte[] getImageFromQuestion(UUID questionId);
     
 }
