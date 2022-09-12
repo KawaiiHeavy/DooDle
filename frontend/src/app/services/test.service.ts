@@ -42,7 +42,7 @@ export class TestService implements OnInit {
         return this.http.get<Pageable<Test>>(`${this.apiServerUrl}/test/allPageable?page=${page}&size=${size}`);
     }
 
-    public checkTest(test: Test): Observable<number> {
-        return this.http.post<number>(`${this.apiExtraUrl}/test/check`, test);
+    public checkTest(test: Test): Observable<Test> {
+        return this.http.post<Test>(`${this.apiExtraUrl}/test/check`, test);
     }
 }

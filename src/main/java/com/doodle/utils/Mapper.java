@@ -29,7 +29,7 @@ public class Mapper {
                 mapToReadUserDTO(test.getCreator()),
                 test.getMaxBall(),
                 test.getSeconds(),
-                test.getQuestions().stream().map(this::mapToCreatedQuestionDTO).collect(Collectors.toSet())
+                test.getQuestions().stream().map(this::mapToReadQuestionDTO).collect(Collectors.toSet())
         );
     }
 
@@ -129,57 +129,30 @@ public class Mapper {
     }
 
     public QuestionDTO.Create mapToCreatedQuestionDTO(Question question) {
-        byte[] imageBytes = null;
-        if (question.getImage() != null) {
-            try {
-                int blobLength = (int) question.getImage().length();
-                imageBytes = question.getImage().getBytes(1, blobLength);
-            } catch (SQLException ex) {
-                System.out.println(ex);
-            }
-        }
         return new QuestionDTO.Create(
                 question.getQuestionText(),
                 question.getScoreWeight(),
-                imageBytes,
+                question.getImage(),
                 question.getAnswers().stream().map(this::mapToCreatedAnswerDTO).collect(Collectors.toSet())
                 );
     }
 
     public QuestionDTO.Read mapToReadQuestionDTO(Question question) {
-        byte[] imageBytes = null;
-        if (question.getImage() != null) {
-            try {
-                int blobLength = (int) question.getImage().length();
-                imageBytes = question.getImage().getBytes(1, blobLength);
-            } catch (SQLException ex) {
-                System.out.println(ex);
-            }
-        }
         return new QuestionDTO.Read(
                 question.getId(),
                 question.getQuestionText(),
                 question.getScoreWeight(),
-                imageBytes,
+                question.getImage(),
                 question.getAnswers().stream().map(this::mapToCreatedAnswerDTO).collect(Collectors.toSet())
                 );
     }
 
     public QuestionDTO.Passed mapToPassedQuestionDTO(Question question) {
-        byte[] imageBytes = null;
-        if (question.getImage() != null) {
-            try {
-                int blobLength = (int) question.getImage().length();
-                imageBytes = question.getImage().getBytes(1, blobLength);
-            } catch (SQLException ex) {
-                System.out.println(ex);
-            }
-        }
         return new QuestionDTO.Passed(
                 question.getId(),
                 question.getQuestionText(),
                 question.getScoreWeight(),
-                imageBytes,
+                question.getImage(),
                 question.getAnswers().stream().map(this::mapToCreatedAnswerDTO).collect(Collectors.toSet()),
                 question.getAnswers().stream().map(this::mapToCreatedAnswerDTO).collect(Collectors.toSet())
                 );
@@ -187,14 +160,8 @@ public class Mapper {
 
     public Question mapToQuestion(QuestionDTO.Create questionDTO) {
         Question question = new Question();
-        Blob image = null;
-        try {
-            image = new javax.sql.rowset.serial.SerialBlob(questionDTO.getImage());
-        } catch (SQLException ex) {
-            System.out.println(ex);
-        }
         question.setQuestionText(questionDTO.getQuestionText());
-        question.setImage(image);
+        question.setImage(questionDTO.getImage());
         question.setScoreWeight(questionDTO.getScoreWeight());
         question.setAnswers(questionDTO.getAnswers().stream().map(this::mapToAnswer).collect(Collectors.toSet()));
         return question;
@@ -202,14 +169,8 @@ public class Mapper {
 
     public Question mapToQuestion(QuestionDTO.Read questionDTO) {
         Question question = new Question();
-        Blob image = null;
-        try {
-            image = new javax.sql.rowset.serial.SerialBlob(questionDTO.getImage());
-        } catch (SQLException ex) {
-            System.out.println(ex);
-        }
         question.setQuestionText(questionDTO.getQuestionText());
-        question.setImage(image);
+        question.setImage(questionDTO.getImage());
         question.setId(questionDTO.getId());
         question.setScoreWeight(questionDTO.getScoreWeight());
         question.setAnswers(questionDTO.getAnswers().stream().map(this::mapToAnswer).collect(Collectors.toSet()));
@@ -218,19 +179,12 @@ public class Mapper {
 
     public Question mapToQuestion(QuestionDTO.Passed questionDTO) {
         Question question = new Question();
-        Blob image = null;
-        try {
-            image = new javax.sql.rowset.serial.SerialBlob(questionDTO.getImage());
-        } catch (SQLException ex) {
-            System.out.println(ex);
-        }
         question.setQuestionText(questionDTO.getQuestionText());
         question.setId(questionDTO.getId());
-        question.setImage(image);
+        question.setImage(questionDTO.getImage());
         question.setScoreWeight(questionDTO.getScoreWeight());
         question.setAnswers(questionDTO.getAnswers().stream().map(this::mapToAnswer).collect(Collectors.toSet()));
         question.setAnswers(questionDTO.getAnswers().stream().map(this::mapToAnswer).collect(Collectors.toSet()));
-
         return question;
     }
 

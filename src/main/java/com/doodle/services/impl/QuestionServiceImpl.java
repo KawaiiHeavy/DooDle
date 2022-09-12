@@ -3,15 +3,23 @@ package com.doodle.services.impl;
 import com.doodle.dto.QuestionDTO;
 import com.doodle.exceptions.QuestionNotFoundException;
 import com.doodle.models.Answer;
+import com.doodle.models.ImageModel;
 import com.doodle.models.Question;
+import com.doodle.repostitories.ImageModelRepository;
 import com.doodle.repostitories.QuestionRepository;
 import com.doodle.services.QuestionService;
+import com.doodle.utils.ByteCompressor;
 import com.doodle.utils.Mapper;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Optional;
 import java.util.Set;
@@ -23,7 +31,9 @@ import java.util.stream.Collectors;
 public class QuestionServiceImpl implements QuestionService {
 
     private QuestionRepository questionRepository;
+    private ImageModelRepository imageModelRepository;
     private Mapper mapper;
+    private ByteCompressor compressor;
 
     public QuestionDTO.Read createQuestion(QuestionDTO.Create question) {
         return mapper.mapToReadQuestionDTO(
@@ -66,17 +76,29 @@ public class QuestionServiceImpl implements QuestionService {
         questionRepository.delete(question);
     }
 
-    public byte[] getImageFromQuestion(UUID questionId) {
-        byte[] imageBytes = null;
-        Optional<Question> question = questionRepository.findById(questionId);
-        if (question.isPresent()) {
-            try {
-                imageBytes = question.get().getImage().getBytes(1,
-                        (int) question.get().getImage().length());
-            } catch (SQLException ex) {
-                System.out.println(ex);
-            }
+    @Transactional
+    public void uploadImageToQuestion(UUID questionId, MultipartFile file) {
+        ImageModel img = new ImageModel();
+        img.setName(file.getOriginalFilename());
+        img.setType(file.getContentType());
+        byte[] picBytes = null;
+        try {
+            picBytes = compressor.compressBytes(file.getBytes());
+        } catch (IOException ex) {
+            System.out.println(ex);
         }
-        return imageBytes;
+        img.setPicByte(picBytes);
+        img = imageModelRepository.saveAndFlush(img);
+        questionRepository.addImageToQuestion(questionId, img);
+    }
+
+    public ImageModel getImageFromQuestion(UUID questionId) {
+        final Optional<ImageModel> retrievedImage = questionRepository.getImageFromQuestion(questionId);
+        ImageModel img = new ImageModel();
+        img.setName(retrievedImage.get().getName());
+        img.setType(retrievedImage.get().getType());
+        img.setPicByte(compressor.decompressBytes(retrievedImage.get().getPicByte()));
+
+        return img;
     }
 }

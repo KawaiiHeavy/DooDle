@@ -3,10 +3,14 @@
 <p><strong>Время:</strong> {{ this.getTime() }}</p>
 
 
-<ng-container *ngIf="!this.result; else isResult">
+<ng-container *ngIf="!this.testHasSent; else isResult">
     <div *ngFor="let question of this.test.questions">
         <strong>Вопрос:</strong> {{ question.questionText }}
-        <p><img *ngIf="question.image != ''" [src]="question.image" image-Height="200px" image-Width="200px"/></p>
+        <div class="col s12 l4 center">
+            <img class="responsive-img h200"
+            *ngIf="question.image" 
+            [src]="question.image"/>
+        </div>
         <ul>
             <div *ngFor="let answer of question.userAnswers">
                 <input type="checkbox" [(ngModel)]="answer.correct"/>
@@ -21,13 +25,17 @@
     <div *ngFor="let question of this.test.questions">
         <strong>Вопрос:</strong> {{ question.questionText }}
 
-        <p><img *ngIf="question.image != ''" [src]="question.image" image-Height="200px" image-Width="200px"/></p>
+        <div class="col s12 l4 center">
+            <img class="responsive-img h200"
+            *ngIf="question.image" 
+            [src]="question.image"/>
+        </div>
         <ul>
             <div *ngFor="let answer of question.answers; let i = index">
                 <input type="checkbox" [disabled]="true" [(ngModel)]="answer.correct"/>
                 {{ answer.answerText }}
-                <span class="correctSpan" *ngIf="answer.correct == question.answers[i].correct">Правильно</span>
-                <span class="incorrectSpan" *ngIf="answer.correct != question.answers[i].correct">Неправильно</span>
+                <span class="correctSpan" *ngIf="answer.correct == question.userAnswers[i].correct">Правильно</span>
+                <span class="incorrectSpan" *ngIf="answer.correct != question.userAnswers[i].correct">Неправильно</span>
             </div>
         </ul>
     </div>

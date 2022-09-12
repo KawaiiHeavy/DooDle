@@ -1,5 +1,6 @@
 package com.doodle.dto;
 
+import com.doodle.models.ImageModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Value;
@@ -16,9 +17,7 @@ public enum QuestionDTO {;
     private interface Id { @NotBlank UUID getId(); }
     private interface QuestionText { @NotBlank String getQuestionText(); }
     private interface ScoreWeight { @NotBlank Double getScoreWeight(); }
-    private interface Image { MultipartFile getImage(); }
-
-    private interface ByteImage { byte[] getImage(); }
+    private interface Image { ImageModel getImage(); }
 
     private interface Answers { @NotBlank Set<AnswerDTO.Create> getAnswers(); }
 
@@ -26,30 +25,30 @@ public enum QuestionDTO {;
 
     @Data
     @AllArgsConstructor
-    public static class Create implements QuestionText, ScoreWeight, ByteImage, Answers {
+    public static class Create implements QuestionText, ScoreWeight, Image, Answers {
         String questionText;
         Double scoreWeight;
-        byte[] image;
+        ImageModel image;
         Set<AnswerDTO.Create> answers;
     }
 
     @Data
     @AllArgsConstructor
-    public static class Read implements Id, QuestionText, ScoreWeight, ByteImage, Answers {
+    public static class Read implements Id, QuestionText, ScoreWeight, Image, Answers {
         UUID id;
         String questionText;
         Double scoreWeight;
-        byte[] image;
+        ImageModel image;
         Set<AnswerDTO.Create> answers;
     }
 
     @Data
     @AllArgsConstructor
-    public static class Passed implements Id, QuestionText, ScoreWeight, ByteImage, Answers, UserAnswers {
+    public static class Passed implements Id, QuestionText, ScoreWeight, Image, Answers, UserAnswers {
         UUID id;
         String questionText;
         Double scoreWeight;
-        byte[] image;
+        ImageModel image;
         Set<AnswerDTO.Create> answers;
         Set<AnswerDTO.Create> userAnswers;
     }

@@ -40,7 +40,11 @@ export class QuestionService {
         return this.http.get<Pageable<Question>>(`${this.apiServerUrl}/question/allPageable?page=${page}&size=${size}`);
     }
 
-    public getImageFromQuestion(questionId: string): Observable<Blob> {
-        return this.http.get<Blob>(`${this.apiServerUrl}/question/getImage/${questionId}`);
+    public uploadImageToQuestion(questionId: string, fd: FormData): Observable<void> {
+        return this.http.post<void>(`${this.apiServerUrl}/question/uploadImage/${questionId}`, fd);
+    }
+
+    public getImageFromQuestion(questionId: string): Observable<any> {
+        return this.http.get<any>(`${this.apiServerUrl}/question/getImage/${questionId}`);
     }
 }

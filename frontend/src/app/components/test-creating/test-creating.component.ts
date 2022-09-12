@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Question } from 'src/app/models/question.model';
 import { Test } from 'src/app/models/test.model';
 import { User } from 'src/app/models/user.model';
+import { QuestionService } from 'src/app/services/question.service';
 import { TestService } from 'src/app/services/test.service';
 
 @Component({
@@ -25,7 +26,8 @@ export class TestCreatingComponent implements OnInit {
   seconds: number = 600;
 
   constructor(private router: Router,
-    private testService: TestService) {
+    private testService: TestService,
+    private questionService: QuestionService) {
   }
 
   ngOnInit(): void {
@@ -46,8 +48,14 @@ export class TestCreatingComponent implements OnInit {
   saveTest(){
     this.isSaved = true;
     this.test.creator = this.creator;
-    this.testService.addTest(this.test).subscribe(recvTest => { 
-      console.log(`Test ${this.test.title} has sent`); 
+    this.testService.addTest(this.test).subscribe(recvTest => {
+      console.log(`Test ${this.test.title} has sent`);
+      console.log(recvTest);
+      for (let i = 0; i < recvTest.questions.length; i++) {
+        this.questionService.uploadImageToQuestion(recvTest.questions[i].id, this.test.questions[i].image).subscribe(data => {
+          console.log("Картинка отправлена");
+        });
+      }
     });
   }
 }

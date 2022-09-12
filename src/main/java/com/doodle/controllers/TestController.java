@@ -23,6 +23,7 @@ public class TestController {
 
     @PostMapping("/add")
     public ResponseEntity<TestDTO.Read> createTest(@RequestBody TestDTO.Create testDTO){
+        testDTO.getQuestions().forEach(question -> System.out.println(question.getImage()));
         TestDTO.Read test = testService.createTest(testDTO);
         return new ResponseEntity<>(test, HttpStatus.CREATED);
     }

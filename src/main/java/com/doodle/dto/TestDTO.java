@@ -35,6 +35,10 @@ public enum TestDTO {;
         @NotBlank Set<QuestionDTO.Passed> getQuestions();
     }
 
+    private interface ReadQuestions {
+        @NotBlank Set<QuestionDTO.Read> getQuestions();
+    }
+
     private interface CreatedQuestions {
         @NotBlank Set<QuestionDTO.Create> getQuestions();
     }
@@ -51,13 +55,13 @@ public enum TestDTO {;
 
     @Data
     @AllArgsConstructor
-    public static class Read implements Id, Title, Creator, MaxBall, Seconds, CreatedQuestions {
+    public static class Read implements Id, Title, Creator, MaxBall, Seconds, ReadQuestions {
         UUID id;
         String title;
         UserDTO.Read creator;
         Double maxBall;
         Integer seconds;
-        Set<QuestionDTO.Create> questions;
+        Set<QuestionDTO.Read> questions;
     }
 
     @Data

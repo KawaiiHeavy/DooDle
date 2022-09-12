@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Answer } from 'src/app/models/answer.model';
 import { Question } from 'src/app/models/question.model';
@@ -38,20 +38,23 @@ export class QuestionCreatingComponent implements OnInit {
     }
   }
 
+
   triggerClick() {
     this.inputRef.nativeElement.click();
   }
 
   onFileUpload(event: any) {
     const file = event.target.files[0];
-    this.question.image = file;
 
     const reader = new FileReader();
 
     reader.onload = () => {
       this.imagePreview = reader.result;
+      const uploadImageData = new FormData();
+      uploadImageData.append('imageFile', file, file.name);
+      this.question.image = uploadImageData;
     }
-
     reader.readAsDataURL(file);
+  
   }
 }

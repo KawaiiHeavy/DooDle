@@ -18,6 +18,7 @@ export class TestPassingComponent implements OnInit {
   test: Test;
   result: Result;
   user: User;
+  testHasSent : boolean = false;
 
   timerSubscription: Subscription; 
 
@@ -42,7 +43,10 @@ export class TestPassingComponent implements OnInit {
           question.image = reader.result;
         }
         this.questionService.getImageFromQuestion(question.id)
-        .subscribe(image => reader.readAsDataURL(image));
+        .subscribe(res => {
+          console.log(res);
+          question.image = 'data:image/jpeg;base64,' + res.picByte;
+        });
         
         question.userAnswers = JSON.parse(JSON.stringify(question.answers));
         question.userAnswers.forEach(answer => {
@@ -62,8 +66,16 @@ export class TestPassingComponent implements OnInit {
   }
 
   checkTest(test: Test){
+    let imageArray = [];
+    test.questions.forEach(question => {
+      imageArray.push(question.image);
+      question.image = null;
+    });
     return this.testService.checkTest(test).subscribe(data => {
-      console.log(data);
+      for (let i = 0; i < imageArray.length; ++i) {
+        test.questions[i].image = imageArray[i];
+      }
+      this.testHasSent = true;
     });
   }
 

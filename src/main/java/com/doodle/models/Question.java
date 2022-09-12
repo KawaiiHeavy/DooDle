@@ -30,7 +30,8 @@ public class Question {
     @ToString.Exclude
     private Set<Answer> answers;
 
-    private Blob image;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private ImageModel image;
 
 
 }

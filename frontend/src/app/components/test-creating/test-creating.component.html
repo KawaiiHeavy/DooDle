@@ -25,7 +25,7 @@
     aria-labelledby="example-name-label">
 </mat-slider>
 <span>{{ this.countOfQuestions }}</span>
-<div *ngFor="let question of this.test.questions">
+<div *ngFor="let question of this.test.questions; let i = index;">
     <app-question-creating [question]="question"></app-question-creating>
     <mat-divider></mat-divider>
 </div>
